@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 命名空间 -->
+	<typeAliases>
+		<typeAlias alias="MallAdvert" type="com.zx.mall.module.MallAdvert" />
+		<typeAlias alias="MallIndexKind" type="com.zx.mall.module.MallIndexKind" />
+	</typeAliases>
+	
+	<!-- 对事务的管理和连接池的配置 -->  
+    <environments default="development">  
+        <environment id="development">  
+            <transactionManager type="JDBC" />  
+            <dataSource type="POOLED">  
+                <property name="driver" value="com.mysql.jdbc.Driver" />  
+                <property name="url" value="jdbc:mysql://39.108.149.156:3306/mall?characterEncoding=utf8" />  
+                <property name="username" value="root" />  
+                <property name="password" value="123456" />  
+            </dataSource>  
+        </environment>  
+    </environments> 
+
+	<!-- 映射map -->
+	<mappers>
+		<!-- 后台系统模块 -->
+		<mapper resource="com/zx/mall/admin/module/mapping/SysUserMapper.xml" />
+		<mapper resource="com/zx/mall/admin/module/mapping/SysRoleMapper.xml" />
+		<mapper resource="com/zx/mall/admin/module/mapping/SysMenuMapper.xml" />
+		
+		<mapper resource="com/zx/mall/module/mapping/MallAdvertMapper.xml" />
+		<mapper resource="com/zx/mall/module/mapping/MallIndexKindMapper.xml" />
+		<mapper resource="com/zx/mall/module/mapping/MallIndexKindProductMapper.xml" />
+		<mapper resource="com/zx/mall/module/mapping/MallProductKindMapper.xml" />
+		<mapper resource="com/zx/mall/module/mapping/MallProductMapper.xml" />
+		
+		<mapper resource="com/zx/mall/module/mapping/VenderProductKindMapper.xml" />
+		<mapper resource="com/zx/mall/module/mapping/VenderProductKindAttrMapper.xml" />
+		<mapper resource="com/zx/mall/module/mapping/VenderProductKindAttrCfgMapper.xml" />
+		<mapper resource="com/zx/mall/module/mapping/VenderProductKindBrandMapper.xml" />
+		<mapper resource="com/zx/mall/module/mapping/VenderProductSkuMapper.xml" />
+		<mapper resource="com/zx/mall/module/mapping/VenderProductSkuAttrMapper.xml" />
+		<mapper resource="com/zx/mall/module/mapping/VenderCompanyMapper.xml" />
+		<mapper resource="com/zx/mall/module/mapping/VenderBudgetTypeMapper.xml" />
+		<mapper resource="com/zx/mall/module/mapping/VenderBudgetTypeSubjectMapper.xml" />
+		<mapper resource="com/zx/mall/module/mapping/VenderCategorySubjectTypeMapper.xml" />
+		<mapper resource="com/zx/mall/module/mapping/VenderDepartmentMapper.xml" />
+		<mapper resource="com/zx/mall/module/mapping/VenderSubjectMapper.xml" />
+		<mapper resource="com/zx/mall/module/mapping/VenderFactoryOrderMapper.xml" />
+		<mapper resource="com/zx/mall/module/mapping/VenderFactoryOrderDetailMapper.xml" />
+		<mapper resource="com/zx/mall/module/mapping/VenderOrderTrackMapper.xml" />
+	</mappers>
+</configuration>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mall.dao.MallProductExtMapper">
+	<resultMap id="BaseResultMap" type="com.zx.mall.module.MallProductExt">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="PRODUCT_SP" property="productSp" jdbcType="VARCHAR" />
+		<result column="IS_RECOMMEND" property="isRecommend" jdbcType="INTEGER" />
+		<result column="PACKING" property="packing" jdbcType="VARCHAR" />
+		<result column="ASSEM_SERVICE" property="assemService"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.zx.mall.module.MallProductExt"
+		extends="BaseResultMap">
+		<result column="PRODUCT_DETAIL" property="productDetail"
+			jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, PRODUCT_SP, IS_RECOMMEND, PACKING, ASSEM_SERVICE
+	</sql>
+	<sql id="Blob_Column_List">
+		PRODUCT_DETAIL
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_mall_product_ext
+		where ID = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_mall_product_ext
+		where ID = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.zx.mall.module.MallProductExt">
+		insert into t_mall_product_ext (ID, PRODUCT_SP, IS_RECOMMEND,
+		PACKING, ASSEM_SERVICE, PRODUCT_DETAIL
+		)
+		values (#{id,jdbcType=BIGINT}, #{productSp,jdbcType=VARCHAR},
+		#{isRecommend,jdbcType=INTEGER},
+		#{packing,jdbcType=VARCHAR}, #{assemService,jdbcType=VARCHAR},
+		#{productDetail,jdbcType=LONGVARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.zx.mall.module.MallProductExt" useGeneratedKeys="true" keyProperty="id">
+		insert into t_mall_product_ext
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="productSp != null">
+				PRODUCT_SP,
+			</if>
+			<if test="isRecommend != null">
+				IS_RECOMMEND,
+			</if>
+			<if test="packing != null">
+				PACKING,
+			</if>
+			<if test="assemService != null">
+				ASSEM_SERVICE,
+			</if>
+			<if test="productDetail != null">
+				PRODUCT_DETAIL,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="productSp != null">
+				#{productSp,jdbcType=VARCHAR},
+			</if>
+			<if test="isRecommend != null">
+				#{isRecommend,jdbcType=INTEGER},
+			</if>
+			<if test="packing != null">
+				#{packing,jdbcType=VARCHAR},
+			</if>
+			<if test="assemService != null">
+				#{assemService,jdbcType=VARCHAR},
+			</if>
+			<if test="productDetail != null">
+				#{productDetail,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zx.mall.module.MallProductExt">
+		update t_mall_product_ext
+		<set>
+			<if test="productSp != null">
+				PRODUCT_SP = #{productSp,jdbcType=VARCHAR},
+			</if>
+			<if test="isRecommend != null">
+				IS_RECOMMEND = #{isRecommend,jdbcType=INTEGER},
+			</if>
+			<if test="packing != null">
+				PACKING = #{packing,jdbcType=VARCHAR},
+			</if>
+			<if test="assemService != null">
+				ASSEM_SERVICE = #{assemService,jdbcType=VARCHAR},
+			</if>
+			<if test="productDetail != null">
+				PRODUCT_DETAIL = #{productDetail,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zx.mall.module.MallProductExt">
+		update t_mall_product_ext
+		set PRODUCT_SP = #{productSp,jdbcType=VARCHAR},
+		IS_RECOMMEND = #{isRecommend,jdbcType=INTEGER},
+		PACKING = #{packing,jdbcType=VARCHAR},
+		ASSEM_SERVICE = #{assemService,jdbcType=VARCHAR},
+		PRODUCT_DETAIL = #{productDetail,jdbcType=LONGVARCHAR}
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zx.mall.module.MallProductExt">
+		update t_mall_product_ext
+		set PRODUCT_SP = #{productSp,jdbcType=VARCHAR},
+		IS_RECOMMEND = #{isRecommend,jdbcType=INTEGER},
+		PACKING = #{packing,jdbcType=VARCHAR},
+		ASSEM_SERVICE = #{assemService,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

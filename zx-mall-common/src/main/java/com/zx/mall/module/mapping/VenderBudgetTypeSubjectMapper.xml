@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mall.dao.VenderBudgetTypeSubjectMapper">
+	<resultMap id="BaseResultMap" type="com.zx.mall.module.VenderBudgetTypeSubject">
+		<id column="lid" property="lid" jdbcType="INTEGER" />
+		<result column="btype" property="btype" jdbcType="INTEGER" />
+		<result column="slid" property="slid" jdbcType="INTEGER" />
+		<result column="clid" property="clid" jdbcType="INTEGER" />
+		<result column="dlid" property="dlid" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="isdelete" property="isdelete" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		lid, btype, slid, clid, dlid, status, isdelete
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_vender_budget_type_subject
+		where lid = #{lid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_vender_budget_type_subject
+		where lid = #{lid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.zx.mall.module.VenderBudgetTypeSubject">
+		insert into t_vender_budget_type_subject (lid, btype, slid,
+		clid, dlid, status,
+		isdelete)
+		values (#{lid,jdbcType=INTEGER}, #{btype,jdbcType=INTEGER},
+		#{slid,jdbcType=INTEGER},
+		#{clid,jdbcType=INTEGER}, #{dlid,jdbcType=INTEGER}, #{status,jdbcType=INTEGER},
+		#{isdelete,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zx.mall.module.VenderBudgetTypeSubject">
+		insert into t_vender_budget_type_subject
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="lid != null">
+				lid,
+			</if>
+			<if test="btype != null">
+				btype,
+			</if>
+			<if test="slid != null">
+				slid,
+			</if>
+			<if test="clid != null">
+				clid,
+			</if>
+			<if test="dlid != null">
+				dlid,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="isdelete != null">
+				isdelete,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="lid != null">
+				#{lid,jdbcType=INTEGER},
+			</if>
+			<if test="btype != null">
+				#{btype,jdbcType=INTEGER},
+			</if>
+			<if test="slid != null">
+				#{slid,jdbcType=INTEGER},
+			</if>
+			<if test="clid != null">
+				#{clid,jdbcType=INTEGER},
+			</if>
+			<if test="dlid != null">
+				#{dlid,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="isdelete != null">
+				#{isdelete,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zx.mall.module.VenderBudgetTypeSubject">
+		update t_vender_budget_type_subject
+		<set>
+			<if test="btype != null">
+				btype = #{btype,jdbcType=INTEGER},
+			</if>
+			<if test="slid != null">
+				slid = #{slid,jdbcType=INTEGER},
+			</if>
+			<if test="clid != null">
+				clid = #{clid,jdbcType=INTEGER},
+			</if>
+			<if test="dlid != null">
+				dlid = #{dlid,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="isdelete != null">
+				isdelete = #{isdelete,jdbcType=INTEGER},
+			</if>
+		</set>
+		where lid = #{lid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zx.mall.module.VenderBudgetTypeSubject">
+		update t_vender_budget_type_subject
+		set btype = #{btype,jdbcType=INTEGER},
+		slid = #{slid,jdbcType=INTEGER},
+		clid = #{clid,jdbcType=INTEGER},
+		dlid = #{dlid,jdbcType=INTEGER},
+		status = #{status,jdbcType=INTEGER},
+		isdelete = #{isdelete,jdbcType=INTEGER}
+		where lid = #{lid,jdbcType=INTEGER}
+	</update>
+</mapper>

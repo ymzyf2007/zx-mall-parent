@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mall.dao.VenderProductSkuMapper">
+	<resultMap id="BaseResultMap" type="com.zx.mall.module.VenderProductSku">
+		<id column="v_sku_id" property="vSkuId" jdbcType="INTEGER" />
+		<result column="v_alias" property="vAlias" jdbcType="VARCHAR" />
+		<result column="v_pname" property="vPname" jdbcType="VARCHAR" />
+		<result column="v_pshortname" property="vPshortname" jdbcType="VARCHAR" />
+		<result column="v_barcode" property="vBarcode" jdbcType="VARCHAR" />
+		<result column="v_blid" property="vBlid" jdbcType="INTEGER" />
+		<result column="v_bname" property="vBname" jdbcType="VARCHAR" />
+		<result column="v_displayname" property="vDisplayname"
+			jdbcType="VARCHAR" />
+		<result column="v_mainpicture" property="vMainpicture"
+			jdbcType="VARCHAR" />
+		<result column="v_retailprice" property="vRetailprice"
+			jdbcType="REAL" />
+		<result column="v_stockamount" property="vStockamount"
+			jdbcType="INTEGER" />
+		<result column="v_unit" property="vUnit" jdbcType="VARCHAR" />
+		<result column="v_kind_id" property="vKindId" jdbcType="INTEGER" />
+		<result column="v_status" property="vStatus" jdbcType="TINYINT" />
+		<result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+		<result column="binding" property="binding" jdbcType="TINYINT" />
+	</resultMap>
+	
+	<resultMap type="com.zx.mall.module.vo.VenderProductSkuAll" id="BaseResultMap2" extends="BaseResultMap">
+    	<result property="vKindName" column="v_kind_name" />
+    </resultMap>
+	
+	<sql id="Base_Column_List">
+		v_sku_id, v_alias, v_pname, v_pshortname, v_barcode, v_blid, v_bname,
+		v_displayname,
+		v_mainpicture, v_retailprice, v_stockamount, v_unit, v_kind_id, v_status,
+		createtime,
+		binding
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_vender_product_sku
+		where v_sku_id = #{vSkuId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_vender_product_sku
+		where v_sku_id = #{vSkuId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.zx.mall.module.VenderProductSku">
+		insert into t_vender_product_sku (v_sku_id, v_alias, v_pname,
+		v_pshortname, v_barcode, v_blid,
+		v_bname, v_displayname, v_mainpicture,
+		v_retailprice, v_stockamount, v_unit,
+		v_kind_id, v_status, createtime,
+		binding)
+		values (#{vSkuId,jdbcType=INTEGER}, #{vAlias,jdbcType=VARCHAR},
+		#{vPname,jdbcType=VARCHAR},
+		#{vPshortname,jdbcType=VARCHAR}, #{vBarcode,jdbcType=VARCHAR}, #{vBlid,jdbcType=INTEGER},
+		#{vBname,jdbcType=VARCHAR}, #{vDisplayname,jdbcType=VARCHAR},
+		#{vMainpicture,jdbcType=VARCHAR},
+		#{vRetailprice,jdbcType=REAL}, #{vStockamount,jdbcType=INTEGER}, #{vUnit,jdbcType=VARCHAR},
+		#{vKindId,jdbcType=INTEGER}, #{vStatus,jdbcType=TINYINT},
+		#{createtime,jdbcType=TIMESTAMP},
+		#{binding,jdbcType=TINYINT})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zx.mall.module.VenderProductSku">
+		insert into t_vender_product_sku
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="vSkuId != null">
+				v_sku_id,
+			</if>
+			<if test="vAlias != null">
+				v_alias,
+			</if>
+			<if test="vPname != null">
+				v_pname,
+			</if>
+			<if test="vPshortname != null">
+				v_pshortname,
+			</if>
+			<if test="vBarcode != null">
+				v_barcode,
+			</if>
+			<if test="vBlid != null">
+				v_blid,
+			</if>
+			<if test="vBname != null">
+				v_bname,
+			</if>
+			<if test="vDisplayname != null">
+				v_displayname,
+			</if>
+			<if test="vMainpicture != null">
+				v_mainpicture,
+			</if>
+			<if test="vRetailprice != null">
+				v_retailprice,
+			</if>
+			<if test="vStockamount != null">
+				v_stockamount,
+			</if>
+			<if test="vUnit != null">
+				v_unit,
+			</if>
+			<if test="vKindId != null">
+				v_kind_id,
+			</if>
+			<if test="vStatus != null">
+				v_status,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="binding != null">
+				binding,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="vSkuId != null">
+				#{vSkuId,jdbcType=INTEGER},
+			</if>
+			<if test="vAlias != null">
+				#{vAlias,jdbcType=VARCHAR},
+			</if>
+			<if test="vPname != null">
+				#{vPname,jdbcType=VARCHAR},
+			</if>
+			<if test="vPshortname != null">
+				#{vPshortname,jdbcType=VARCHAR},
+			</if>
+			<if test="vBarcode != null">
+				#{vBarcode,jdbcType=VARCHAR},
+			</if>
+			<if test="vBlid != null">
+				#{vBlid,jdbcType=INTEGER},
+			</if>
+			<if test="vBname != null">
+				#{vBname,jdbcType=VARCHAR},
+			</if>
+			<if test="vDisplayname != null">
+				#{vDisplayname,jdbcType=VARCHAR},
+			</if>
+			<if test="vMainpicture != null">
+				#{vMainpicture,jdbcType=VARCHAR},
+			</if>
+			<if test="vRetailprice != null">
+				#{vRetailprice,jdbcType=REAL},
+			</if>
+			<if test="vStockamount != null">
+				#{vStockamount,jdbcType=INTEGER},
+			</if>
+			<if test="vUnit != null">
+				#{vUnit,jdbcType=VARCHAR},
+			</if>
+			<if test="vKindId != null">
+				#{vKindId,jdbcType=INTEGER},
+			</if>
+			<if test="vStatus != null">
+				#{vStatus,jdbcType=TINYINT},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="binding != null">
+				#{binding,jdbcType=TINYINT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zx.mall.module.VenderProductSku">
+		update t_vender_product_sku
+		<set>
+			<if test="vAlias != null">
+				v_alias = #{vAlias,jdbcType=VARCHAR},
+			</if>
+			<if test="vPname != null">
+				v_pname = #{vPname,jdbcType=VARCHAR},
+			</if>
+			<if test="vPshortname != null">
+				v_pshortname = #{vPshortname,jdbcType=VARCHAR},
+			</if>
+			<if test="vBarcode != null">
+				v_barcode = #{vBarcode,jdbcType=VARCHAR},
+			</if>
+			<if test="vBlid != null">
+				v_blid = #{vBlid,jdbcType=INTEGER},
+			</if>
+			<if test="vBname != null">
+				v_bname = #{vBname,jdbcType=VARCHAR},
+			</if>
+			<if test="vDisplayname != null">
+				v_displayname = #{vDisplayname,jdbcType=VARCHAR},
+			</if>
+			<if test="vMainpicture != null">
+				v_mainpicture = #{vMainpicture,jdbcType=VARCHAR},
+			</if>
+			<if test="vRetailprice != null">
+				v_retailprice = #{vRetailprice,jdbcType=REAL},
+			</if>
+			<if test="vStockamount != null">
+				v_stockamount = #{vStockamount,jdbcType=INTEGER},
+			</if>
+			<if test="vUnit != null">
+				v_unit = #{vUnit,jdbcType=VARCHAR},
+			</if>
+			<if test="vKindId != null">
+				v_kind_id = #{vKindId,jdbcType=INTEGER},
+			</if>
+			<if test="vStatus != null">
+				v_status = #{vStatus,jdbcType=TINYINT},
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="binding != null">
+				binding = #{binding,jdbcType=TINYINT},
+			</if>
+		</set>
+		where v_sku_id = #{vSkuId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zx.mall.module.VenderProductSku">
+		update t_vender_product_sku
+		set v_alias = #{vAlias,jdbcType=VARCHAR},
+		v_pname = #{vPname,jdbcType=VARCHAR},
+		v_pshortname = #{vPshortname,jdbcType=VARCHAR},
+		v_barcode = #{vBarcode,jdbcType=VARCHAR},
+		v_blid = #{vBlid,jdbcType=INTEGER},
+		v_bname = #{vBname,jdbcType=VARCHAR},
+		v_displayname = #{vDisplayname,jdbcType=VARCHAR},
+		v_mainpicture = #{vMainpicture,jdbcType=VARCHAR},
+		v_retailprice = #{vRetailprice,jdbcType=REAL},
+		v_stockamount = #{vStockamount,jdbcType=INTEGER},
+		v_unit = #{vUnit,jdbcType=VARCHAR},
+		v_kind_id = #{vKindId,jdbcType=INTEGER},
+		v_status = #{vStatus,jdbcType=TINYINT},
+		createtime = #{createtime,jdbcType=TIMESTAMP},
+		binding = #{binding,jdbcType=TINYINT}
+		where v_sku_id = #{vSkuId,jdbcType=INTEGER}
+	</update>
+	
+	<select id="findCountUnbindingProSku" resultType="int">
+		select count(1) from t_vender_product_sku where v_status=1 and binding=0
+	</select>
+	
+	<select id="findUnbindingProSkuList" resultMap="BaseResultMap2" parameterType="java.util.Map">
+		select t1.*, t2.v_kind_name from t_vender_product_sku t1, t_vender_product_kind t2 where t1.v_kind_id=t2.v_kind_id 
+		and t1.v_status=1 and t1.binding=0 order by t1.v_sku_id asc limit #{begin},#{pageSize}
+	</select>
+	
+</mapper>

@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mall.dao.MallOrderMapper">
+	<resultMap id="BaseResultMap" type="com.zx.mall.module.MallOrder">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="USER_ID" property="userId" jdbcType="BIGINT" />
+		<result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+		<result column="ORDER_DATE" property="orderDate" jdbcType="TIMESTAMP" />
+		<result column="ORDER_STATUS" property="orderStatus" jdbcType="INTEGER" />
+		<result column="ORDER_UNIT" property="orderUnit" jdbcType="VARCHAR" />
+		<result column="UNIT_PROPERTY" property="unitProperty" jdbcType="VARCHAR" />
+		<result column="PURCHASE_NUM" property="purchaseNum" jdbcType="INTEGER" />
+		<result column="TOTAL_PRICE" property="totalPrice" jdbcType="REAL" />
+		<result column="BUYER" property="buyer" jdbcType="VARCHAR" />
+		<result column="ORDER_NOTE" property="orderNote" jdbcType="VARCHAR" />
+		<result column="HANDLE_OPER" property="handleOper" jdbcType="VARCHAR" />
+		<result column="RECEIVER_ID" property="receiverId" jdbcType="BIGINT" />
+		
+		<result column="INVOICE_HEADER" property="invoiceHeader" jdbcType="VARCHAR" />
+		<result column="TAXPAYER_NUM" property="taxpayerNum" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="BaseOrderResultMap" type="com.zx.mall.module.vo.MallOrderVo">
+		<result column="USER_ID" property="userId" jdbcType="BIGINT" />
+		<result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+		<result column="ORDER_DATE" property="orderDate" jdbcType="VARCHAR" />
+		<result column="ORDER_STATUS" property="status" jdbcType="INTEGER" />
+		<result column="ORDER_UNIT" property="unit" jdbcType="VARCHAR" />
+		<result column="PURCHASE_NUM" property="purchaseNum" jdbcType="INTEGER" />
+		<result column="TOTAL_PRICE" property="totalPrice" jdbcType="REAL" />
+		<result column="RECEIVER_ID" property="receiverId" jdbcType="BIGINT" />
+		<result column="INVOICE_HEADER" property="invoiceHeader" jdbcType="VARCHAR" />
+		<result column="TAXPAYER_NUM" property="taxpayerNum" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		
+		<!-- 一对多的关系[property: 指的是集合属性的值, ofType：指的是集合中元素的类型] -->  
+        <collection property="productList" ofType="com.zx.mall.module.vo.MallOrderDetailVo">  
+            <id column="SKU_ID" property="skuId"/>  
+            <result column="ORDER_NO" property="orderNo"/>
+            <result column="PRODUCT_NAME" property="pname"/>
+            <result column="KIND_ID" property="kindId"/>  
+            <result column="KIND_NAME" property="kindName"/> 
+            <result column="SPIC_PATH" property="spicPath"/> 
+            <result column="BPIC_PATH" property="bpicPath"/> 
+            <result column="PRICE" property="price"/> 
+            <result column="AMOUNT" property="amount"/> 
+            <result column="TOTAL" property="total"/> 
+        </collection>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID, USER_ID, ORDER_NO, ORDER_DATE, ORDER_STATUS, ORDER_UNIT,
+		UNIT_PROPERTY, PURCHASE_NUM,
+		TOTAL_PRICE, BUYER, ORDER_NOTE, HANDLE_OPER, RECEIVER_ID, INVOICE_HEADER, TAXPAYER_NUM, REMARK 
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_mall_order
+		where ID = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_mall_order
+		where ID = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.zx.mall.module.MallOrder">
+		insert into t_mall_order (ID, USER_ID, ORDER_NO,
+		ORDER_DATE, ORDER_STATUS, ORDER_UNIT,
+		UNIT_PROPERTY, PURCHASE_NUM, TOTAL_PRICE,
+		BUYER, ORDER_NOTE, HANDLE_OPER,
+		RECEIVER_ID, INVOICE_HEADER, TAXPAYER_NUM, REMARK)
+		values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT},
+		#{orderNo,jdbcType=VARCHAR},
+		#{orderDate,jdbcType=TIMESTAMP}, #{orderStatus,jdbcType=INTEGER}, #{orderUnit,jdbcType=VARCHAR},
+		#{unitProperty,jdbcType=VARCHAR}, #{purchaseNum,jdbcType=INTEGER},
+		#{totalPrice,jdbcType=REAL},
+		#{buyer,jdbcType=VARCHAR}, #{orderNote,jdbcType=VARCHAR}, #{handleOper,jdbcType=VARCHAR},
+		#{receiverId,jdbcType=BIGINT},
+		#{invoiceHeader,jdbcType=VARCHAR},
+		#{taxpayerNum,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zx.mall.module.MallOrder" useGeneratedKeys="true" keyProperty="id">
+		insert into t_mall_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="orderNo != null">
+				ORDER_NO,
+			</if>
+			<if test="orderDate != null">
+				ORDER_DATE,
+			</if>
+			<if test="orderStatus != null">
+				ORDER_STATUS,
+			</if>
+			<if test="orderUnit != null">
+				ORDER_UNIT,
+			</if>
+			<if test="unitProperty != null">
+				UNIT_PROPERTY,
+			</if>
+			<if test="purchaseNum != null">
+				PURCHASE_NUM,
+			</if>
+			<if test="totalPrice != null">
+				TOTAL_PRICE,
+			</if>
+			<if test="buyer != null">
+				BUYER,
+			</if>
+			<if test="orderNote != null">
+				ORDER_NOTE,
+			</if>
+			<if test="handleOper != null">
+				HANDLE_OPER,
+			</if>
+			<if test="receiverId != null">
+				RECEIVER_ID,
+			</if>
+			<if test="invoiceHeader != null">
+				INVOICE_HEADER,
+			</if>
+			<if test="taxpayerNum != null">
+				TAXPAYER_NUM,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="orderNo != null">
+				#{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="orderDate != null">
+				#{orderDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderStatus != null">
+				#{orderStatus,jdbcType=INTEGER},
+			</if>
+			<if test="orderUnit != null">
+				#{orderUnit,jdbcType=VARCHAR},
+			</if>
+			<if test="unitProperty != null">
+				#{unitProperty,jdbcType=VARCHAR},
+			</if>
+			<if test="purchaseNum != null">
+				#{purchaseNum,jdbcType=INTEGER},
+			</if>
+			<if test="totalPrice != null">
+				#{totalPrice,jdbcType=REAL},
+			</if>
+			<if test="buyer != null">
+				#{buyer,jdbcType=VARCHAR},
+			</if>
+			<if test="orderNote != null">
+				#{orderNote,jdbcType=VARCHAR},
+			</if>
+			<if test="handleOper != null">
+				#{handleOper,jdbcType=VARCHAR},
+			</if>
+			<if test="receiverId != null">
+				#{receiverId,jdbcType=BIGINT},
+			</if>
+			<if test="invoiceHeader != null">
+				#{invoiceHeader,jdbcType=VARCHAR},
+			</if>
+			<if test="taxpayerNum != null">
+				#{taxpayerNum,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR}),
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zx.mall.module.MallOrder">
+		update t_mall_order
+		<set>
+			<if test="userId != null">
+				USER_ID = #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="orderNo != null">
+				ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="orderDate != null">
+				ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderStatus != null">
+				ORDER_STATUS = #{orderStatus,jdbcType=INTEGER},
+			</if>
+			<if test="orderUnit != null">
+				ORDER_UNIT = #{orderUnit,jdbcType=VARCHAR},
+			</if>
+			<if test="unitProperty != null">
+				UNIT_PROPERTY = #{unitProperty,jdbcType=VARCHAR},
+			</if>
+			<if test="purchaseNum != null">
+				PURCHASE_NUM = #{purchaseNum,jdbcType=INTEGER},
+			</if>
+			<if test="totalPrice != null">
+				TOTAL_PRICE = #{totalPrice,jdbcType=REAL},
+			</if>
+			<if test="buyer != null">
+				BUYER = #{buyer,jdbcType=VARCHAR},
+			</if>
+			<if test="orderNote != null">
+				ORDER_NOTE = #{orderNote,jdbcType=VARCHAR},
+			</if>
+			<if test="handleOper != null">
+				HANDLE_OPER = #{handleOper,jdbcType=VARCHAR},
+			</if>
+			<if test="receiverId != null">
+				RECEIVER_ID = #{receiverId,jdbcType=BIGINT},
+			</if>
+			<if test="invoiceHeader != null">
+				INVOICE_HEADER = #{invoiceHeader,jdbcType=VARCHAR},
+			</if>
+			<if test="taxpayerNum != null">
+				TAXPAYER_NUM = #{taxpayerNum,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR}),
+			</if>
+		</set>
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zx.mall.module.MallOrder">
+		update t_mall_order
+		set USER_ID = #{userId,jdbcType=BIGINT},
+		ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+		ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP},
+		ORDER_STATUS = #{orderStatus,jdbcType=INTEGER},
+		ORDER_UNIT = #{orderUnit,jdbcType=VARCHAR},
+		UNIT_PROPERTY = #{unitProperty,jdbcType=VARCHAR},
+		PURCHASE_NUM = #{purchaseNum,jdbcType=INTEGER},
+		TOTAL_PRICE = #{totalPrice,jdbcType=REAL},
+		BUYER = #{buyer,jdbcType=VARCHAR},
+		ORDER_NOTE = #{orderNote,jdbcType=VARCHAR},
+		HANDLE_OPER = #{handleOper,jdbcType=VARCHAR},
+		RECEIVER_ID = #{receiverId,jdbcType=BIGINT}
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<select id="findByUidAndOrderNo" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_mall_order
+		where USER_ID = #{userId,jdbcType=BIGINT} and ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+	</select>
+	
+	<update id="cancelOrder">
+		update t_mall_order 
+		ORDER_STATUS = -1 
+		where USER_ID = #{userId,jdbcType=BIGINT} and ORDER_NO = #{orderNo,jdbcType=VARCHAR} 
+	</update>
+	
+	<select id="findOrderCount" parameterType="java.util.Map" resultType="Integer">
+		select count(1) from t_mall_order t1, t_mall_orderdetail t2, t_mall_product t3, t_mall_product_kind t4 
+		where t1.order_no=t2.order_no and t2.sku_id=t3.product_id and t3.kind_id=t4.kind_id
+		<if test="userId != null">
+			and t1.USER_ID = #{userId,jdbcType=BIGINT} 
+		</if>
+		<if test="status != null">
+			and t1.order_status = #{status,jdbcType=INTEGER} 
+		</if>
+		<if test="keyword != null">
+			and (t3.product_name like CONCAT('%', #{keyword}, '%') or t1.order_no=#{keyword})
+		</if>
+		<if test="startDate != null and startDate !='' ">
+	         <![CDATA[ and t1.order_date >= #{startDate} ]]>
+	    </if>
+	    <if test="endDate !=null and endDate !='' "  >
+	         <![CDATA[ and t1.order_date <= #{endDate} ]]>
+	    </if>
+	</select>
+	
+	<select id="findOrderList" resultMap="BaseOrderResultMap">
+		select t1.user_id,t1.order_no,date_format(t1.order_date,'%Y-%c-%d %h:%i:%s') as order_date,
+		t1.order_status,t1.order_unit,t1.purchase_num,t1.total_price,t1.receiver_id,t1.invoice_header,t1.taxpayer_num, t1.remark,
+		t2.sku_id,t3.product_name,t3.kind_id,t4.kind_name,t3.spic_path,t3.bpic_path,t2.price,t2.amount,t2.total from t_mall_order t1, t_mall_orderdetail t2, t_mall_product t3, t_mall_product_kind t4 
+		where t1.order_no=t2.order_no and t2.sku_id=t3.product_id and t3.kind_id=t4.kind_id
+		<if test="userId != null">
+			and t1.USER_ID = #{userId,jdbcType=BIGINT} 
+		</if>
+		<if test="status != null">
+			and t1.order_status = #{status,jdbcType=INTEGER} 
+		</if>
+		<if test="keyword != null">
+			and (t3.product_name like CONCAT('%', #{keyword}, '%') or t1.order_no=#{keyword})
+		</if>
+		<if test="startDate != null and startDate !='' ">
+	         <![CDATA[ and t1.order_date >= #{startDate} ]]>
+	    </if>
+	    <if test="endDate !=null and endDate !='' "  >
+	         <![CDATA[ and t1.order_date <= #{endDate} ]]>
+	    </if>
+	    order by t1.order_date desc limit #{begin},#{pageSize}
+	</select>
+	
+	<select id="getOrderDetail" resultMap="BaseOrderResultMap">
+		select t1.user_id,t1.order_no,date_format(t1.order_date,'%Y-%c-%d %h:%i:%s') as order_date,
+		t1.order_status,t1.order_unit,t1.purchase_num,t1.total_price,t1.receiver_id,t1.invoice_header,t1.taxpayer_num, t1.remark,
+		t2.sku_id,t3.product_name,t3.kind_id,t4.kind_name,t3.spic_path,t3.bpic_path,t2.price,t2.amount,t2.total from t_mall_order t1, t_mall_orderdetail t2, t_mall_product t3, t_mall_product_kind t4 
+		where t1.order_no=t2.order_no and t2.sku_id=t3.product_id and t3.kind_id=t4.kind_id
+		<if test="userId != null">
+			and t1.USER_ID = #{userId,jdbcType=BIGINT} 
+		</if>
+		<if test="orderNo != null">
+			and t1.order_no = #{orderNo,jdbcType=VARCHAR} 
+		</if>
+	</select>
+	
+	<select id="findOrderByOrderNo" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_mall_order
+		where ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+	</select>
+	
+</mapper>

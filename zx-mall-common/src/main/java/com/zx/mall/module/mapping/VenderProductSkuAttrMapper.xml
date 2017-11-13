@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mall.dao.VenderProductSkuAttrMapper">
+	<resultMap id="BaseResultMap" type="com.zx.mall.module.VenderProductSkuAttr">
+		<id column="sku_attr_id" property="skuAttrId" jdbcType="INTEGER" />
+		<result column="kind_id" property="kindId" jdbcType="INTEGER" />
+		<result column="sku_id" property="skuId" jdbcType="INTEGER" />
+		<result column="attr_id" property="attrId" jdbcType="INTEGER" />
+		<result column="attr_value" property="attrValue" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="BaseResultMap2" type="com.zx.mall.module.vo.VenderProductSkuAttrVo">
+		<result column="attr_id" property="attributeId" jdbcType="INTEGER" />
+		<result column="attr_name" property="attributeName" jdbcType="VARCHAR" />
+		<result column="attr_value" property="attributeValue" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		sku_attr_id, kind_id, sku_id, attr_id, attr_value
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_vender_product_sku_attr
+		where sku_attr_id = #{skuAttrId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_vender_product_sku_attr
+		where sku_attr_id = #{skuAttrId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.zx.mall.module.VenderProductSkuAttr">
+		insert into t_vender_product_sku_attr (sku_attr_id, kind_id, sku_id,
+		attr_id, attr_value)
+		values (#{skuAttrId,jdbcType=INTEGER}, #{kindId,jdbcType=INTEGER},
+		#{skuId,jdbcType=INTEGER},
+		#{attrId,jdbcType=INTEGER}, #{attrValue,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zx.mall.module.VenderProductSkuAttr">
+		insert into t_vender_product_sku_attr
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="skuAttrId != null">
+				sku_attr_id,
+			</if>
+			<if test="kindId != null">
+				kind_id,
+			</if>
+			<if test="skuId != null">
+				sku_id,
+			</if>
+			<if test="attrId != null">
+				attr_id,
+			</if>
+			<if test="attrValue != null">
+				attr_value,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="skuAttrId != null">
+				#{skuAttrId,jdbcType=INTEGER},
+			</if>
+			<if test="kindId != null">
+				#{kindId,jdbcType=INTEGER},
+			</if>
+			<if test="skuId != null">
+				#{skuId,jdbcType=INTEGER},
+			</if>
+			<if test="attrId != null">
+				#{attrId,jdbcType=INTEGER},
+			</if>
+			<if test="attrValue != null">
+				#{attrValue,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zx.mall.module.VenderProductSkuAttr">
+		update t_vender_product_sku_attr
+		<set>
+			<if test="kindId != null">
+				kind_id = #{kindId,jdbcType=INTEGER},
+			</if>
+			<if test="skuId != null">
+				sku_id = #{skuId,jdbcType=INTEGER},
+			</if>
+			<if test="attrId != null">
+				attr_id = #{attrId,jdbcType=INTEGER},
+			</if>
+			<if test="attrValue != null">
+				attr_value = #{attrValue,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where sku_attr_id = #{skuAttrId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zx.mall.module.VenderProductSkuAttr">
+		update t_vender_product_sku_attr
+		set kind_id = #{kindId,jdbcType=INTEGER},
+		sku_id = #{skuId,jdbcType=INTEGER},
+		attr_id = #{attrId,jdbcType=INTEGER},
+		attr_value = #{attrValue,jdbcType=VARCHAR}
+		where sku_attr_id = #{skuAttrId,jdbcType=INTEGER}
+	</update>
+	
+	<select id="getVenderProductSkuAttrsBySkuId" resultMap="BaseResultMap2" parameterType="java.lang.Integer">
+		select t2.attr_id,t3.attr_name,t2.attr_value from t_vender_product_sku t1, t_vender_product_sku_attr t2, 
+		t_vender_product_kind_attribute t3 where t1.v_sku_id=t2.sku_id 
+		and t1.v_sku_id=#{skuId,jdbcType=INTEGER} and t2.attr_id=t3.attr_id;
+	</select>
+	
+</mapper>

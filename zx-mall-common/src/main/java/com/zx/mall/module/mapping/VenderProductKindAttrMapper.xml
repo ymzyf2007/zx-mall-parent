@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mall.dao.VenderProductKindAttrMapper">
+	<resultMap id="BaseResultMap" type="com.zx.mall.module.VenderProductKindAttr">
+		<id column="attr_id" property="attrId" jdbcType="INTEGER" />
+		<result column="attr_type_id" property="attrTypeId" jdbcType="INTEGER" />
+		<result column="attr_name" property="attrName" jdbcType="VARCHAR" />
+		<result column="issearch" property="issearch" jdbcType="TINYINT" />
+		<result column="attr_desc" property="attrDesc" jdbcType="VARCHAR" />
+		<result column="ismoney" property="ismoney" jdbcType="TINYINT" />
+		<result column="datatype" property="datatype" jdbcType="TINYINT" />
+		<result column="maxlength" property="maxlength" jdbcType="INTEGER" />
+		<result column="is_required" property="isRequired" jdbcType="TINYINT" />
+		<result column="is_only" property="isOnly" jdbcType="TINYINT" />
+		<result column="defaultvalue" property="defaultvalue" jdbcType="VARCHAR" />
+		<result column="infotype" property="infotype" jdbcType="TINYINT" />
+		<result column="validatetype" property="validatetype" jdbcType="TINYINT" />
+		<result column="inputmode" property="inputmode" jdbcType="TINYINT" />
+		<result column="inputvalue" property="inputvalue" jdbcType="VARCHAR" />
+		<result column="inputprompt" property="inputprompt" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		attr_id, attr_type_id, attr_name, issearch, attr_desc, ismoney, datatype,
+		maxlength,
+		is_required, is_only, defaultvalue, infotype, validatetype, inputmode, inputvalue,
+		inputprompt, status
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_vender_product_kind_attribute
+		where attr_id = #{attrId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_vender_product_kind_attribute
+		where attr_id = #{attrId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.zx.mall.module.VenderProductKindAttr">
+		insert into t_vender_product_kind_attribute (attr_id, attr_type_id,
+		attr_name,
+		issearch, attr_desc, ismoney,
+		datatype, maxlength, is_required,
+		is_only, defaultvalue, infotype,
+		validatetype, inputmode, inputvalue,
+		inputprompt, status)
+		values (#{attrId,jdbcType=INTEGER}, #{attrTypeId,jdbcType=INTEGER},
+		#{attrName,jdbcType=VARCHAR},
+		#{issearch,jdbcType=TINYINT}, #{attrDesc,jdbcType=VARCHAR}, #{ismoney,jdbcType=TINYINT},
+		#{datatype,jdbcType=TINYINT}, #{maxlength,jdbcType=INTEGER},
+		#{isRequired,jdbcType=TINYINT},
+		#{isOnly,jdbcType=TINYINT}, #{defaultvalue,jdbcType=VARCHAR}, #{infotype,jdbcType=TINYINT},
+		#{validatetype,jdbcType=TINYINT}, #{inputmode,jdbcType=TINYINT},
+		#{inputvalue,jdbcType=VARCHAR},
+		#{inputprompt,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zx.mall.module.VenderProductKindAttr">
+		insert into t_vender_product_kind_attribute
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="attrId != null">
+				attr_id,
+			</if>
+			<if test="attrTypeId != null">
+				attr_type_id,
+			</if>
+			<if test="attrName != null">
+				attr_name,
+			</if>
+			<if test="issearch != null">
+				issearch,
+			</if>
+			<if test="attrDesc != null">
+				attr_desc,
+			</if>
+			<if test="ismoney != null">
+				ismoney,
+			</if>
+			<if test="datatype != null">
+				datatype,
+			</if>
+			<if test="maxlength != null">
+				maxlength,
+			</if>
+			<if test="isRequired != null">
+				is_required,
+			</if>
+			<if test="isOnly != null">
+				is_only,
+			</if>
+			<if test="defaultvalue != null">
+				defaultvalue,
+			</if>
+			<if test="infotype != null">
+				infotype,
+			</if>
+			<if test="validatetype != null">
+				validatetype,
+			</if>
+			<if test="inputmode != null">
+				inputmode,
+			</if>
+			<if test="inputvalue != null">
+				inputvalue,
+			</if>
+			<if test="inputprompt != null">
+				inputprompt,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="attrId != null">
+				#{attrId,jdbcType=INTEGER},
+			</if>
+			<if test="attrTypeId != null">
+				#{attrTypeId,jdbcType=INTEGER},
+			</if>
+			<if test="attrName != null">
+				#{attrName,jdbcType=VARCHAR},
+			</if>
+			<if test="issearch != null">
+				#{issearch,jdbcType=TINYINT},
+			</if>
+			<if test="attrDesc != null">
+				#{attrDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="ismoney != null">
+				#{ismoney,jdbcType=TINYINT},
+			</if>
+			<if test="datatype != null">
+				#{datatype,jdbcType=TINYINT},
+			</if>
+			<if test="maxlength != null">
+				#{maxlength,jdbcType=INTEGER},
+			</if>
+			<if test="isRequired != null">
+				#{isRequired,jdbcType=TINYINT},
+			</if>
+			<if test="isOnly != null">
+				#{isOnly,jdbcType=TINYINT},
+			</if>
+			<if test="defaultvalue != null">
+				#{defaultvalue,jdbcType=VARCHAR},
+			</if>
+			<if test="infotype != null">
+				#{infotype,jdbcType=TINYINT},
+			</if>
+			<if test="validatetype != null">
+				#{validatetype,jdbcType=TINYINT},
+			</if>
+			<if test="inputmode != null">
+				#{inputmode,jdbcType=TINYINT},
+			</if>
+			<if test="inputvalue != null">
+				#{inputvalue,jdbcType=VARCHAR},
+			</if>
+			<if test="inputprompt != null">
+				#{inputprompt,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zx.mall.module.VenderProductKindAttr">
+		update t_vender_product_kind_attribute
+		<set>
+			<if test="attrTypeId != null">
+				attr_type_id = #{attrTypeId,jdbcType=INTEGER},
+			</if>
+			<if test="attrName != null">
+				attr_name = #{attrName,jdbcType=VARCHAR},
+			</if>
+			<if test="issearch != null">
+				issearch = #{issearch,jdbcType=TINYINT},
+			</if>
+			<if test="attrDesc != null">
+				attr_desc = #{attrDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="ismoney != null">
+				ismoney = #{ismoney,jdbcType=TINYINT},
+			</if>
+			<if test="datatype != null">
+				datatype = #{datatype,jdbcType=TINYINT},
+			</if>
+			<if test="maxlength != null">
+				maxlength = #{maxlength,jdbcType=INTEGER},
+			</if>
+			<if test="isRequired != null">
+				is_required = #{isRequired,jdbcType=TINYINT},
+			</if>
+			<if test="isOnly != null">
+				is_only = #{isOnly,jdbcType=TINYINT},
+			</if>
+			<if test="defaultvalue != null">
+				defaultvalue = #{defaultvalue,jdbcType=VARCHAR},
+			</if>
+			<if test="infotype != null">
+				infotype = #{infotype,jdbcType=TINYINT},
+			</if>
+			<if test="validatetype != null">
+				validatetype = #{validatetype,jdbcType=TINYINT},
+			</if>
+			<if test="inputmode != null">
+				inputmode = #{inputmode,jdbcType=TINYINT},
+			</if>
+			<if test="inputvalue != null">
+				inputvalue = #{inputvalue,jdbcType=VARCHAR},
+			</if>
+			<if test="inputprompt != null">
+				inputprompt = #{inputprompt,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=TINYINT},
+			</if>
+		</set>
+		where attr_id = #{attrId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zx.mall.module.VenderProductKindAttr">
+		update t_vender_product_kind_attribute
+		set attr_type_id = #{attrTypeId,jdbcType=INTEGER},
+		attr_name = #{attrName,jdbcType=VARCHAR},
+		issearch = #{issearch,jdbcType=TINYINT},
+		attr_desc = #{attrDesc,jdbcType=VARCHAR},
+		ismoney = #{ismoney,jdbcType=TINYINT},
+		datatype = #{datatype,jdbcType=TINYINT},
+		maxlength = #{maxlength,jdbcType=INTEGER},
+		is_required = #{isRequired,jdbcType=TINYINT},
+		is_only = #{isOnly,jdbcType=TINYINT},
+		defaultvalue = #{defaultvalue,jdbcType=VARCHAR},
+		infotype = #{infotype,jdbcType=TINYINT},
+		validatetype = #{validatetype,jdbcType=TINYINT},
+		inputmode = #{inputmode,jdbcType=TINYINT},
+		inputvalue = #{inputvalue,jdbcType=VARCHAR},
+		inputprompt = #{inputprompt,jdbcType=VARCHAR},
+		status = #{status,jdbcType=TINYINT}
+		where attr_id = #{attrId,jdbcType=INTEGER}
+	</update>
+</mapper>

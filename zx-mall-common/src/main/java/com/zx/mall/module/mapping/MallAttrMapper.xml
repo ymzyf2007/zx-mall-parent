@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mall.dao.MallAttrMapper">
+	<resultMap id="BaseResultMap" type="com.zx.mall.module.MallAttr">
+		<id column="ATTR_ID" property="attrId" jdbcType="BIGINT" />
+		<result column="ATTR_NAME" property="attrName" jdbcType="VARCHAR" />
+		<result column="KIND_ID" property="kindId" jdbcType="BIGINT" />
+		<result column="REQUIRED" property="required" jdbcType="INTEGER" />
+		<result column="STATUS" property="status" jdbcType="INTEGER" />
+		<result column="SORT_ID" property="sortId" jdbcType="INTEGER" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ATTR_ID, ATTR_NAME, KIND_ID, REQUIRED, STATUS, SORT_ID, CREATE_TIME
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_mall_attr
+		where ATTR_ID = #{attrId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_mall_attr
+		where ATTR_ID = #{attrId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.zx.mall.module.MallAttr">
+		insert into t_mall_attr (ATTR_ID, ATTR_NAME, KIND_ID,
+		REQUIRED, STATUS, SORT_ID,
+		CREATE_TIME)
+		values (#{attrId,jdbcType=BIGINT}, #{attrName,jdbcType=VARCHAR},
+		#{kindId,jdbcType=BIGINT},
+		#{required,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{sortId,jdbcType=INTEGER},
+		#{createTime,jdbcType=DATE})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zx.mall.module.MallAttr" useGeneratedKeys="true" keyProperty="id">
+		insert into t_mall_attr
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="attrId != null">
+				ATTR_ID,
+			</if>
+			<if test="attrName != null">
+				ATTR_NAME,
+			</if>
+			<if test="kindId != null">
+				KIND_ID,
+			</if>
+			<if test="required != null">
+				REQUIRED,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="sortId != null">
+				SORT_ID,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="attrId != null">
+				#{attrId,jdbcType=BIGINT},
+			</if>
+			<if test="attrName != null">
+				#{attrName,jdbcType=VARCHAR},
+			</if>
+			<if test="kindId != null">
+				#{kindId,jdbcType=BIGINT},
+			</if>
+			<if test="required != null">
+				#{required,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="sortId != null">
+				#{sortId,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=DATE},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zx.mall.module.MallAttr">
+		update t_mall_attr
+		<set>
+			<if test="attrName != null">
+				ATTR_NAME = #{attrName,jdbcType=VARCHAR},
+			</if>
+			<if test="kindId != null">
+				KIND_ID = #{kindId,jdbcType=BIGINT},
+			</if>
+			<if test="required != null">
+				REQUIRED = #{required,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="sortId != null">
+				SORT_ID = #{sortId,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=DATE},
+			</if>
+		</set>
+		where ATTR_ID = #{attrId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zx.mall.module.MallAttr">
+		update t_mall_attr
+		set ATTR_NAME = #{attrName,jdbcType=VARCHAR},
+		KIND_ID = #{kindId,jdbcType=BIGINT},
+		REQUIRED = #{required,jdbcType=INTEGER},
+		STATUS = #{status,jdbcType=INTEGER},
+		SORT_ID = #{sortId,jdbcType=INTEGER},
+		CREATE_TIME = #{createTime,jdbcType=DATE}
+		where ATTR_ID = #{attrId,jdbcType=BIGINT}
+	</update>
+</mapper>

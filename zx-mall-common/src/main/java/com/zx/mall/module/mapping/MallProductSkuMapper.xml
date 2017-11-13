@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mall.dao.MallProductSkuMapper">
+	<resultMap id="BaseResultMap" type="com.zx.mall.module.MallProductSku">
+		<id column="SKU_ID" property="skuId" jdbcType="BIGINT" />
+		<result column="SKU_NAME" property="skuName" jdbcType="VARCHAR" />
+		<result column="PRODUCT_ID" property="productId" jdbcType="BIGINT" />
+		<result column="REMAIN_NUM" property="remainNum" jdbcType="INTEGER" />
+		<result column="PRICE" property="price" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="INTEGER" />
+		<result column="ATTR_STR" property="attrStr" jdbcType="VARCHAR" />
+		<result column="RECOMMEND_NUM" property="recommendNum" jdbcType="INTEGER" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		SKU_ID, SKU_NAME, PRODUCT_ID, REMAIN_NUM, PRICE, STATUS, ATTR_STR,
+		RECOMMEND_NUM,
+		CREATE_TIME
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_mall_product_sku
+		where SKU_ID = #{skuId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_mall_product_sku
+		where SKU_ID = #{skuId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.zx.mall.module.MallProductSku">
+		insert into t_mall_product_sku (SKU_ID, SKU_NAME, PRODUCT_ID,
+		REMAIN_NUM, PRICE, STATUS,
+		ATTR_STR, RECOMMEND_NUM, CREATE_TIME
+		)
+		values (#{skuId,jdbcType=BIGINT}, #{skuName,jdbcType=VARCHAR},
+		#{productId,jdbcType=BIGINT},
+		#{remainNum,jdbcType=INTEGER}, #{price,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+		#{attrStr,jdbcType=VARCHAR}, #{recommendNum,jdbcType=INTEGER},
+		#{createTime,jdbcType=DATE}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.zx.mall.module.MallProductSku" useGeneratedKeys="true" keyProperty="id">
+		insert into t_mall_product_sku
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="skuId != null">
+				SKU_ID,
+			</if>
+			<if test="skuName != null">
+				SKU_NAME,
+			</if>
+			<if test="productId != null">
+				PRODUCT_ID,
+			</if>
+			<if test="remainNum != null">
+				REMAIN_NUM,
+			</if>
+			<if test="price != null">
+				PRICE,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="attrStr != null">
+				ATTR_STR,
+			</if>
+			<if test="recommendNum != null">
+				RECOMMEND_NUM,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="skuId != null">
+				#{skuId,jdbcType=BIGINT},
+			</if>
+			<if test="skuName != null">
+				#{skuName,jdbcType=VARCHAR},
+			</if>
+			<if test="productId != null">
+				#{productId,jdbcType=BIGINT},
+			</if>
+			<if test="remainNum != null">
+				#{remainNum,jdbcType=INTEGER},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="attrStr != null">
+				#{attrStr,jdbcType=VARCHAR},
+			</if>
+			<if test="recommendNum != null">
+				#{recommendNum,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=DATE},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zx.mall.module.MallProductSku">
+		update t_mall_product_sku
+		<set>
+			<if test="skuName != null">
+				SKU_NAME = #{skuName,jdbcType=VARCHAR},
+			</if>
+			<if test="productId != null">
+				PRODUCT_ID = #{productId,jdbcType=BIGINT},
+			</if>
+			<if test="remainNum != null">
+				REMAIN_NUM = #{remainNum,jdbcType=INTEGER},
+			</if>
+			<if test="price != null">
+				PRICE = #{price,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="attrStr != null">
+				ATTR_STR = #{attrStr,jdbcType=VARCHAR},
+			</if>
+			<if test="recommendNum != null">
+				RECOMMEND_NUM = #{recommendNum,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=DATE},
+			</if>
+		</set>
+		where SKU_ID = #{skuId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zx.mall.module.MallProductSku">
+		update t_mall_product_sku
+		set SKU_NAME = #{skuName,jdbcType=VARCHAR},
+		PRODUCT_ID = #{productId,jdbcType=BIGINT},
+		REMAIN_NUM = #{remainNum,jdbcType=INTEGER},
+		PRICE = #{price,jdbcType=VARCHAR},
+		STATUS = #{status,jdbcType=INTEGER},
+		ATTR_STR = #{attrStr,jdbcType=VARCHAR},
+		RECOMMEND_NUM = #{recommendNum,jdbcType=INTEGER},
+		CREATE_TIME = #{createTime,jdbcType=DATE}
+		where SKU_ID = #{skuId,jdbcType=BIGINT}
+	</update>
+</mapper>

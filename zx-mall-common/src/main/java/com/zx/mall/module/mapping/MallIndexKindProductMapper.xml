@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mall.dao.MallIndexKindProductMapper">
+	<resultMap id="BaseResultMap" type="com.zx.mall.module.MallIndexKindProduct">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="INDEX_KIND_ID" property="indexKindId" jdbcType="BIGINT" />
+		<result column="PRODUCT_ID" property="productId" jdbcType="BIGINT" />
+		<result column="LOCATION" property="location" jdbcType="VARCHAR" />
+		<result column="PIC" property="pic" jdbcType="VARCHAR" />
+		<result column="TITLE" property="title" jdbcType="VARCHAR" />
+		<result column="SUB_TITLE" property="subTitle" jdbcType="VARCHAR" />
+		<result column="URL" property="url" jdbcType="VARCHAR" />
+		
+		<result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+		<result column="PRICE" property="price" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, INDEX_KIND_ID, PRODUCT_ID, LOCATION, PIC, TITLE, SUB_TITLE, URL
+	</sql>
+	
+	<sql id="Base_Where">
+		<where>
+			1=1 
+			<trim suffixOverrides=",">
+				<if test="subjectId != null">
+					and INDEX_KIND_ID = #{subjectId,jdbcType=BIGINT}
+				</if>
+				<if test="location != null">
+					and LOCATION = #{location,jdbcType=VARCHAR}
+				</if>
+			</trim>
+		</where>
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_mall_index_kind_product
+		where ID = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_mall_index_kind_product
+		where ID = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.zx.mall.module.MallIndexKindProduct">
+		insert into t_mall_index_kind_product (ID, INDEX_KIND_ID, PRODUCT_ID,
+		LOCATION, PIC, TITLE,
+		SUB_TITLE, URL)
+		values (#{id,jdbcType=BIGINT}, #{indexKindId,jdbcType=BIGINT},
+		#{productId,jdbcType=BIGINT},
+		#{location,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
+		#{subTitle,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zx.mall.module.MallIndexKindProduct" useGeneratedKeys="true" keyProperty="id">
+		insert into t_mall_index_kind_product
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="indexKindId != null">
+				INDEX_KIND_ID,
+			</if>
+			<if test="productId != null">
+				PRODUCT_ID,
+			</if>
+			<if test="location != null">
+				LOCATION,
+			</if>
+			<if test="pic != null">
+				PIC,
+			</if>
+			<if test="title != null">
+				TITLE,
+			</if>
+			<if test="subTitle != null">
+				SUB_TITLE,
+			</if>
+			<if test="url != null">
+				URL,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="indexKindId != null">
+				#{indexKindId,jdbcType=BIGINT},
+			</if>
+			<if test="productId != null">
+				#{productId,jdbcType=BIGINT},
+			</if>
+			<if test="location != null">
+				#{location,jdbcType=VARCHAR},
+			</if>
+			<if test="pic != null">
+				#{pic,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="subTitle != null">
+				#{subTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				#{url,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zx.mall.module.MallIndexKindProduct">
+		update t_mall_index_kind_product
+		<set>
+			<if test="indexKindId != null">
+				INDEX_KIND_ID = #{indexKindId,jdbcType=BIGINT},
+			</if>
+			<if test="productId != null">
+				PRODUCT_ID = #{productId,jdbcType=BIGINT},
+			</if>
+			<if test="location != null">
+				LOCATION = #{location,jdbcType=VARCHAR},
+			</if>
+			<if test="pic != null">
+				PIC = #{pic,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				TITLE = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="subTitle != null">
+				SUB_TITLE = #{subTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				URL = #{url,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zx.mall.module.MallIndexKindProduct">
+		update t_mall_index_kind_product
+		set INDEX_KIND_ID = #{indexKindId,jdbcType=BIGINT},
+		PRODUCT_ID = #{productId,jdbcType=BIGINT},
+		LOCATION = #{location,jdbcType=VARCHAR},
+		PIC = #{pic,jdbcType=VARCHAR},
+		TITLE = #{title,jdbcType=VARCHAR},
+		SUB_TITLE = #{subTitle,jdbcType=VARCHAR},
+		URL = #{url,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<select id="findList" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select a.* from 
+		(
+		select
+		t1.ID, t1.INDEX_KIND_ID, t1.PRODUCT_ID, t1.LOCATION, t1.PIC, t1.TITLE, t1.SUB_TITLE, t1.URL, t2.PRODUCT_NAME, T2.PRICE 
+		from t_mall_index_kind_product t1 left join t_mall_product t2 on t1.product_id=t2.product_id
+		) a where 1=1 
+		<if test="subjectId != null">
+			and INDEX_KIND_ID = #{subjectId,jdbcType=BIGINT}
+		</if>
+		<if test="location != null">
+			and LOCATION = #{location,jdbcType=VARCHAR}
+		</if>
+	</select>
+	
+</mapper>

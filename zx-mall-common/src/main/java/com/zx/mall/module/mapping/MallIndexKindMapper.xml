@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mall.dao.MallIndexKindMapper">
+	<resultMap id="BaseResultMap" type="com.zx.mall.module.MallIndexKind">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="TITLE" property="title" jdbcType="VARCHAR" />
+		<result column="KIND_ID" property="kindId" jdbcType="INTEGER" />
+		<result column="TITLE_EN" property="titleEn" jdbcType="VARCHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+	</resultMap>
+	
+	<resultMap id="BaseResultMap2" type="com.zx.mall.module.vo.IndexKindRsp">
+		<result column="KIND_ID" property="kindId" jdbcType="INTEGER" />
+		<result column="TITLE_CN" property="cnTitle" jdbcType="VARCHAR" />
+		<result column="TITLE_EN" property="enTitle" jdbcType="VARCHAR" />
+		<!-- 一对一 -->
+		<!-- 
+		<association property="" column="" javaType="">
+			<id property="" column="" />
+			<result property="" column="" />
+		</association>
+		 -->
+		<!-- 一对多 -->
+		<!-- ofType指定products集合中的对象类型 -->
+		<collection property="products" ofType="com.zx.mall.module.vo.IndexKindProduct">
+			<id property="id" column="id" />
+			<result property="indexKindId" column="index_kind_id" />
+			<result property="index" column="LOCATION" />
+			<result property="productId" column="PRODUCT_ID" />
+			<!-- <result property="productNo" column="" />
+			<result property="productName" column="" /> -->
+			<result property="imgUrl" column="PIC" />
+			<result property="url" column="URL" />
+			<!-- <result property="price" column="" /> -->
+			<result property="title" column="TITLE" />
+			<result property="subTitle" column="SUB_TITLE" />
+		</collection>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID, TITLE, KIND_ID, TITLE_EN, CREATE_DATE
+	</sql>
+	
+	<sql id="Base_Where">
+		<where>
+			1=1 
+			<trim suffixOverrides=",">
+				<if test="title != null">
+					and TITLE like '%'||#{title}||'%'
+				</if>
+			</trim>
+		</where>
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_mall_index_kind
+		where ID = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_mall_index_kind
+		where ID = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.zx.mall.module.MallIndexKind">
+		insert into t_mall_index_kind (ID, TITLE, KIND_ID,
+		TITLE_EN, CREATE_DATE)
+		values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR},
+		#{kindId,jdbcType=INTEGER},
+		#{titleEn,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zx.mall.module.MallIndexKind" useGeneratedKeys="true" keyProperty="id">
+		insert into t_mall_index_kind
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="title != null">
+				TITLE,
+			</if>
+			<if test="kindId != null">
+				KIND_ID,
+			</if>
+			<if test="titleEn != null">
+				TITLE_EN,
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="kindId != null">
+				#{kindId,jdbcType=INTEGER},
+			</if>
+			<if test="titleEn != null">
+				#{titleEn,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=DATE},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zx.mall.module.MallIndexKind">
+		update t_mall_index_kind
+		<set>
+			<if test="title != null">
+				TITLE = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="kindId != null">
+				KIND_ID = #{kindId,jdbcType=INTEGER},
+			</if>
+			<if test="titleEn != null">
+				TITLE_EN = #{titleEn,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE = #{createDate,jdbcType=DATE},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zx.mall.module.MallIndexKind">
+		update t_mall_index_kind
+		set TITLE = #{title,jdbcType=VARCHAR},
+		KIND_ID = #{kindId,jdbcType=INTEGER},
+		TITLE_EN = #{titleEn,jdbcType=VARCHAR},
+		CREATE_DATE = #{createDate,jdbcType=DATE}
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<select id="findList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_mall_index_kind
+		<include refid="Base_Where" />
+		order by id asc limit #{begin},#{pageSize}
+	</select>
+	
+	<select id="qryMainKindList" resultMap="BaseResultMap2">
+		select t1.kind_id, t1.title_en, t1.title as title_cn, t2.id, t2.index_kind_id, t2.location, t2.product_id, 
+		t2.pic, t2.title, t2.sub_title, t2.url from t_mall_index_kind t1, t_mall_index_kind_product t2 where t1.id=t2.index_kind_id
+	</select>
+	
+</mapper>

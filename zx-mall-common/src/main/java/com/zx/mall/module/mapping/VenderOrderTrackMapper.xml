@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mall.dao.VenderOrderTrackMapper">
+	<resultMap id="BaseResultMap" type="com.zx.mall.module.VenderOrderTrack">
+		<id column="lid" property="lid" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="ordernumber" property="ordernumber" jdbcType="VARCHAR" />
+		<result column="splitno" property="splitno" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="operatorname" property="operatorname" jdbcType="VARCHAR" />
+		<result column="operatortime" property="operatortime" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		lid, type, ordernumber, splitno, status, content, operatorname,
+		operatortime
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_vender_order_track
+		where lid = #{lid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_vender_order_track
+		where lid = #{lid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.zx.mall.module.VenderOrderTrack">
+		insert into t_vender_order_track (lid, type, ordernumber,
+		splitno, status, content,
+		operatorname, operatortime)
+		values (#{lid,jdbcType=INTEGER}, #{type,jdbcType=INTEGER},
+		#{ordernumber,jdbcType=VARCHAR},
+		#{splitno,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR},
+		#{operatorname,jdbcType=VARCHAR}, #{operatortime,jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.zx.mall.module.VenderOrderTrack">
+		insert into t_vender_order_track
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="lid != null">
+				lid,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="ordernumber != null">
+				ordernumber,
+			</if>
+			<if test="splitno != null">
+				splitno,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="operatorname != null">
+				operatorname,
+			</if>
+			<if test="operatortime != null">
+				operatortime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="lid != null">
+				#{lid,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+			<if test="ordernumber != null">
+				#{ordernumber,jdbcType=VARCHAR},
+			</if>
+			<if test="splitno != null">
+				#{splitno,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="operatorname != null">
+				#{operatorname,jdbcType=VARCHAR},
+			</if>
+			<if test="operatortime != null">
+				#{operatortime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zx.mall.module.VenderOrderTrack">
+		update t_vender_order_track
+		<set>
+			<if test="type != null">
+				type = #{type,jdbcType=INTEGER},
+			</if>
+			<if test="ordernumber != null">
+				ordernumber = #{ordernumber,jdbcType=VARCHAR},
+			</if>
+			<if test="splitno != null">
+				splitno = #{splitno,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="operatorname != null">
+				operatorname = #{operatorname,jdbcType=VARCHAR},
+			</if>
+			<if test="operatortime != null">
+				operatortime = #{operatortime,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where lid = #{lid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zx.mall.module.VenderOrderTrack">
+		update t_vender_order_track
+		set type = #{type,jdbcType=INTEGER},
+		ordernumber = #{ordernumber,jdbcType=VARCHAR},
+		splitno = #{splitno,jdbcType=VARCHAR},
+		status = #{status,jdbcType=INTEGER},
+		content = #{content,jdbcType=VARCHAR},
+		operatorname = #{operatorname,jdbcType=VARCHAR},
+		operatortime = #{operatortime,jdbcType=VARCHAR}
+		where lid = #{lid,jdbcType=INTEGER}
+	</update>
+	
+	<select id="selectByParams" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_vender_order_track
+		where 1 = 1 
+		<if test="type != null">
+			and type = #{type,jdbcType=INTEGER} 
+		</if>
+		<if test="orderNo != null">
+			and ordernumber = #{orderNo,jdbcType=VARCHAR} 
+		</if>
+		<if test="splitNo != null">
+			and splitno = #{splitNo,jdbcType=VARCHAR} 
+		</if>
+		order by ordernumber, splitno, str_to_date(operatortime, '%Y-%m-%d %H') desc
+	</select>
+</mapper>

@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mall.dao.VenderBudgetYearMapper">
+	<resultMap id="BaseResultMap" type="com.zx.mall.module.VenderBudgetYear">
+		<id column="lid" property="lid" jdbcType="INTEGER" />
+		<result column="btype" property="btype" jdbcType="INTEGER" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="applyid" property="applyid" jdbcType="INTEGER" />
+		<result column="applydate" property="applydate" jdbcType="VARCHAR" />
+		<result column="clid" property="clid" jdbcType="INTEGER" />
+		<result column="applydlid" property="applydlid" jdbcType="INTEGER" />
+		<result column="year" property="year" jdbcType="VARCHAR" />
+		<result column="initamount" property="initamount" jdbcType="INTEGER" />
+		<result column="adjustamount" property="adjustamount" jdbcType="INTEGER" />
+		<result column="totalamount" property="totalamount" jdbcType="INTEGER" />
+		<result column="expenseamount" property="expenseamount"
+			jdbcType="INTEGER" />
+		<result column="usefulamount" property="usefulamount" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="operatorid" property="operatorid" jdbcType="INTEGER" />
+		<result column="operatorname" property="operatorname" jdbcType="VARCHAR" />
+		<result column="operatortime" property="operatortime" jdbcType="VARCHAR" />
+		<result column="auditid" property="auditid" jdbcType="INTEGER" />
+		<result column="auditname" property="auditname" jdbcType="VARCHAR" />
+		<result column="audittime" property="audittime" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		lid, btype, content, remark, applyid, applydate, clid, applydlid, year,
+		initamount,
+		adjustamount, totalamount, expenseamount, usefulamount, status, operatorid,
+		operatorname,
+		operatortime, auditid, auditname, audittime
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_vender_budget_year
+		where lid = #{lid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_vender_budget_year
+		where lid = #{lid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.zx.mall.module.VenderBudgetYear">
+		insert into t_vender_budget_year (lid, btype, content,
+		remark, applyid, applydate,
+		clid, applydlid, year,
+		initamount, adjustamount, totalamount,
+		expenseamount, usefulamount, status,
+		operatorid, operatorname, operatortime,
+		auditid, auditname, audittime
+		)
+		values (#{lid,jdbcType=INTEGER}, #{btype,jdbcType=INTEGER},
+		#{content,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR}, #{applyid,jdbcType=INTEGER}, #{applydate,jdbcType=VARCHAR},
+		#{clid,jdbcType=INTEGER}, #{applydlid,jdbcType=INTEGER},
+		#{year,jdbcType=VARCHAR},
+		#{initamount,jdbcType=INTEGER}, #{adjustamount,jdbcType=INTEGER}, #{totalamount,jdbcType=INTEGER},
+		#{expenseamount,jdbcType=INTEGER}, #{usefulamount,jdbcType=INTEGER},
+		#{status,jdbcType=INTEGER},
+		#{operatorid,jdbcType=INTEGER}, #{operatorname,jdbcType=VARCHAR}, #{operatortime,jdbcType=VARCHAR},
+		#{auditid,jdbcType=INTEGER}, #{auditname,jdbcType=VARCHAR},
+		#{audittime,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.zx.mall.module.VenderBudgetYear">
+		insert into t_vender_budget_year
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="lid != null">
+				lid,
+			</if>
+			<if test="btype != null">
+				btype,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="applyid != null">
+				applyid,
+			</if>
+			<if test="applydate != null">
+				applydate,
+			</if>
+			<if test="clid != null">
+				clid,
+			</if>
+			<if test="applydlid != null">
+				applydlid,
+			</if>
+			<if test="year != null">
+				year,
+			</if>
+			<if test="initamount != null">
+				initamount,
+			</if>
+			<if test="adjustamount != null">
+				adjustamount,
+			</if>
+			<if test="totalamount != null">
+				totalamount,
+			</if>
+			<if test="expenseamount != null">
+				expenseamount,
+			</if>
+			<if test="usefulamount != null">
+				usefulamount,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="operatorid != null">
+				operatorid,
+			</if>
+			<if test="operatorname != null">
+				operatorname,
+			</if>
+			<if test="operatortime != null">
+				operatortime,
+			</if>
+			<if test="auditid != null">
+				auditid,
+			</if>
+			<if test="auditname != null">
+				auditname,
+			</if>
+			<if test="audittime != null">
+				audittime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="lid != null">
+				#{lid,jdbcType=INTEGER},
+			</if>
+			<if test="btype != null">
+				#{btype,jdbcType=INTEGER},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="applyid != null">
+				#{applyid,jdbcType=INTEGER},
+			</if>
+			<if test="applydate != null">
+				#{applydate,jdbcType=VARCHAR},
+			</if>
+			<if test="clid != null">
+				#{clid,jdbcType=INTEGER},
+			</if>
+			<if test="applydlid != null">
+				#{applydlid,jdbcType=INTEGER},
+			</if>
+			<if test="year != null">
+				#{year,jdbcType=VARCHAR},
+			</if>
+			<if test="initamount != null">
+				#{initamount,jdbcType=INTEGER},
+			</if>
+			<if test="adjustamount != null">
+				#{adjustamount,jdbcType=INTEGER},
+			</if>
+			<if test="totalamount != null">
+				#{totalamount,jdbcType=INTEGER},
+			</if>
+			<if test="expenseamount != null">
+				#{expenseamount,jdbcType=INTEGER},
+			</if>
+			<if test="usefulamount != null">
+				#{usefulamount,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="operatorid != null">
+				#{operatorid,jdbcType=INTEGER},
+			</if>
+			<if test="operatorname != null">
+				#{operatorname,jdbcType=VARCHAR},
+			</if>
+			<if test="operatortime != null">
+				#{operatortime,jdbcType=VARCHAR},
+			</if>
+			<if test="auditid != null">
+				#{auditid,jdbcType=INTEGER},
+			</if>
+			<if test="auditname != null">
+				#{auditname,jdbcType=VARCHAR},
+			</if>
+			<if test="audittime != null">
+				#{audittime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zx.mall.module.VenderBudgetYear">
+		update t_vender_budget_year
+		<set>
+			<if test="btype != null">
+				btype = #{btype,jdbcType=INTEGER},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="applyid != null">
+				applyid = #{applyid,jdbcType=INTEGER},
+			</if>
+			<if test="applydate != null">
+				applydate = #{applydate,jdbcType=VARCHAR},
+			</if>
+			<if test="clid != null">
+				clid = #{clid,jdbcType=INTEGER},
+			</if>
+			<if test="applydlid != null">
+				applydlid = #{applydlid,jdbcType=INTEGER},
+			</if>
+			<if test="year != null">
+				year = #{year,jdbcType=VARCHAR},
+			</if>
+			<if test="initamount != null">
+				initamount = #{initamount,jdbcType=INTEGER},
+			</if>
+			<if test="adjustamount != null">
+				adjustamount = #{adjustamount,jdbcType=INTEGER},
+			</if>
+			<if test="totalamount != null">
+				totalamount = #{totalamount,jdbcType=INTEGER},
+			</if>
+			<if test="expenseamount != null">
+				expenseamount = #{expenseamount,jdbcType=INTEGER},
+			</if>
+			<if test="usefulamount != null">
+				usefulamount = #{usefulamount,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="operatorid != null">
+				operatorid = #{operatorid,jdbcType=INTEGER},
+			</if>
+			<if test="operatorname != null">
+				operatorname = #{operatorname,jdbcType=VARCHAR},
+			</if>
+			<if test="operatortime != null">
+				operatortime = #{operatortime,jdbcType=VARCHAR},
+			</if>
+			<if test="auditid != null">
+				auditid = #{auditid,jdbcType=INTEGER},
+			</if>
+			<if test="auditname != null">
+				auditname = #{auditname,jdbcType=VARCHAR},
+			</if>
+			<if test="audittime != null">
+				audittime = #{audittime,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where lid = #{lid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zx.mall.module.VenderBudgetYear">
+		update t_vender_budget_year
+		set btype = #{btype,jdbcType=INTEGER},
+		content = #{content,jdbcType=VARCHAR},
+		remark = #{remark,jdbcType=VARCHAR},
+		applyid = #{applyid,jdbcType=INTEGER},
+		applydate = #{applydate,jdbcType=VARCHAR},
+		clid = #{clid,jdbcType=INTEGER},
+		applydlid = #{applydlid,jdbcType=INTEGER},
+		year = #{year,jdbcType=VARCHAR},
+		initamount = #{initamount,jdbcType=INTEGER},
+		adjustamount = #{adjustamount,jdbcType=INTEGER},
+		totalamount = #{totalamount,jdbcType=INTEGER},
+		expenseamount = #{expenseamount,jdbcType=INTEGER},
+		usefulamount = #{usefulamount,jdbcType=INTEGER},
+		status = #{status,jdbcType=INTEGER},
+		operatorid = #{operatorid,jdbcType=INTEGER},
+		operatorname = #{operatorname,jdbcType=VARCHAR},
+		operatortime = #{operatortime,jdbcType=VARCHAR},
+		auditid = #{auditid,jdbcType=INTEGER},
+		auditname = #{auditname,jdbcType=VARCHAR},
+		audittime = #{audittime,jdbcType=VARCHAR}
+		where lid = #{lid,jdbcType=INTEGER}
+	</update>
+	
+	<select id="findBudgetByCidAndDid" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_vender_budget_year
+		where 1=1 
+		<if test="clid != null">
+			and clid = #{clid,jdbcType=INTEGER} 
+		</if>
+		<if test="applydlid != null">
+			and applydlid = #{applydlid,jdbcType=INTEGER} 
+		</if>
+	</select>
+	
+</mapper>

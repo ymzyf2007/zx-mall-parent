@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mall.dao.VenderProductKindAttrCfgMapper">
+	<resultMap id="BaseResultMap" type="com.zx.mall.module.VenderProductKindAttrCfg">
+		<id column="kind_attr_id" property="kindAttrId" jdbcType="INTEGER" />
+		<result column="kind_id" property="kindId" jdbcType="INTEGER" />
+		<result column="attr_id" property="attrId" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="sort" property="sort" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		kind_attr_id, kind_id, attr_id, status, sort
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_vender_product_kind_attribute_cfg
+		where kind_attr_id = #{kindAttrId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_vender_product_kind_attribute_cfg
+		where kind_attr_id = #{kindAttrId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.zx.mall.module.VenderProductKindAttrCfg">
+		insert into t_vender_product_kind_attribute_cfg (kind_attr_id,
+		kind_id, attr_id,
+		status, sort)
+		values (#{kindAttrId,jdbcType=INTEGER}, #{kindId,jdbcType=INTEGER},
+		#{attrId,jdbcType=INTEGER},
+		#{status,jdbcType=TINYINT}, #{sort,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zx.mall.module.VenderProductKindAttrCfg">
+		insert into t_vender_product_kind_attribute_cfg
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="kindAttrId != null">
+				kind_attr_id,
+			</if>
+			<if test="kindId != null">
+				kind_id,
+			</if>
+			<if test="attrId != null">
+				attr_id,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="sort != null">
+				sort,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="kindAttrId != null">
+				#{kindAttrId,jdbcType=INTEGER},
+			</if>
+			<if test="kindId != null">
+				#{kindId,jdbcType=INTEGER},
+			</if>
+			<if test="attrId != null">
+				#{attrId,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zx.mall.module.VenderProductKindAttrCfg">
+		update t_vender_product_kind_attribute_cfg
+		<set>
+			<if test="kindId != null">
+				kind_id = #{kindId,jdbcType=INTEGER},
+			</if>
+			<if test="attrId != null">
+				attr_id = #{attrId,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=TINYINT},
+			</if>
+			<if test="sort != null">
+				sort = #{sort,jdbcType=INTEGER},
+			</if>
+		</set>
+		where kind_attr_id = #{kindAttrId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zx.mall.module.VenderProductKindAttrCfg">
+		update t_vender_product_kind_attribute_cfg
+		set kind_id = #{kindId,jdbcType=INTEGER},
+		attr_id = #{attrId,jdbcType=INTEGER},
+		status = #{status,jdbcType=TINYINT},
+		sort = #{sort,jdbcType=INTEGER}
+		where kind_attr_id = #{kindAttrId,jdbcType=INTEGER}
+	</update>
+</mapper>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mall.dao.VenderSubjectMapper">
+	<resultMap id="BaseResultMap" type="com.zx.mall.module.VenderSubject">
+		<id column="lid" property="lid" jdbcType="INTEGER" />
+		<result column="bcode" property="bcode" jdbcType="VARCHAR" />
+		<result column="cname" property="cname" jdbcType="VARCHAR" />
+		<result column="sort" property="sort" jdbcType="INTEGER" />
+		<result column="plid" property="plid" jdbcType="INTEGER" />
+		<result column="haschild" property="haschild" jdbcType="INTEGER" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="isdelete" property="isdelete" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		lid, bcode, cname, sort, plid, haschild, remark, isdelete
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_vender_subject
+		where lid = #{lid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_vender_subject
+		where lid = #{lid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.zx.mall.module.VenderSubject">
+		insert into t_vender_subject (lid, bcode, cname,
+		sort, plid, haschild,
+		remark, isdelete)
+		values (#{lid,jdbcType=INTEGER}, #{bcode,jdbcType=VARCHAR},
+		#{cname,jdbcType=VARCHAR},
+		#{sort,jdbcType=INTEGER}, #{plid,jdbcType=INTEGER}, #{haschild,jdbcType=INTEGER},
+		#{remark,jdbcType=VARCHAR}, #{isdelete,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zx.mall.module.VenderSubject">
+		insert into t_vender_subject
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="lid != null">
+				lid,
+			</if>
+			<if test="bcode != null">
+				bcode,
+			</if>
+			<if test="cname != null">
+				cname,
+			</if>
+			<if test="sort != null">
+				sort,
+			</if>
+			<if test="plid != null">
+				plid,
+			</if>
+			<if test="haschild != null">
+				haschild,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="isdelete != null">
+				isdelete,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="lid != null">
+				#{lid,jdbcType=INTEGER},
+			</if>
+			<if test="bcode != null">
+				#{bcode,jdbcType=VARCHAR},
+			</if>
+			<if test="cname != null">
+				#{cname,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=INTEGER},
+			</if>
+			<if test="plid != null">
+				#{plid,jdbcType=INTEGER},
+			</if>
+			<if test="haschild != null">
+				#{haschild,jdbcType=INTEGER},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="isdelete != null">
+				#{isdelete,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zx.mall.module.VenderSubject">
+		update t_vender_subject
+		<set>
+			<if test="bcode != null">
+				bcode = #{bcode,jdbcType=VARCHAR},
+			</if>
+			<if test="cname != null">
+				cname = #{cname,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null">
+				sort = #{sort,jdbcType=INTEGER},
+			</if>
+			<if test="plid != null">
+				plid = #{plid,jdbcType=INTEGER},
+			</if>
+			<if test="haschild != null">
+				haschild = #{haschild,jdbcType=INTEGER},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="isdelete != null">
+				isdelete = #{isdelete,jdbcType=INTEGER},
+			</if>
+		</set>
+		where lid = #{lid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zx.mall.module.VenderSubject">
+		update t_vender_subject
+		set bcode = #{bcode,jdbcType=VARCHAR},
+		cname = #{cname,jdbcType=VARCHAR},
+		sort = #{sort,jdbcType=INTEGER},
+		plid = #{plid,jdbcType=INTEGER},
+		haschild = #{haschild,jdbcType=INTEGER},
+		remark = #{remark,jdbcType=VARCHAR},
+		isdelete = #{isdelete,jdbcType=INTEGER}
+		where lid = #{lid,jdbcType=INTEGER}
+	</update>
+</mapper>

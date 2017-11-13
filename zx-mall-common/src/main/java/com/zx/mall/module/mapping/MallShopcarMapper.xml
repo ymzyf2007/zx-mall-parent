@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mall.dao.MallShopcarMapper">
+	<resultMap id="BaseResultMap" type="com.zx.mall.module.MallShopcar">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="USER_ID" property="userId" jdbcType="BIGINT" />
+		<result column="SKU_ID" property="skuId" jdbcType="BIGINT" />
+		<result column="QUANTITY" property="quantity" jdbcType="INTEGER" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, USER_ID, SKU_ID, QUANTITY, CREATE_TIME
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_mall_shopcar
+		where ID = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_mall_shopcar
+		where ID = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.zx.mall.module.MallShopcar">
+		insert into t_mall_shopcar (ID, USER_ID, SKU_ID,
+		QUANTITY, CREATE_TIME)
+		values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT},
+		#{skuId,jdbcType=BIGINT},
+		#{quantity,jdbcType=INTEGER}, #{createTime,jdbcType=DATE})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zx.mall.module.MallShopcar" useGeneratedKeys="true" keyProperty="id">
+		insert into t_mall_shopcar
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="skuId != null">
+				SKU_ID,
+			</if>
+			<if test="quantity != null">
+				QUANTITY,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="skuId != null">
+				#{skuId,jdbcType=BIGINT},
+			</if>
+			<if test="quantity != null">
+				#{quantity,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=DATE},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zx.mall.module.MallShopcar">
+		update t_mall_shopcar
+		<set>
+			<if test="userId != null">
+				USER_ID = #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="skuId != null">
+				SKU_ID = #{skuId,jdbcType=BIGINT},
+			</if>
+			<if test="quantity != null">
+				QUANTITY = #{quantity,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=DATE},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zx.mall.module.MallShopcar">
+		update t_mall_shopcar
+		set USER_ID = #{userId,jdbcType=BIGINT},
+		SKU_ID = #{skuId,jdbcType=BIGINT},
+		QUANTITY = #{quantity,jdbcType=INTEGER},
+		CREATE_TIME = #{createTime,jdbcType=DATE}
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<select id="findByParams" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_mall_shopcar
+		where USER_ID = #{userId,jdbcType=BIGINT} and SKU_ID = #{skuId,jdbcType=BIGINT}
+	</select>
+	
+	<delete id="deleteByUidAndSkuId" parameterType="java.util.Map">
+		delete from t_mall_shopcar
+		where user_id = #{userId} and sku_id = #{skuId}
+	</delete>
+	
+</mapper>

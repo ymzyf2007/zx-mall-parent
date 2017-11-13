@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mall.dao.MallAttrValueMapper">
+	<resultMap id="BaseResultMap" type="com.zx.mall.module.MallAttrValue">
+		<id column="ATTR_VALUE_ID" property="attrValueId" jdbcType="BIGINT" />
+		<result column="ATTR_ID" property="attrId" jdbcType="BIGINT" />
+		<result column="ATTR_VALUE" property="attrValue" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ATTR_VALUE_ID, ATTR_ID, ATTR_VALUE, CREATE_TIME
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_mall_attr_value
+		where ATTR_VALUE_ID = #{attrValueId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_mall_attr_value
+		where ATTR_VALUE_ID = #{attrValueId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.zx.mall.module.MallAttrValue">
+		insert into t_mall_attr_value (ATTR_VALUE_ID, ATTR_ID, ATTR_VALUE,
+		CREATE_TIME)
+		values (#{attrValueId,jdbcType=BIGINT}, #{attrId,jdbcType=BIGINT},
+		#{attrValue,jdbcType=VARCHAR},
+		#{createTime,jdbcType=DATE})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zx.mall.module.MallAttrValue" useGeneratedKeys="true" keyProperty="id">
+		insert into t_mall_attr_value
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="attrValueId != null">
+				ATTR_VALUE_ID,
+			</if>
+			<if test="attrId != null">
+				ATTR_ID,
+			</if>
+			<if test="attrValue != null">
+				ATTR_VALUE,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="attrValueId != null">
+				#{attrValueId,jdbcType=BIGINT},
+			</if>
+			<if test="attrId != null">
+				#{attrId,jdbcType=BIGINT},
+			</if>
+			<if test="attrValue != null">
+				#{attrValue,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=DATE},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zx.mall.module.MallAttrValue">
+		update t_mall_attr_value
+		<set>
+			<if test="attrId != null">
+				ATTR_ID = #{attrId,jdbcType=BIGINT},
+			</if>
+			<if test="attrValue != null">
+				ATTR_VALUE = #{attrValue,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=DATE},
+			</if>
+		</set>
+		where ATTR_VALUE_ID = #{attrValueId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zx.mall.module.MallAttrValue">
+		update t_mall_attr_value
+		set ATTR_ID = #{attrId,jdbcType=BIGINT},
+		ATTR_VALUE = #{attrValue,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=DATE}
+		where ATTR_VALUE_ID = #{attrValueId,jdbcType=BIGINT}
+	</update>
+</mapper>

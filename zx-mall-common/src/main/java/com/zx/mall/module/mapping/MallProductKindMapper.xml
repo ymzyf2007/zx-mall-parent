@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mall.dao.MallProductKindMapper">
+	<resultMap id="BaseResultMap" type="com.zx.mall.module.MallProductKind">
+		<id column="KIND_ID" property="kindId" jdbcType="BIGINT" />
+		<result column="KIND_NAME" property="kindName" jdbcType="VARCHAR" />
+		<result column="PARENT_ID" property="parentId" jdbcType="BIGINT" />
+		<result column="SORT_ID" property="sortId" jdbcType="INTEGER" />
+		<result column="MENUGRADE" property="menugrade" jdbcType="INTEGER" />
+		<result column="URL" property="url" jdbcType="VARCHAR" />
+		<result column="V_KIND_ID" property="vKindId" jdbcType="BIGINT" />
+		<result column="IMG_URL" property="imgUrl" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		KIND_ID, KIND_NAME, PARENT_ID, SORT_ID, MENUGRADE, URL, V_KIND_ID, IMG_URL  
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_mall_product_kind
+		where KIND_ID = #{kindId,jdbcType=BIGINT}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		t_mall_product_kind
+		where KIND_ID = #{kindId,jdbcType=BIGINT}
+	</delete>
+	
+	<insert id="insert" parameterType="com.zx.mall.module.MallProductKind">
+		insert into
+		t_mall_product_kind (KIND_ID, KIND_NAME, PARENT_ID,
+		SORT_ID,
+		MENUGRADE, URL, V_KIND_ID, IMG_URL
+		)
+		values (#{kindId,jdbcType=BIGINT},
+		#{kindName,jdbcType=VARCHAR},
+		#{parentId,jdbcType=BIGINT},
+		#{sortId,jdbcType=INTEGER}, #{menugrade,jdbcType=INTEGER},
+		#{url,jdbcType=VARCHAR},
+		#{vKindId,jdbcType=BIGINT}, #{imgUrl,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.zx.mall.module.MallProductKind" useGeneratedKeys="true" keyProperty="kindId">
+		insert into t_mall_product_kind
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="kindId != null">
+				KIND_ID,
+			</if>
+			<if test="kindName != null">
+				KIND_NAME,
+			</if>
+			<if test="parentId != null">
+				PARENT_ID,
+			</if>
+			<if test="sortId != null">
+				SORT_ID,
+			</if>
+			<if test="menugrade != null">
+				MENUGRADE,
+			</if>
+			<if test="url != null">
+				URL,
+			</if>
+			<if test="vKindId != null">
+				V_KIND_ID,
+			</if>
+			<if test="imgUrl != null">
+				IMG_URL,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="kindId != null">
+				#{kindId,jdbcType=BIGINT},
+			</if>
+			<if test="kindName != null">
+				#{kindName,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=BIGINT},
+			</if>
+			<if test="sortId != null">
+				#{sortId,jdbcType=INTEGER},
+			</if>
+			<if test="menugrade != null">
+				#{menugrade,jdbcType=INTEGER},
+			</if>
+			<if test="url != null">
+				#{url,jdbcType=VARCHAR},
+			</if>
+			<if test="vKindId != null">
+				#{vKindId,jdbcType=BIGINT},
+			</if>
+			<if test="imgUrl != null">
+				#{imgUrl,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zx.mall.module.MallProductKind">
+		update t_mall_product_kind
+		<set>
+			<if test="kindName != null">
+				KIND_NAME = #{kindName,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				PARENT_ID = #{parentId,jdbcType=BIGINT},
+			</if>
+			<if test="sortId != null">
+				SORT_ID = #{sortId,jdbcType=INTEGER},
+			</if>
+			<if test="menugrade != null">
+				MENUGRADE = #{menugrade,jdbcType=INTEGER},
+			</if>
+			<if test="url != null">
+				URL = #{url,jdbcType=VARCHAR},
+			</if>
+			<if test="vKindId != null">
+				V_KIND_ID = #{vKindId,jdbcType=BIGINT},
+			</if>
+			<if test="imgUrl != null">
+				IMG_URL = #{imgUrl,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where KIND_ID = #{kindId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zx.mall.module.MallProductKind">
+		update
+		t_mall_product_kind
+		set KIND_NAME = #{kindName,jdbcType=VARCHAR},
+		PARENT_ID = #{parentId,jdbcType=BIGINT},
+		SORT_ID =
+		#{sortId,jdbcType=INTEGER},
+		MENUGRADE = #{menugrade,jdbcType=INTEGER},
+		URL = #{url,jdbcType=VARCHAR}, V_KIND_ID = #{vKindId,jdbcType=BIGINT}, IMG_URL = #{imgUrl,jdbcType=VARCHAR} 
+		where KIND_ID = #{kindId,jdbcType=BIGINT}
+	</update>
+	
+	<resultMap id="BaseResultMap2" type="com.zx.mall.module.vo.MallProductKindVo">
+		<id column="KIND_ID" property="kindId" jdbcType="BIGINT" />
+		<result column="KIND_NAME" property="kindName" jdbcType="VARCHAR" />
+		<result column="PARENT_ID" property="parentId" jdbcType="BIGINT" />
+		<result column="SORT_ID" property="sortId" jdbcType="INTEGER" />
+		<result column="MENUGRADE" property="menugrade" jdbcType="INTEGER" />
+		<result column="URL" property="url" jdbcType="VARCHAR" />
+		<result column="IMG_URL" property="imgUrl" jdbcType="VARCHAR" />
+		
+		<result column="V_KIND_ID" property="vKindId" jdbcType="BIGINT" />
+		<result column="V_KIND_NAME" property="vKindName" jdbcType="VARCHAR" />
+		<result column="V_LEVEL" property="vLevel" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<select id="findKindList" resultMap="BaseResultMap2">
+		select t1.*,t2.v_kind_name, t2.v_level from t_mall_product_kind t1 left join 
+		t_vender_product_kind t2 on t1.v_kind_id=t2.v_kind_id order by t1.sort_id asc
+	</select>
+	
+	<select id="qrySubByParent" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_mall_product_kind
+		where PARENT_ID = #{parentId,jdbcType=BIGINT} OR KIND_ID = #{parentId,jdbcType=BIGINT}
+	</select>
+	
+</mapper>

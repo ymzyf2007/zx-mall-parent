@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mall.dao.UserMapper">
+	<resultMap id="BaseResultMap" type="com.zx.mall.module.User">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="organization" property="organization" jdbcType="VARCHAR" />
+		<result column="nature" property="nature" jdbcType="VARCHAR" />
+		<result column="gateway" property="gateway" jdbcType="VARCHAR" />
+		<result column="province" property="province" jdbcType="VARCHAR" />
+		<result column="city" property="city" jdbcType="VARCHAR" />
+		<result column="district" property="district" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="gender" property="gender" jdbcType="TINYINT" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="tel" property="tel" jdbcType="VARCHAR" />
+		<result column="account" property="account" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		
+		<result column="clid" property="clid" jdbcType="INTEGER" />
+		<result column="dlid" property="dlid" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, organization, nature, gateway, province, city, district, address,
+		username, gender,
+		mobile, tel, account, email, password, createtime, status, clid, dlid 
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_mall_user
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_mall_user
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.zx.mall.module.User">
+		insert into t_mall_user (id, organization, nature,
+		gateway, province, city,
+		district, address, username,
+		gender, mobile, tel,
+		account, email, password,
+		createtime, status)
+		values (#{id,jdbcType=INTEGER}, #{organization,jdbcType=VARCHAR},
+		#{nature,jdbcType=VARCHAR},
+		#{gateway,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR},
+		#{district,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+		#{username,jdbcType=VARCHAR},
+		#{gender,jdbcType=TINYINT}, #{mobile,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR},
+		#{account,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		#{createtime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zx.mall.module.User">
+		insert into t_mall_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="organization != null">
+				organization,
+			</if>
+			<if test="nature != null">
+				nature,
+			</if>
+			<if test="gateway != null">
+				gateway,
+			</if>
+			<if test="province != null">
+				province,
+			</if>
+			<if test="city != null">
+				city,
+			</if>
+			<if test="district != null">
+				district,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="username != null">
+				username,
+			</if>
+			<if test="gender != null">
+				gender,
+			</if>
+			<if test="mobile != null">
+				mobile,
+			</if>
+			<if test="tel != null">
+				tel,
+			</if>
+			<if test="account != null">
+				account,
+			</if>
+			<if test="email != null">
+				email,
+			</if>
+			<if test="password != null">
+				password,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="organization != null">
+				#{organization,jdbcType=VARCHAR},
+			</if>
+			<if test="nature != null">
+				#{nature,jdbcType=VARCHAR},
+			</if>
+			<if test="gateway != null">
+				#{gateway,jdbcType=VARCHAR},
+			</if>
+			<if test="province != null">
+				#{province,jdbcType=VARCHAR},
+			</if>
+			<if test="city != null">
+				#{city,jdbcType=VARCHAR},
+			</if>
+			<if test="district != null">
+				#{district,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="username != null">
+				#{username,jdbcType=VARCHAR},
+			</if>
+			<if test="gender != null">
+				#{gender,jdbcType=TINYINT},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				#{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="account != null">
+				#{account,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zx.mall.module.User">
+		update t_mall_user
+		<set>
+			<if test="organization != null">
+				organization = #{organization,jdbcType=VARCHAR},
+			</if>
+			<if test="nature != null">
+				nature = #{nature,jdbcType=VARCHAR},
+			</if>
+			<if test="gateway != null">
+				gateway = #{gateway,jdbcType=VARCHAR},
+			</if>
+			<if test="province != null">
+				province = #{province,jdbcType=VARCHAR},
+			</if>
+			<if test="city != null">
+				city = #{city,jdbcType=VARCHAR},
+			</if>
+			<if test="district != null">
+				district = #{district,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="username != null">
+				username = #{username,jdbcType=VARCHAR},
+			</if>
+			<if test="gender != null">
+				gender = #{gender,jdbcType=TINYINT},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				tel = #{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="account != null">
+				account = #{account,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=TINYINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zx.mall.module.User">
+		update t_mall_user
+		set organization = #{organization,jdbcType=VARCHAR},
+		nature = #{nature,jdbcType=VARCHAR},
+		gateway = #{gateway,jdbcType=VARCHAR},
+		province = #{province,jdbcType=VARCHAR},
+		city = #{city,jdbcType=VARCHAR},
+		district = #{district,jdbcType=VARCHAR},
+		address = #{address,jdbcType=VARCHAR},
+		username = #{username,jdbcType=VARCHAR},
+		gender = #{gender,jdbcType=TINYINT},
+		mobile = #{mobile,jdbcType=VARCHAR},
+		tel = #{tel,jdbcType=VARCHAR},
+		account = #{account,jdbcType=VARCHAR},
+		email = #{email,jdbcType=VARCHAR},
+		password = #{password,jdbcType=VARCHAR},
+		createtime = #{createtime,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=TINYINT}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<select id="findLoginUser" resultMap="BaseResultMap" parameterType="com.zx.mall.module.User">
+		select
+		<include refid="Base_Column_List" />
+		from t_mall_user
+		where account = #{account,jdbcType=VARCHAR} 
+		<if test="password != null">
+			and password = #{password,jdbcType=VARCHAR}
+		</if>
+	</select>
+</mapper>

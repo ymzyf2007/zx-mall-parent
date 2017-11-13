@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mall.dao.MallBrandMapper">
+	<resultMap id="BaseResultMap" type="com.zx.mall.module.MallBrand">
+		<id column="BRAND_ID" property="brandId" jdbcType="BIGINT" />
+		<result column="KIND_ID" property="kindId" jdbcType="BIGINT" />
+		<result column="BRAND_CN_NAME" property="brandCnName" jdbcType="VARCHAR" />
+		<result column="BRAND_EN_NAME" property="brandEnName" jdbcType="VARCHAR" />
+		<result column="DESCR" property="descr" jdbcType="VARCHAR" />
+		<result column="BRAND_STATUS" property="brandStatus" jdbcType="INTEGER" />
+		<result column="BRAND_URL" property="brandUrl" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		BRAND_ID, KIND_ID, BRAND_CN_NAME, BRAND_EN_NAME, DESCR, BRAND_STATUS,
+		BRAND_URL,
+		CREATE_TIME
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_mall_brand
+		where BRAND_ID = #{brandId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_mall_brand
+		where BRAND_ID = #{brandId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.zx.mall.module.MallBrand">
+		insert into t_mall_brand (BRAND_ID, KIND_ID, BRAND_CN_NAME,
+		BRAND_EN_NAME, DESCR, BRAND_STATUS,
+		BRAND_URL, CREATE_TIME)
+		values (#{brandId,jdbcType=BIGINT}, #{kindId,jdbcType=BIGINT},
+		#{brandCnName,jdbcType=VARCHAR},
+		#{brandEnName,jdbcType=VARCHAR}, #{descr,jdbcType=VARCHAR}, #{brandStatus,jdbcType=INTEGER},
+		#{brandUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zx.mall.module.MallBrand" useGeneratedKeys="true" keyProperty="id">
+		insert into t_mall_brand
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="brandId != null">
+				BRAND_ID,
+			</if>
+			<if test="kindId != null">
+				KIND_ID,
+			</if>
+			<if test="brandCnName != null">
+				BRAND_CN_NAME,
+			</if>
+			<if test="brandEnName != null">
+				BRAND_EN_NAME,
+			</if>
+			<if test="descr != null">
+				DESCR,
+			</if>
+			<if test="brandStatus != null">
+				BRAND_STATUS,
+			</if>
+			<if test="brandUrl != null">
+				BRAND_URL,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="brandId != null">
+				#{brandId,jdbcType=BIGINT},
+			</if>
+			<if test="kindId != null">
+				#{kindId,jdbcType=BIGINT},
+			</if>
+			<if test="brandCnName != null">
+				#{brandCnName,jdbcType=VARCHAR},
+			</if>
+			<if test="brandEnName != null">
+				#{brandEnName,jdbcType=VARCHAR},
+			</if>
+			<if test="descr != null">
+				#{descr,jdbcType=VARCHAR},
+			</if>
+			<if test="brandStatus != null">
+				#{brandStatus,jdbcType=INTEGER},
+			</if>
+			<if test="brandUrl != null">
+				#{brandUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=DATE},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zx.mall.module.MallBrand">
+		update t_mall_brand
+		<set>
+			<if test="kindId != null">
+				KIND_ID = #{kindId,jdbcType=BIGINT},
+			</if>
+			<if test="brandCnName != null">
+				BRAND_CN_NAME = #{brandCnName,jdbcType=VARCHAR},
+			</if>
+			<if test="brandEnName != null">
+				BRAND_EN_NAME = #{brandEnName,jdbcType=VARCHAR},
+			</if>
+			<if test="descr != null">
+				DESCR = #{descr,jdbcType=VARCHAR},
+			</if>
+			<if test="brandStatus != null">
+				BRAND_STATUS = #{brandStatus,jdbcType=INTEGER},
+			</if>
+			<if test="brandUrl != null">
+				BRAND_URL = #{brandUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=DATE},
+			</if>
+		</set>
+		where BRAND_ID = #{brandId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zx.mall.module.MallBrand">
+		update t_mall_brand
+		set KIND_ID = #{kindId,jdbcType=BIGINT},
+		BRAND_CN_NAME = #{brandCnName,jdbcType=VARCHAR},
+		BRAND_EN_NAME = #{brandEnName,jdbcType=VARCHAR},
+		DESCR = #{descr,jdbcType=VARCHAR},
+		BRAND_STATUS = #{brandStatus,jdbcType=INTEGER},
+		BRAND_URL = #{brandUrl,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=DATE}
+		where BRAND_ID = #{brandId,jdbcType=BIGINT}
+	</update>
+</mapper>

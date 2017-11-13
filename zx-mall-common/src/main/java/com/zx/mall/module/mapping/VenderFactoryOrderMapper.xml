@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mall.dao.VenderFactoryOrderMapper">
+	<resultMap id="BaseResultMap" type="com.zx.mall.module.VenderFactoryOrder">
+		<id column="lid" property="lid" jdbcType="INTEGER" />
+		<result column="folid" property="folid" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="ordernumber" property="ordernumber" jdbcType="VARCHAR" />
+		<result column="ordertime" property="ordertime" jdbcType="VARCHAR" />
+		<result column="purchaser" property="purchaser" jdbcType="VARCHAR" />
+		<result column="purchasingunit" property="purchasingunit"
+			jdbcType="VARCHAR" />
+		<result column="telephone" property="telephone" jdbcType="VARCHAR" />
+		<result column="mobilephone" property="mobilephone" jdbcType="VARCHAR" />
+		<result column="receivingarea" property="receivingarea"
+			jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="deliverytime" property="deliverytime" jdbcType="VARCHAR" />
+		<result column="area" property="area" jdbcType="VARCHAR" />
+		<result column="amount" property="amount" jdbcType="INTEGER" />
+		<result column="total" property="total" jdbcType="REAL" />
+		<result column="flid" property="flid" jdbcType="INTEGER" />
+		<result column="fname" property="fname" jdbcType="VARCHAR" />
+		<result column="distributetime" property="distributetime"
+			jdbcType="VARCHAR" />
+		<result column="distributelid" property="distributelid"
+			jdbcType="INTEGER" />
+		<result column="distributename" property="distributename"
+			jdbcType="VARCHAR" />
+		<result column="receivetime" property="receivetime" jdbcType="VARCHAR" />
+		<result column="receivelid" property="receivelid" jdbcType="INTEGER" />
+		<result column="receivename" property="receivename" jdbcType="VARCHAR" />
+		<result column="sendtime" property="sendtime" jdbcType="VARCHAR" />
+		<result column="installtime" property="installtime" jdbcType="VARCHAR" />
+		<result column="finishtime" property="finishtime" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		lid, folid, status, ordernumber, ordertime, purchaser, purchasingunit,
+		telephone,
+		mobilephone, receivingarea, address, deliverytime, area, amount, total, flid,
+		fname,
+		distributetime, distributelid, distributename, receivetime, receivelid, receivename,
+		sendtime, installtime, finishtime
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_vender_factory_order
+		where lid = #{lid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_vender_factory_order
+		where lid = #{lid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.zx.mall.module.VenderFactoryOrder">
+		insert into t_vender_factory_order (lid, folid, status,
+		ordernumber, ordertime, purchaser,
+		purchasingunit, telephone, mobilephone,
+		receivingarea, address, deliverytime,
+		area, amount, total, flid,
+		fname, distributetime, distributelid,
+		distributename, receivetime, receivelid,
+		receivename, sendtime, installtime,
+		finishtime)
+		values (#{lid,jdbcType=INTEGER}, #{folid,jdbcType=INTEGER},
+		#{status,jdbcType=INTEGER},
+		#{ordernumber,jdbcType=VARCHAR}, #{ordertime,jdbcType=VARCHAR}, #{purchaser,jdbcType=VARCHAR},
+		#{purchasingunit,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR},
+		#{mobilephone,jdbcType=VARCHAR},
+		#{receivingarea,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{deliverytime,jdbcType=VARCHAR},
+		#{area,jdbcType=VARCHAR}, #{amount,jdbcType=INTEGER},
+		#{total,jdbcType=REAL}, #{flid,jdbcType=INTEGER},
+		#{fname,jdbcType=VARCHAR}, #{distributetime,jdbcType=VARCHAR},
+		#{distributelid,jdbcType=INTEGER},
+		#{distributename,jdbcType=VARCHAR}, #{receivetime,jdbcType=VARCHAR}, #{receivelid,jdbcType=INTEGER},
+		#{receivename,jdbcType=VARCHAR}, #{sendtime,jdbcType=VARCHAR},
+		#{installtime,jdbcType=VARCHAR},
+		#{finishtime,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zx.mall.module.VenderFactoryOrder">
+		insert into t_vender_factory_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="lid != null">
+				lid,
+			</if>
+			<if test="folid != null">
+				folid,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="ordernumber != null">
+				ordernumber,
+			</if>
+			<if test="ordertime != null">
+				ordertime,
+			</if>
+			<if test="purchaser != null">
+				purchaser,
+			</if>
+			<if test="purchasingunit != null">
+				purchasingunit,
+			</if>
+			<if test="telephone != null">
+				telephone,
+			</if>
+			<if test="mobilephone != null">
+				mobilephone,
+			</if>
+			<if test="receivingarea != null">
+				receivingarea,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="deliverytime != null">
+				deliverytime,
+			</if>
+			<if test="area != null">
+				area,
+			</if>
+			<if test="amount != null">
+				amount,
+			</if>
+			<if test="total != null">
+				total,
+			</if>
+			<if test="flid != null">
+				flid,
+			</if>
+			<if test="fname != null">
+				fname,
+			</if>
+			<if test="distributetime != null">
+				distributetime,
+			</if>
+			<if test="distributelid != null">
+				distributelid,
+			</if>
+			<if test="distributename != null">
+				distributename,
+			</if>
+			<if test="receivetime != null">
+				receivetime,
+			</if>
+			<if test="receivelid != null">
+				receivelid,
+			</if>
+			<if test="receivename != null">
+				receivename,
+			</if>
+			<if test="sendtime != null">
+				sendtime,
+			</if>
+			<if test="installtime != null">
+				installtime,
+			</if>
+			<if test="finishtime != null">
+				finishtime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="lid != null">
+				#{lid,jdbcType=INTEGER},
+			</if>
+			<if test="folid != null">
+				#{folid,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="ordernumber != null">
+				#{ordernumber,jdbcType=VARCHAR},
+			</if>
+			<if test="ordertime != null">
+				#{ordertime,jdbcType=VARCHAR},
+			</if>
+			<if test="purchaser != null">
+				#{purchaser,jdbcType=VARCHAR},
+			</if>
+			<if test="purchasingunit != null">
+				#{purchasingunit,jdbcType=VARCHAR},
+			</if>
+			<if test="telephone != null">
+				#{telephone,jdbcType=VARCHAR},
+			</if>
+			<if test="mobilephone != null">
+				#{mobilephone,jdbcType=VARCHAR},
+			</if>
+			<if test="receivingarea != null">
+				#{receivingarea,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="deliverytime != null">
+				#{deliverytime,jdbcType=VARCHAR},
+			</if>
+			<if test="area != null">
+				#{area,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				#{amount,jdbcType=INTEGER},
+			</if>
+			<if test="total != null">
+				#{total,jdbcType=REAL},
+			</if>
+			<if test="flid != null">
+				#{flid,jdbcType=INTEGER},
+			</if>
+			<if test="fname != null">
+				#{fname,jdbcType=VARCHAR},
+			</if>
+			<if test="distributetime != null">
+				#{distributetime,jdbcType=VARCHAR},
+			</if>
+			<if test="distributelid != null">
+				#{distributelid,jdbcType=INTEGER},
+			</if>
+			<if test="distributename != null">
+				#{distributename,jdbcType=VARCHAR},
+			</if>
+			<if test="receivetime != null">
+				#{receivetime,jdbcType=VARCHAR},
+			</if>
+			<if test="receivelid != null">
+				#{receivelid,jdbcType=INTEGER},
+			</if>
+			<if test="receivename != null">
+				#{receivename,jdbcType=VARCHAR},
+			</if>
+			<if test="sendtime != null">
+				#{sendtime,jdbcType=VARCHAR},
+			</if>
+			<if test="installtime != null">
+				#{installtime,jdbcType=VARCHAR},
+			</if>
+			<if test="finishtime != null">
+				#{finishtime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zx.mall.module.VenderFactoryOrder">
+		update t_vender_factory_order
+		<set>
+			<if test="folid != null">
+				folid = #{folid,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="ordernumber != null">
+				ordernumber = #{ordernumber,jdbcType=VARCHAR},
+			</if>
+			<if test="ordertime != null">
+				ordertime = #{ordertime,jdbcType=VARCHAR},
+			</if>
+			<if test="purchaser != null">
+				purchaser = #{purchaser,jdbcType=VARCHAR},
+			</if>
+			<if test="purchasingunit != null">
+				purchasingunit = #{purchasingunit,jdbcType=VARCHAR},
+			</if>
+			<if test="telephone != null">
+				telephone = #{telephone,jdbcType=VARCHAR},
+			</if>
+			<if test="mobilephone != null">
+				mobilephone = #{mobilephone,jdbcType=VARCHAR},
+			</if>
+			<if test="receivingarea != null">
+				receivingarea = #{receivingarea,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="deliverytime != null">
+				deliverytime = #{deliverytime,jdbcType=VARCHAR},
+			</if>
+			<if test="area != null">
+				area = #{area,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				amount = #{amount,jdbcType=INTEGER},
+			</if>
+			<if test="total != null">
+				total = #{total,jdbcType=REAL},
+			</if>
+			<if test="flid != null">
+				flid = #{flid,jdbcType=INTEGER},
+			</if>
+			<if test="fname != null">
+				fname = #{fname,jdbcType=VARCHAR},
+			</if>
+			<if test="distributetime != null">
+				distributetime = #{distributetime,jdbcType=VARCHAR},
+			</if>
+			<if test="distributelid != null">
+				distributelid = #{distributelid,jdbcType=INTEGER},
+			</if>
+			<if test="distributename != null">
+				distributename = #{distributename,jdbcType=VARCHAR},
+			</if>
+			<if test="receivetime != null">
+				receivetime = #{receivetime,jdbcType=VARCHAR},
+			</if>
+			<if test="receivelid != null">
+				receivelid = #{receivelid,jdbcType=INTEGER},
+			</if>
+			<if test="receivename != null">
+				receivename = #{receivename,jdbcType=VARCHAR},
+			</if>
+			<if test="sendtime != null">
+				sendtime = #{sendtime,jdbcType=VARCHAR},
+			</if>
+			<if test="installtime != null">
+				installtime = #{installtime,jdbcType=VARCHAR},
+			</if>
+			<if test="finishtime != null">
+				finishtime = #{finishtime,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where lid = #{lid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zx.mall.module.VenderFactoryOrder">
+		update t_vender_factory_order
+		set folid = #{folid,jdbcType=INTEGER},
+		status = #{status,jdbcType=INTEGER},
+		ordernumber = #{ordernumber,jdbcType=VARCHAR},
+		ordertime = #{ordertime,jdbcType=VARCHAR},
+		purchaser = #{purchaser,jdbcType=VARCHAR},
+		purchasingunit = #{purchasingunit,jdbcType=VARCHAR},
+		telephone = #{telephone,jdbcType=VARCHAR},
+		mobilephone = #{mobilephone,jdbcType=VARCHAR},
+		receivingarea = #{receivingarea,jdbcType=VARCHAR},
+		address = #{address,jdbcType=VARCHAR},
+		deliverytime = #{deliverytime,jdbcType=VARCHAR},
+		area = #{area,jdbcType=VARCHAR},
+		amount = #{amount,jdbcType=INTEGER},
+		total = #{total,jdbcType=REAL},
+		flid = #{flid,jdbcType=INTEGER},
+		fname = #{fname,jdbcType=VARCHAR},
+		distributetime = #{distributetime,jdbcType=VARCHAR},
+		distributelid = #{distributelid,jdbcType=INTEGER},
+		distributename = #{distributename,jdbcType=VARCHAR},
+		receivetime = #{receivetime,jdbcType=VARCHAR},
+		receivelid = #{receivelid,jdbcType=INTEGER},
+		receivename = #{receivename,jdbcType=VARCHAR},
+		sendtime = #{sendtime,jdbcType=VARCHAR},
+		installtime = #{installtime,jdbcType=VARCHAR},
+		finishtime = #{finishtime,jdbcType=VARCHAR}
+		where lid = #{lid,jdbcType=INTEGER}
+	</update>
+	
+	<select id="qryVenderFactoryOrder" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_vender_factory_order
+		where ordernumber = #{ordernumber,jdbcType=VARCHAR}
+	</select>
+	
+</mapper>
