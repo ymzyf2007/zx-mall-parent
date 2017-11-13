@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mall.dao.MallAdvertMapper">
+	<resultMap id="BaseResultMap" type="com.zx.mall.module.MallAdvert">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="TITLE" property="title" jdbcType="VARCHAR" />
+		<result column="LINK_URL" property="linkUrl" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="INTEGER" />
+		<result column="SORT_ID" property="sortId" jdbcType="INTEGER" />
+		<result column="TYPE" property="type" jdbcType="VARCHAR" />
+		<result column="PIC_PATH" property="picPath" jdbcType="VARCHAR" />
+		<result column="PUBLISH_DATE" property="publishDate" jdbcType="TIMESTAMP" />
+		<result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="DOWN_TIME" property="downTime" jdbcType="TIMESTAMP" />
+		<result column="BG_COLOR" property="bgColor" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, TITLE, LINK_URL, STATUS, SORT_ID, TYPE, PIC_PATH, PUBLISH_DATE,
+		CREATE_USER,
+		CREATE_DATE, DOWN_TIME, BG_COLOR
+	</sql>
+	
+	<sql id="Base_Where">
+		<where>
+			1=1 and (STATUS = 0 or STATUS = 1)
+			<trim suffixOverrides=",">
+				<if test="title != null">
+					and TITLE like '%'||#{title}||'%'
+				</if>
+				<if test="status != null">
+					and STATUS = #{status,jdbcType=INTEGER}
+				</if>
+				<if test="type != null">
+					and TYPE = #{type,jdbcType=VARCHAR}
+				</if>
+			</trim>
+		</where>
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_mall_advert
+		where ID = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_mall_advert
+		where ID = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.zx.mall.module.MallAdvert">
+		insert into t_mall_advert (ID, TITLE, LINK_URL,
+		STATUS, SORT_ID, TYPE,
+		PIC_PATH, PUBLISH_DATE, CREATE_USER,
+		CREATE_DATE, DOWN_TIME, BG_COLOR
+		)
+		values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR},
+		#{linkUrl,jdbcType=VARCHAR},
+		#{status,jdbcType=INTEGER}, #{sortId,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR},
+		#{picPath,jdbcType=VARCHAR}, #{publishDate,jdbcType=TIMESTAMP},
+		#{createUser,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP}, #{downTime,jdbcType=TIMESTAMP}, #{bgColor,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.zx.mall.module.MallAdvert" useGeneratedKeys="true" keyProperty="id">
+		insert into t_mall_advert
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="title != null">
+				TITLE,
+			</if>
+			<if test="linkUrl != null">
+				LINK_URL,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="sortId != null">
+				SORT_ID,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+			<if test="picPath != null">
+				PIC_PATH,
+			</if>
+			<if test="publishDate != null">
+				PUBLISH_DATE,
+			</if>
+			<if test="createUser != null">
+				CREATE_USER,
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE,
+			</if>
+			<if test="downTime != null">
+				DOWN_TIME,
+			</if>
+			<if test="bgColor != null">
+				BG_COLOR,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="linkUrl != null">
+				#{linkUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="sortId != null">
+				#{sortId,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="picPath != null">
+				#{picPath,jdbcType=VARCHAR},
+			</if>
+			<if test="publishDate != null">
+				#{publishDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUser != null">
+				#{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="downTime != null">
+				#{downTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="bgColor != null">
+				#{bgColor,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zx.mall.module.MallAdvert">
+		update t_mall_advert
+		<set>
+			<if test="title != null">
+				TITLE = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="linkUrl != null">
+				LINK_URL = #{linkUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="sortId != null">
+				SORT_ID = #{sortId,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				TYPE = #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="picPath != null">
+				PIC_PATH = #{picPath,jdbcType=VARCHAR},
+			</if>
+			<if test="publishDate != null">
+				PUBLISH_DATE = #{publishDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUser != null">
+				CREATE_USER = #{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="downTime != null">
+				DOWN_TIME = #{downTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="bgColor != null">
+				BG_COLOR = #{bgColor,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zx.mall.module.MallAdvert">
+		update t_mall_advert
+		set TITLE = #{title,jdbcType=VARCHAR},
+		LINK_URL = #{linkUrl,jdbcType=VARCHAR},
+		STATUS = #{status,jdbcType=INTEGER},
+		SORT_ID = #{sortId,jdbcType=INTEGER},
+		TYPE = #{type,jdbcType=VARCHAR},
+		PIC_PATH = #{picPath,jdbcType=VARCHAR},
+		PUBLISH_DATE = #{publishDate,jdbcType=TIMESTAMP},
+		CREATE_USER = #{createUser,jdbcType=VARCHAR},
+		CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+		DOWN_TIME = #{downTime,jdbcType=TIMESTAMP},
+		BG_COLOR = #{bgColor,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<!-- 删除状态为-1；停用为0；启用为1 -->
+	<update id="offStore" parameterType="long">
+		update t_mall_advert
+		set status = -1
+		where ID = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<select id="findList" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_mall_advert
+		<include refid="Base_Where" />
+		order by SORT_ID asc 
+	</select>
+	
+</mapper>

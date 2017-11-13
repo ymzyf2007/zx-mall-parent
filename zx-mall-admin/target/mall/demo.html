@@ -1,0 +1,339 @@
+<html>
+<head>
+<title>接口调用</title>
+<script type="text/javascript" src="jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="json2.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+	/* var objs = [{"id":4,"title":"新建测试16666","linkUrl":"www.t12222.cn","status":0,"sortId":-1,"type":"1","picPath":"http://39.108.149.156:8080/upload/upload/images/op/20170824/87dead3a759d75697db7bbb0603c14f7.JPG","publishDate":"2017-08-24 09:24:08","createUser":null,"createDate":"2017-08-24 09:24:08","downTime":"2017-09-30 20:25:20","bgColor":"#fff"},{"id":1,"title":"测试轮播图标题保存","linkUrl":"www.baidu.com","status":1,"sortId":1,"type":1,"picPath":"http://39.108.149.156:8080/upload/upload/images/op/20170822/b4291a4c88d23947629a151fdfeac3e9.JPG","publishDate":"2017-08-24 12:08:09","createUser":"ym","createDate":"2017-08-24 09:24:08","downTime":"2019-08-24 12:05:09","bgColor":""},{"id":3,"title":"测试轮播图标题2","linkUrl":"www.qq.com","status":1,"sortId":2,"type":1,"picPath":"http://39.108.149.156:8080/upload/upload/images/op/20170823/682dc5a63b332aacec9deb901e4cdfec.JPG","publishDate":"2017-08-24 12:05:09","createUser":null,"createDate":"2017-08-24 09:24:08","downTime":"","bgColor":"#fff"},{"id":5,"title":"新建测试2","linkUrl":"www.t2.cn","status":1,"sortId":3,"type":1,"picPath":"http://39.108.149.156:8080/upload/upload/images/op/20170823/c77c0bed3c3d1e3b48d9fd8208de7223.JPG","publishDate":"2017-08-24 09:24:08","createUser":null,"createDate":"2017-08-24 09:24:08","downTime":"","bgColor":"#000"}]; */
+	/* var obj = {
+			"id": 1,
+			"title": "测试轮播图标题保存",
+			"linkUrl": "www.baidu.com",
+			"status": 1,
+			"sortId": 1,
+			"type": 1,
+			"picPath": "http://39.108.149.156:8080/upload/upload/images/op/20170822/b4291a4c88d23947629a151fdfeac3e9.JPG",
+			"publishDate": "2017-08-22 22:01:51",
+			"createUser": "ym",
+			"publishDate": '2017-08-24 12:08:09',
+			"downTime": '2019-08-24 12:05:09',
+			"bgColor": ""
+		};
+	objs.push(obj); */
+	/* alert("json=" + JSON.stringify(objs));
+    $.ajax({
+		url:  '/mall/advert/saveAdverts.action',
+		type: 'post',
+		data: {
+			'carouselList': JSON.stringify(objs)
+		},
+		dataType: 'json',
+		error: function(e) {
+			alert(e);
+		},
+		success: function(res, e, e2) {
+			alert(res.msg);
+		}
+	}); */
+    
+    /* // 测试【首页栏目商品管理】
+    var obj = {"id":17176760,"indexKindId":1,"productId":"1333","location":"B1","pic":"http://image.183gz.com.cn/group1/M00/00/76/rBMAE1gymzWAJecwAABxL69cf-E232.png","title":"正宗清远鸡","subTitle":null,"url":null};
+	//var obj = {"indexKindId":1,"productId":"1222","location":"E1","pic":"http://image.183gz.com.cn/group1/M00/00/76/rBMAE1gymzWAJecwAABxL69cf-E232.png","title":"正宗清远鸡","subTitle":null,"url":null};
+    $.ajax({
+		url:  '/mall/subject/saveSubjectProduct.action',
+		type: 'post',
+		data: obj,
+		dataType: 'json',
+		error: function(e) {
+			alert(e);
+		},
+		success: function(res, e, e2) {
+			alert(res.msg);
+		}
+	}); */
+	
+    /* $.ajax({
+		url:  '/mall/advert/del.action?id=1',
+		type: 'get',
+		data: {},
+		dataType: 'json',
+		error: function(e) {
+			alert(e);
+		},
+		success: function(res, e, e2) {
+			alert(res.msg);
+		}
+	}); */
+	
+	/* $.ajax({
+		url:  '/mall/advert/editAdvert.action',
+		type: 'post',
+		data: {
+				id:3,
+				status:1,
+				sortId:3,
+				type:1,
+				title: '测试轮播图标题2',
+				linkUrl:'www.qq.com', 
+				picPath: 'http://39.108.149.156:8080/upload/upload/images/op/20170823/682dc5a63b332aacec9deb901e4cdfec.JPG',
+				publishDate: '2017-08-24 12:05:09',
+				downTime: '',
+				bgColor:'#fff'
+		},
+		dataType: 'json',
+		error: function(e) {
+			alert(e);
+		},
+		success: function(res, e, e2) {
+			alert(res.msg);
+		}
+	}); */
+	
+	/* 商品分类管理测试 */
+	/* $.ajax({
+		url:  '/mall/category/saveCategory.action',
+		type: 'post',
+		data: {
+			kindId: 17177353,
+			kindName: '专区333',
+			parentId:0,
+			sortId:5,
+			url: 'www.baidu.com', 
+			vKindId: 350
+		},
+		dataType: 'json',
+		error: function(e) {
+			alert(e);
+		},
+		success: function(res, e, e2) {
+			alert(res.msg);
+		}
+	}); */
+	
+	/* 商品分类排序测试 */
+	/* var objs = [{
+		kindId: 4972581,
+		sortId: 4
+	}, {
+		kindId: 14301830,
+		sortId: 3
+	}, {
+		kindId: 17177352,
+		sortId: 2
+	}, {
+		kindId: 17177353,
+		sortId: 1
+	}];
+	$.ajax({
+		url:  '/mall/category/saveCategoryList.action',
+		type: 'post',
+		data: {
+			"categoryList": JSON.stringify(objs) 
+		},
+		dataType: 'json',
+		error: function(e) {
+			alert(e);;
+		},
+		success: function(res, e, e2) {
+			alert(res.msg);
+		}
+	}); */
+	
+	/* 商品分类批量保存或更新测试 */
+	/* var objs = [{
+		id: 4972581,
+		name: '专区0000',
+		pId:0,
+		level:1,
+		url: 'www.baidu.com'
+	}, {
+		id: 14301830,
+		name: '专区9999',
+		pId:0,
+		level:1,
+		url: 'www.baidu9999.com'
+	}, {
+		id: 17177352,
+		name: '专区8888',
+		pId:0,
+		level:1,
+		url: 'www.baidu8887.com', 
+		vKindId: 350
+	}, {
+		id: 17177353,
+		name: '专区12345',
+		pId:0,
+		level:1,
+		url: 'www.baidu666.com', 
+		vKindId: 350
+	}, {
+		name: '专区zzzz',
+		pId:0,
+		level:1,
+		url: 'www.baiduzzz.com'
+	}]; */
+	
+	/* var objs = [{"id":4972581,"pId":0,"name":"专区0000","level":0,"isParent":false,"vKindId":''}];
+	$.ajax({
+		url:  '/mall/category/saveCategorys.action',
+		type: 'post',
+		data: {
+			"categoryList": JSON.stringify(objs) 
+		},
+		dataType: 'json',
+		error: function(e) {
+			alert(e);;
+		},
+		success: function(res, e, e2) {
+			alert(res.msg);
+		}
+	}); */
+	
+	/* 商品管理测试 */
+	$.ajax({
+		url:  '/mall/product/saveProduct.action',
+		type: 'post',
+		/* data: {
+			//pId: 1,
+			code: 222,
+			name:'乐视（LeEco）S3爵迹版2222',
+			price:889,
+			kindId: 350, 
+			recommend: 1,
+			stockamount: 1000,
+			status: 1,
+			spicPath: 'sdafdadaddaf.png,adfadfafadd.png',
+			bpicPath: '2222.png,3333.png',
+			attrStr: '乐视（LeEco）S3爵迹版 4GB+32GB 原力金 移动联通电信4G手机 双卡双待',
+			vSkuId: 222
+		}, */
+		data: {
+				vSkuId:222,
+				//pId:
+				code: 222,
+				name: '苹果 Apple iPad Pro 12.9 英寸 平板电脑 深空灰色 256G Pro',
+				price:3999,
+				kindId:17177368,
+				recommend:0,
+				stockamount:50,
+				status:1,
+				spicPath:'20170913/e9cad2b0f2e26cd8a540aa294d9f5efd.JPG',
+				bpicPath:'20170913/59ff7c1e0003d02de1759c6bc813f7d7.JPG,20170913/c848f4284f9e5b319699df4d58866af2.JPG',
+				htmlPath:'<p>商品详情</p>'
+				//attrStr:
+				//accessoryService:
+
+		},
+		dataType: 'json',
+		error: function(e) {
+			alert(e);
+		},
+		success: function(res, e, e2) {
+			alert(res.msg);
+		}
+	});
+	
+	/* 商品查询测试 */
+	/* $.ajax({
+		url:  '/mall/product/search.action',
+		type: 'post',
+		data: {
+			status: -1,
+			kindId: -1,
+			recommend: -1
+			//pname: 'LeEco'
+		},
+		dataType: 'json',
+		error: function(e) {
+			alert(e);
+		},
+		success: function(res, e, e2) {
+			console.log("res=" + res);
+			alert(res.msg);
+		}
+	}); */
+	
+	/* 查找订单系统未绑定商品sku个数 */
+	/* $.ajax({
+		url:  '/mall/product/findCountUnbindingProSku.action',
+		type: 'post',
+		data: {
+		},
+		dataType: 'json',
+		error: function(e) {
+			alert(e);
+		},
+		success: function(res, e, e2) {
+			alert(res.msg);
+		}
+	}); */
+	
+	/* 查找订单系统未绑定商品列表 */
+	/* $.ajax({
+		url:  '/mall/product/findUnbindingProSkuList.action',
+		type: 'post',
+		data: {
+		},
+		dataType: 'json',
+		error: function(e) {
+			alert(e);
+		},
+		success: function(res, e, e2) {
+			alert(res.msg);
+		}
+	}); */
+	
+	/* 批量上下架 */
+	/* $.ajax({
+		url:  '/mall/product/batchChgStatus.action',
+		type: 'post',
+		data: {
+			ids: '1',
+			status: 1
+		},
+		dataType: 'json',
+		error: function(e) {
+			alert(e);
+		},
+		success: function(res, e, e2) {
+			alert(res.msg);
+		}
+	}); */
+	
+	/* 批量推荐 */
+	/* $.ajax({
+		url:  '/mall/product/batchRecommend.action',
+		type: 'post',
+		data: {
+			ids: '1',
+			flag: 1
+		},
+		dataType: 'json',
+		error: function(e) {
+			alert(e);
+		},
+		success: function(res, e, e2) {
+			alert(res.msg);
+		}
+	}); */
+	
+	
+	/* $.ajax({
+		url:  '/mall/product/getDetailById.action',
+		type: 'post',
+		data: {
+			id: 1
+		},
+		dataType: 'json',
+		error: function(e) {
+			alert(e);
+		},
+		success: function(res, e, e2) {
+			alert(res.data);
+		}
+	}); */
+</script>
+</body>
+</html>
