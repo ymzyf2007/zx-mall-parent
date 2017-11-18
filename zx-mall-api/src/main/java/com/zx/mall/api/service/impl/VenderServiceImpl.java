@@ -103,7 +103,7 @@ public class VenderServiceImpl implements IVenderService {
 	private MallOrderMapper mallOrderMapper;
 	
 	/**
-	 * 获取token
+	 * 1、获取token
 	 * @param req
 	 * @return
 	 */
@@ -126,7 +126,9 @@ public class VenderServiceImpl implements IVenderService {
 	}
 
 	/**
-	 * 提供接口给订单系统，订单系统实时推送接口
+	 * 2、保存订单系统推送的商品类别
+	 * 商品类别分为：一级分类、二级分类、三级品类，所有商品都挂在三级品类下
+	 * t_vender_product_kind
 	 * @param req
 	 * @return
 	 */
@@ -159,7 +161,7 @@ public class VenderServiceImpl implements IVenderService {
 			} else if(2 == req.getOperate().intValue()) {
 				venderProductKindMapper.updateByPrimaryKeySelective(venderProductKind);
 			} else if(3 == req.getOperate().intValue()) {
-//				venderProductKindMapper.deleteByPrimaryKey(venderProductKind.getLid());	// 删除是否要删除商城已绑定的分类，暂时不处理
+				venderProductKindMapper.deleteByPrimaryKey(venderProductKind.getvKindId());	// 删除是否要删除商城已绑定的分类，暂时不处理
 			}
 			
 			rtMap.put("success", true);
@@ -173,7 +175,8 @@ public class VenderServiceImpl implements IVenderService {
 	}
 
 	/**
-	 * 保存商品属性库
+	 * 3、保存商品属性库
+	 * 挂在三级品类下，这是所有的商品属性集合
 	 * @param req
 	 * @return
 	 */

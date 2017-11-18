@@ -77,7 +77,7 @@ public class MainServiceImpl implements IMainService {
 	private VenderProductSkuAttrMapper venderProductSkuAttrMapper;
 
 	/**
-	 * 商品首页（未登录）-获取首页轮播图
+	 * 1、商品首页-获取首页轮播图
 	 * @param req
 	 * @return
 	 */
@@ -114,7 +114,7 @@ public class MainServiceImpl implements IMainService {
 	}
 
 	/**
-	 * 获取所有栏目信息
+	 * 2、商品首页-获取栏目信息[eg：热门推荐等]
 	 * @param req
 	 * @return
 	 */
@@ -152,17 +152,7 @@ public class MainServiceImpl implements IMainService {
 	}
 
 	/**
-	 * 获取商品分类信息
-	 * @param req
-	 * @return
-	 */
-	@Override
-	public Map<String, Object> findCategoryList(BaseReq req) {
-		return null;
-	}
-
-	/**
-	 * 全部商品分类【前三级分类】
+	 * 3、商品首页-全部商品分类【前三级分类】
 	 * @return
 	 */
 	@Override
@@ -205,6 +195,180 @@ public class MainServiceImpl implements IMainService {
 		}
 		rtMap.put("status", 200);
 		rtMap.put("msg", "success");
+		
+		return rtMap;
+	}
+	
+	/**
+	 * 4、商品首页-分页查询推荐商品列表
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public Map<String, Object> findRecommendProds(QryProdsReq req) {
+		Map<String, Object> rtMap = new HashMap<String, Object>();
+		try {
+			// 参数验证
+			if(StringUtil.isNullOrEmpty(req.getAppId()) || !APP_ID.equals(req.getAppId())) {
+				rtMap.put("status", 500);
+				rtMap.put("msg", "参数错误！");
+				return rtMap;
+			}
+			
+			Map<String, Object> params = MapUtils.java2Map(req);
+			if(req.getPageNo() != null) {
+				params.put("begin", (req.getPageNo() - 1) * (req.getPageSize() == null ? 20 : req.getPageSize()));
+			} else {
+				params.put("begin", 0);
+			}
+			
+			if(req.getSortType() != null && 1 == req.getSortType()) {	// 按照推荐排序
+				params.put("orderByScript", "order by t1.recommend desc limit "+ params.get("begin") +"," + params.get("pageSize"));
+			} else if(req.getSortType() != null && 2 == req.getSortType()) {	// 按照价格排序
+				params.put("orderByScript", "order by t1.price "+ ("asc".equals(req.getOrderBy()) ? "asc" : "desc") +" limit "+ params.get("begin") +"," + params.get("pageSize"));
+			} else {
+				params.put("orderByScript", "order by t1.recommend desc limit "+ params.get("begin") +"," + params.get("pageSize"));
+			}
+			params.put("homeRecommend", 1);
+			params.put("status", 1);
+			int totalCount = mallProductMapper.findProdCountByParams(params);
+			if(totalCount > 0) {
+				List<MallProductVo> productList = mallProductMapper.findProdsByParams(params);
+				for(MallProductVo vo : productList) {
+					if(!StringUtil.isNullOrEmpty(vo.getUploadPicpath())) {
+						StringBuilder sb = new StringBuilder();
+						String[] ss = vo.getUploadPicpath().split(",");
+						for(String s : ss) {
+							if(s.startsWith("http://") || s.startsWith("https://")) {
+								sb.append(s).append(",");
+							} else {
+								sb.append(Constants.PREFIX_URI + s).append(",");
+							}
+						}
+						vo.setUploadPicpath(sb.substring(0, sb.length() - 1));
+					}
+					
+					if(!StringUtil.isNullOrEmpty(vo.getBpicPath())) {
+						StringBuilder sb = new StringBuilder();
+						String[] ss = vo.getBpicPath().split(",");
+						for(String s : ss) {
+							if(s.startsWith("http://") || s.startsWith("https://")) {
+								sb.append(s).append(",");
+							} else {
+								sb.append(Constants.PREFIX_URI + s).append(",");
+							}
+						}
+						vo.setBpicPath(sb.substring(0, sb.length() - 1));
+					}
+					
+					if(!StringUtil.isNullOrEmpty(vo.getSpicPath())) {
+						StringBuilder sb = new StringBuilder();
+						String[] ss = vo.getSpicPath().split(",");
+						for(String s : ss) {
+							if(s.startsWith("http://") || s.startsWith("https://")) {
+								sb.append(s).append(",");
+							} else {
+								sb.append(Constants.PREFIX_URI + s).append(",");
+							}
+						}
+						vo.setSpicPath(sb.substring(0, sb.length() - 1));
+					}
+				}
+				
+				rtMap.put("data", new PageInfo<MallProductVo>(req.getPageNo(), req.getPageSize(), totalCount, productList));
+			} else {
+				rtMap.put("data", new PageInfo<MallProductVo>(req.getPageNo(), req.getPageSize(), 0, new ArrayList<MallProductVo>()));
+			}
+			
+			rtMap.put("status", 200);
+			rtMap.put("msg", "success");
+		} catch (Exception e) {
+			e.printStackTrace();
+			rtMap.put("status", Constants.FAIL_CODE);
+			rtMap.put("msg", e.getMessage());
+		}
+		
+		return rtMap;
+	}
+	
+	/**
+	 * 5、商品首页-根据关键字搜索商品【支持商品名称、商品参数搜索】
+	 * @param req
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public Map<String, Object> searchProds(SearchProdsReq req) {
+		Map<String, Object> rtMap = new HashMap<String, Object>();
+		try {
+			// 参数验证
+			if(StringUtil.isNullOrEmpty(req.getAppId()) || !APP_ID.equals(req.getAppId()) || StringUtil.isNullOrEmpty(req.getKeyword())) {
+				rtMap.put("status", 500);
+				rtMap.put("msg", "参数错误！");
+				return rtMap;
+			}
+			
+			Map<String, Object> params = MapUtils.java2Map(req);
+			if(req.getPageNo() != null) {
+				params.put("begin", (req.getPageNo() - 1) * (req.getPageSize() == null ? 20 : req.getPageSize()));
+			} else {
+				params.put("begin", 0);
+			}
+			
+			List<MallProductDetailVo> list = mallProductMapper.searchProdsByParams(params);
+			if(list != null && list.size() > 0) {
+				int totalCount = mallProductMapper.searchProdsCountByParams(params);
+				for(MallProductDetailVo productDetailVo : list) {
+					if(!StringUtil.isNullOrEmpty(productDetailVo.getUploadPicpath())) {
+						StringBuilder sb = new StringBuilder();
+						String[] ss = productDetailVo.getUploadPicpath().split(",");
+						for(String s : ss) {
+							if(s.startsWith("http://") || s.startsWith("https://")) {
+								sb.append(s).append(",");
+							} else {
+								sb.append(Constants.PREFIX_URI + s).append(",");
+							}
+						}
+						productDetailVo.setUploadPicpath(sb.substring(0, sb.length() - 1));
+					}
+					
+					if(!StringUtil.isNullOrEmpty(productDetailVo.getBpicPath())) {
+						StringBuilder sb = new StringBuilder();
+						String[] ss = productDetailVo.getBpicPath().split(",");
+						for(String s : ss) {
+							if(s.startsWith("http://") || s.startsWith("https://")) {
+								sb.append(s).append(",");
+							} else {
+								sb.append(Constants.PREFIX_URI + s).append(",");
+							}
+						}
+						productDetailVo.setBpicPath(sb.substring(0, sb.length() - 1));
+					}
+					
+					if(!StringUtil.isNullOrEmpty(productDetailVo.getSpicPath())) {
+						StringBuilder sb = new StringBuilder();
+						String[] ss = productDetailVo.getSpicPath().split(",");
+						for(String s : ss) {
+							if(s.startsWith("http://") || s.startsWith("https://")) {
+								sb.append(s).append(",");
+							} else {
+								sb.append(Constants.PREFIX_URI + s).append(",");
+							}
+						}
+						productDetailVo.setSpicPath(sb.substring(0, sb.length() - 1));
+					}
+				}
+				rtMap.put("data", new PageInfo<MallProductDetailVo>(req.getPageNo(), req.getPageSize(), totalCount, list));
+			} else {
+				rtMap.put("data", new PageInfo<MallProductDetailVo>(req.getPageNo(), req.getPageSize(), 0, new ArrayList<MallProductDetailVo>()));
+			}
+			rtMap.put("status", 200);
+			rtMap.put("msg", "success");
+		} catch (Exception e) {
+			e.printStackTrace();
+			rtMap.put("status", Constants.FAIL_CODE);
+			rtMap.put("msg", e.getMessage());
+		}
 		
 		return rtMap;
 	}
@@ -454,88 +618,6 @@ public class MainServiceImpl implements IMainService {
 	}
 
 	/**
-	 * 7、根据关键字搜索商品【支持商品名称、商品参数搜索】
-	 * @param req
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public Map<String, Object> searchProds(SearchProdsReq req) {
-		Map<String, Object> rtMap = new HashMap<String, Object>();
-		try {
-			// 参数验证
-			if(StringUtil.isNullOrEmpty(req.getAppId()) || !APP_ID.equals(req.getAppId()) || StringUtil.isNullOrEmpty(req.getKeyword())) {
-				rtMap.put("status", 500);
-				rtMap.put("msg", "参数错误！");
-				return rtMap;
-			}
-			
-			Map<String, Object> params = MapUtils.java2Map(req);
-			if(req.getPageNo() != null) {
-				params.put("begin", (req.getPageNo() - 1) * (req.getPageSize() == null ? 20 : req.getPageSize()));
-			} else {
-				params.put("begin", 0);
-			}
-			
-			List<MallProductDetailVo> list = mallProductMapper.searchProdsByParams(params);
-			if(list != null && list.size() > 0) {
-				int totalCount = mallProductMapper.searchProdsCountByParams(params);
-				for(MallProductDetailVo productDetailVo : list) {
-					if(!StringUtil.isNullOrEmpty(productDetailVo.getUploadPicpath())) {
-						StringBuilder sb = new StringBuilder();
-						String[] ss = productDetailVo.getUploadPicpath().split(",");
-						for(String s : ss) {
-							if(s.startsWith("http://") || s.startsWith("https://")) {
-								sb.append(s).append(",");
-							} else {
-								sb.append(Constants.PREFIX_URI + s).append(",");
-							}
-						}
-						productDetailVo.setUploadPicpath(sb.substring(0, sb.length() - 1));
-					}
-					
-					if(!StringUtil.isNullOrEmpty(productDetailVo.getBpicPath())) {
-						StringBuilder sb = new StringBuilder();
-						String[] ss = productDetailVo.getBpicPath().split(",");
-						for(String s : ss) {
-							if(s.startsWith("http://") || s.startsWith("https://")) {
-								sb.append(s).append(",");
-							} else {
-								sb.append(Constants.PREFIX_URI + s).append(",");
-							}
-						}
-						productDetailVo.setBpicPath(sb.substring(0, sb.length() - 1));
-					}
-					
-					if(!StringUtil.isNullOrEmpty(productDetailVo.getSpicPath())) {
-						StringBuilder sb = new StringBuilder();
-						String[] ss = productDetailVo.getSpicPath().split(",");
-						for(String s : ss) {
-							if(s.startsWith("http://") || s.startsWith("https://")) {
-								sb.append(s).append(",");
-							} else {
-								sb.append(Constants.PREFIX_URI + s).append(",");
-							}
-						}
-						productDetailVo.setSpicPath(sb.substring(0, sb.length() - 1));
-					}
-				}
-				rtMap.put("data", new PageInfo<MallProductDetailVo>(req.getPageNo(), req.getPageSize(), totalCount, list));
-			} else {
-				rtMap.put("data", new PageInfo<MallProductDetailVo>(req.getPageNo(), req.getPageSize(), 0, new ArrayList<MallProductDetailVo>()));
-			}
-			rtMap.put("status", 200);
-			rtMap.put("msg", "success");
-		} catch (Exception e) {
-			e.printStackTrace();
-			rtMap.put("status", Constants.FAIL_CODE);
-			rtMap.put("msg", e.getMessage());
-		}
-		
-		return rtMap;
-	}
-
-	/**
 	 * 8、购物车商品保存
 	 * @param req
 	 * @return
@@ -742,98 +824,6 @@ public class MainServiceImpl implements IMainService {
 				rtMap.put("msg", "用户不存在！");
 				return rtMap;
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			rtMap.put("status", Constants.FAIL_CODE);
-			rtMap.put("msg", e.getMessage());
-		}
-		
-		return rtMap;
-	}
-
-	/**
-	 * 11、分页查询推荐商品列表
-	 * @return
-	 */
-	@Override
-	public Map<String, Object> findRecommendProds(QryProdsReq req) {
-		Map<String, Object> rtMap = new HashMap<String, Object>();
-		try {
-			// 参数验证
-			if(StringUtil.isNullOrEmpty(req.getAppId()) || !APP_ID.equals(req.getAppId())) {
-				rtMap.put("status", 500);
-				rtMap.put("msg", "参数错误！");
-				return rtMap;
-			}
-			
-			Map<String, Object> params = MapUtils.java2Map(req);
-			if(req.getPageNo() != null) {
-				params.put("begin", (req.getPageNo() - 1) * (req.getPageSize() == null ? 20 : req.getPageSize()));
-			} else {
-				params.put("begin", 0);
-			}
-			
-			if(req.getSortType() != null && 1 == req.getSortType()) {	// 按照推荐排序
-				params.put("orderByScript", "order by t1.recommend desc limit "+ params.get("begin") +"," + params.get("pageSize"));
-			} else if(req.getSortType() != null && 2 == req.getSortType()) {	// 按照价格排序
-				params.put("orderByScript", "order by t1.price "+ (StringUtil.isNullOrEmpty(req.getOrderBy()) ? "asc" : "desc") +" limit "+ params.get("begin") +"," + params.get("pageSize"));
-			} else {
-				params.put("orderByScript", "order by t1.recommend desc limit "+ params.get("begin") +"," + params.get("pageSize"));
-			}
-			
-			params.put("homeRecommend", 1);
-			params.put("status", 1);
-			int totalCount = mallProductMapper.findProdCountByParams(params);
-			if(totalCount > 0) {
-				List<MallProductVo> productList = mallProductMapper.findProdsByParams(params);
-				for(MallProductVo vo : productList) {
-					if(!StringUtil.isNullOrEmpty(vo.getUploadPicpath())) {
-						StringBuilder sb = new StringBuilder();
-						String[] ss = vo.getUploadPicpath().split(",");
-						for(String s : ss) {
-							if(s.startsWith("http://") || s.startsWith("https://")) {
-								sb.append(s).append(",");
-							} else {
-								sb.append(Constants.PREFIX_URI + s).append(",");
-							}
-						}
-						vo.setUploadPicpath(sb.substring(0, sb.length() - 1));
-					}
-					
-					if(!StringUtil.isNullOrEmpty(vo.getBpicPath())) {
-						StringBuilder sb = new StringBuilder();
-						String[] ss = vo.getBpicPath().split(",");
-						for(String s : ss) {
-							if(s.startsWith("http://") || s.startsWith("https://")) {
-								sb.append(s).append(",");
-							} else {
-								sb.append(Constants.PREFIX_URI + s).append(",");
-							}
-						}
-						vo.setBpicPath(sb.substring(0, sb.length() - 1));
-					}
-					
-					if(!StringUtil.isNullOrEmpty(vo.getSpicPath())) {
-						StringBuilder sb = new StringBuilder();
-						String[] ss = vo.getSpicPath().split(",");
-						for(String s : ss) {
-							if(s.startsWith("http://") || s.startsWith("https://")) {
-								sb.append(s).append(",");
-							} else {
-								sb.append(Constants.PREFIX_URI + s).append(",");
-							}
-						}
-						vo.setSpicPath(sb.substring(0, sb.length() - 1));
-					}
-				}
-				
-				rtMap.put("data", new PageInfo<MallProductVo>(req.getPageNo(), req.getPageSize(), totalCount, productList));
-			} else {
-				rtMap.put("data", new PageInfo<MallProductVo>(req.getPageNo(), req.getPageSize(), 0, new ArrayList<MallProductVo>()));
-			}
-			
-			rtMap.put("status", 200);
-			rtMap.put("msg", "success");
 		} catch (Exception e) {
 			e.printStackTrace();
 			rtMap.put("status", Constants.FAIL_CODE);

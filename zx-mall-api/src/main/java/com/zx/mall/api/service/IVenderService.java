@@ -29,7 +29,7 @@ import com.zx.mall.api.pojo.VenderSubjectReq2;
 public interface IVenderService {
 	
 	/**
-	 * 获取token
+	 * 1、获取token
 	 * @param req
 	 * @return
 	 */
@@ -40,7 +40,9 @@ public interface IVenderService {
 	Map<String, Object> getToken(TokenReq req);
 	
 	/**
-	 * 提供接口给订单系统，订单系统实时推送接口
+	 * 2、保存订单系统推送的商品类别
+	 * 商品类别分为：一级分类、二级分类、三级品类，所有商品都挂在三级品类下
+	 * t_vender_product_kind
 	 * @param req
 	 * @return
 	 */
@@ -51,7 +53,8 @@ public interface IVenderService {
 	Map<String, Object> submitProType(VenderProductTypeReq req);
 	
 	/**
-	 * 保存商品属性库
+	 * 3、保存商品属性库
+	 * 挂在三级品类下，这是所有的商品属性集合
 	 * @param req
 	 * @return
 	 */
@@ -62,7 +65,8 @@ public interface IVenderService {
 	Map<String, Object> submitProKindAttr(VenderProductKindAttrReq req);
 	
 	/**
-	 * 保存商品品类属性配置
+	 * 4、保存商品品类属性配置
+	 * 挂在三级品类下，三级品类与属性是一对多关系
 	 * @param req
 	 * @return
 	 */
