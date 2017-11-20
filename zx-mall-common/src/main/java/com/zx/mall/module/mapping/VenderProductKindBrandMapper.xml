@@ -3,7 +3,6 @@
 <mapper namespace="com.zx.mall.dao.VenderProductKindBrandMapper">
 	<resultMap id="BaseResultMap" type="com.zx.mall.module.VenderProductKindBrand">
 		<id column="b_id" property="bId" jdbcType="INTEGER" />
-		<result column="kind_id" property="kindId" jdbcType="INTEGER" />
 		<result column="cnname" property="cnname" jdbcType="VARCHAR" />
 		<result column="enname" property="enname" jdbcType="VARCHAR" />
 		<result column="descr" property="descr" jdbcType="VARCHAR" />
@@ -12,7 +11,7 @@
 		<result column="sort" property="sort" jdbcType="INTEGER" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		b_id, kind_id, cnname, enname, descr, logo, status, sort
+		b_id, cnname, enname, descr, logo, status, sort
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
@@ -26,10 +25,10 @@
 		where b_id = #{bId,jdbcType=INTEGER}
 	</delete>
 	<insert id="insert" parameterType="com.zx.mall.module.VenderProductKindBrand">
-		insert into t_vender_product_kind_brand (b_id, kind_id, cnname,
+		insert into t_vender_product_kind_brand (b_id, cnname,
 		enname, descr, logo,
 		status, sort)
-		values (#{bId,jdbcType=INTEGER}, #{kindId,jdbcType=INTEGER},
+		values (#{bId,jdbcType=INTEGER}, 
 		#{cnname,jdbcType=VARCHAR},
 		#{enname,jdbcType=VARCHAR}, #{descr,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR},
 		#{status,jdbcType=TINYINT}, #{sort,jdbcType=INTEGER})
@@ -39,9 +38,6 @@
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="bId != null">
 				b_id,
-			</if>
-			<if test="kindId != null">
-				kind_id,
 			</if>
 			<if test="cnname != null">
 				cnname,
@@ -66,9 +62,6 @@
 			<if test="bId != null">
 				#{bId,jdbcType=INTEGER},
 			</if>
-			<if test="kindId != null">
-				#{kindId,jdbcType=INTEGER},
-			</if>
 			<if test="cnname != null">
 				#{cnname,jdbcType=VARCHAR},
 			</if>
@@ -92,9 +85,6 @@
 	<update id="updateByPrimaryKeySelective" parameterType="com.zx.mall.module.VenderProductKindBrand">
 		update t_vender_product_kind_brand
 		<set>
-			<if test="kindId != null">
-				kind_id = #{kindId,jdbcType=INTEGER},
-			</if>
 			<if test="cnname != null">
 				cnname = #{cnname,jdbcType=VARCHAR},
 			</if>
@@ -118,8 +108,7 @@
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.zx.mall.module.VenderProductKindBrand">
 		update t_vender_product_kind_brand
-		set kind_id = #{kindId,jdbcType=INTEGER},
-		cnname = #{cnname,jdbcType=VARCHAR},
+		set cnname = #{cnname,jdbcType=VARCHAR},
 		enname = #{enname,jdbcType=VARCHAR},
 		descr = #{descr,jdbcType=VARCHAR},
 		logo = #{logo,jdbcType=VARCHAR},

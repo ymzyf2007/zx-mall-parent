@@ -27,6 +27,7 @@
 		<mapper resource="com/zx/mall/admin/module/mapping/SysRoleMapper.xml" />
 		<mapper resource="com/zx/mall/admin/module/mapping/SysMenuMapper.xml" />
 		
+		<mapper resource="com/zx/mall/module/mapping/UserMapper.xml" />
 		<mapper resource="com/zx/mall/module/mapping/MallAdvertMapper.xml" />
 		<mapper resource="com/zx/mall/module/mapping/MallIndexKindMapper.xml" />
 		<mapper resource="com/zx/mall/module/mapping/MallIndexKindProductMapper.xml" />
@@ -37,6 +38,7 @@
 		<mapper resource="com/zx/mall/module/mapping/VenderProductKindAttrMapper.xml" />
 		<mapper resource="com/zx/mall/module/mapping/VenderProductKindAttrCfgMapper.xml" />
 		<mapper resource="com/zx/mall/module/mapping/VenderProductKindBrandMapper.xml" />
+		<mapper resource="com/zx/mall/module/mapping/VenderProductKindBrandCfgMapper.xml" />
 		<mapper resource="com/zx/mall/module/mapping/VenderProductSkuMapper.xml" />
 		<mapper resource="com/zx/mall/module/mapping/VenderProductSkuAttrMapper.xml" />
 		<mapper resource="com/zx/mall/module/mapping/VenderCompanyMapper.xml" />

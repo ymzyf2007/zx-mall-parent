@@ -1,5 +1,6 @@
 package com.zx.mall.api.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +23,7 @@ import com.zx.mall.api.pojo.VenderDepartmentReq;
 import com.zx.mall.api.pojo.VenderFactoryOrderDetailReq;
 import com.zx.mall.api.pojo.VenderFactoryOrderReq;
 import com.zx.mall.api.pojo.VenderProductKindAttrReq;
+import com.zx.mall.api.pojo.VenderProductKindBrandCfgReq;
 import com.zx.mall.api.pojo.VenderProductKindBrandReq;
 import com.zx.mall.api.pojo.VenderProductKindCfgAttrReq;
 import com.zx.mall.api.pojo.VenderProductKindCfgAttrReq2;
@@ -31,8 +33,10 @@ import com.zx.mall.api.pojo.VenderProductSkuReq;
 import com.zx.mall.api.pojo.VenderProductTypeReq;
 import com.zx.mall.api.pojo.VenderSubjectReq;
 import com.zx.mall.api.pojo.VenderSubjectReq2;
+import com.zx.mall.api.pojo.VenderUserReq;
 import com.zx.mall.api.service.IVenderService;
 import com.zx.mall.dao.MallOrderMapper;
+import com.zx.mall.dao.UserMapper;
 import com.zx.mall.dao.VenderBudgetTypeMapper;
 import com.zx.mall.dao.VenderBudgetTypeSubjectMapper;
 import com.zx.mall.dao.VenderCategorySubjectTypeMapper;
@@ -43,12 +47,14 @@ import com.zx.mall.dao.VenderFactoryOrderMapper;
 import com.zx.mall.dao.VenderOrderTrackMapper;
 import com.zx.mall.dao.VenderProductKindAttrCfgMapper;
 import com.zx.mall.dao.VenderProductKindAttrMapper;
+import com.zx.mall.dao.VenderProductKindBrandCfgMapper;
 import com.zx.mall.dao.VenderProductKindBrandMapper;
 import com.zx.mall.dao.VenderProductKindMapper;
 import com.zx.mall.dao.VenderProductSkuAttrMapper;
 import com.zx.mall.dao.VenderProductSkuMapper;
 import com.zx.mall.dao.VenderSubjectMapper;
 import com.zx.mall.module.MallOrder;
+import com.zx.mall.module.User;
 import com.zx.mall.module.VenderBudgetType;
 import com.zx.mall.module.VenderBudgetTypeSubject;
 import com.zx.mall.module.VenderCategorySubjectType;
@@ -61,6 +67,7 @@ import com.zx.mall.module.VenderProductKind;
 import com.zx.mall.module.VenderProductKindAttr;
 import com.zx.mall.module.VenderProductKindAttrCfg;
 import com.zx.mall.module.VenderProductKindBrand;
+import com.zx.mall.module.VenderProductKindBrandCfg;
 import com.zx.mall.module.VenderProductSku;
 import com.zx.mall.module.VenderProductSkuAttr;
 import com.zx.mall.module.VenderSubject;
@@ -77,6 +84,8 @@ public class VenderServiceImpl implements IVenderService {
 	private VenderProductKindAttrCfgMapper venderProductKindAttrCfgMapper;
 	@Autowired
 	private VenderProductKindBrandMapper venderProductKindBrandMapper;
+	@Autowired
+	private VenderProductKindBrandCfgMapper venderProductKindBrandCfgMapper;
 	@Autowired
 	private VenderProductSkuMapper venderProductSkuMapper;
 	@Autowired
@@ -101,6 +110,8 @@ public class VenderServiceImpl implements IVenderService {
 	private VenderOrderTrackMapper venderOrderTrackMapper;
 	@Autowired
 	private MallOrderMapper mallOrderMapper;
+	@Autowired
+	private UserMapper userMapper;
 	
 	/**
 	 * 1、获取token
@@ -278,7 +289,8 @@ public class VenderServiceImpl implements IVenderService {
 	}
 
 	/**
-	 * 保存商品品类品牌信息
+	 * 5、保存品牌信息
+	 * （1）	品牌基本信息
 	 * @param req
 	 * @return
 	 */
@@ -287,7 +299,7 @@ public class VenderServiceImpl implements IVenderService {
 		Map<String, Object> rtMap = new HashMap<String, Object>();
 		try {
 			// 参数验证
-			if(StringUtil.isNullOrEmpty(req.getToken()) || req.getbId() == null || req.getKindId() == null || StringUtil.isNullOrEmpty(req.getEnname())) {
+			if(StringUtil.isNullOrEmpty(req.getToken()) || req.getbId() == null || StringUtil.isNullOrEmpty(req.getEnname())) {
 				rtMap.put("success", false);
 				rtMap.put("desc", "参数错误！");
 				return rtMap;
@@ -318,9 +330,51 @@ public class VenderServiceImpl implements IVenderService {
 		}
 		return rtMap;
 	}
-
+	
 	/**
-	 * 保存订单系统推送的商品sku信息
+	 * 6、保存品牌配置信息
+	 * （2）	三级品类品牌配置表
+	 * @param req
+	 * @return
+	 */
+	@Override
+	public Map<String, Object> submitProKindBrandCfg(VenderProductKindBrandCfgReq req) {
+		Map<String, Object> rtMap = new HashMap<String, Object>();
+		try {
+			// 参数验证
+			if(StringUtil.isNullOrEmpty(req.getToken()) || req.getbId() == null || StringUtil.isNullOrEmpty(req.getKindIds())) {
+				rtMap.put("success", false);
+				rtMap.put("desc", "参数错误！");
+				return rtMap;
+			}
+			// 验证token
+			if(!TokenUtil.getToken().equals(req.getToken())) {
+				rtMap.put("success", false);
+				rtMap.put("desc", "token错误！");
+				return rtMap;
+			}
+			// 根据品牌ID先清空该品牌配置
+			venderProductKindBrandCfgMapper.deleteByBid(req.getbId());
+			// 再插入该品牌配置
+			String[] kindIdArry = req.getKindIds().split(",");
+			for(int i = 0; i < kindIdArry.length; i++) {
+				VenderProductKindBrandCfg venderProductKindBrandCfg = new VenderProductKindBrandCfg();
+				venderProductKindBrandCfg.setbId(req.getbId());
+				venderProductKindBrandCfg.setKindId(Integer.valueOf(kindIdArry[i]));
+				venderProductKindBrandCfgMapper.insertSelective(venderProductKindBrandCfg);
+			}
+			rtMap.put("success", true);
+			rtMap.put("desc", "成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			rtMap.put("success", false);
+			rtMap.put("desc", e.getMessage());
+		}
+		return rtMap;
+	}
+	
+	/**
+	 * 7、保存商品信息
 	 * @param req
 	 * @return
 	 */
@@ -377,50 +431,7 @@ public class VenderServiceImpl implements IVenderService {
 	}
 
 	/**
-	 * 保存商品sku信息属性值
-	 * @param req
-	 * @return
-	 */
-	@Override
-	public Map<String, Object> submitProSkuAttr(VenderProductSkuAttrReq req) {
-		Map<String, Object> rtMap = new HashMap<String, Object>();
-		try {
-			// 参数验证
-			if(StringUtil.isNullOrEmpty(req.getToken()) || req.getSkuAttrId() == null || req.getSkuId() == null 
-				|| req.getKindId() == null || req.getAttrId() == null) {
-				rtMap.put("success", false);
-				rtMap.put("desc", "参数错误！");
-				return rtMap;
-			}
-			// 验证token
-			if(!TokenUtil.getToken().equals(req.getToken())) {
-				rtMap.put("success", false);
-				rtMap.put("desc", "token错误！");
-				return rtMap;
-			}
-			VenderProductSkuAttr venderProductSkuAttr = new VenderProductSkuAttr();
-			BeanUtils.copyProperties(req, venderProductSkuAttr);
-			
-			if(1 == req.getOperate().intValue()) {
-				venderProductSkuAttrMapper.insertSelective(venderProductSkuAttr);
-			} else if(2 == req.getOperate().intValue()) {
-				venderProductSkuAttrMapper.updateByPrimaryKeySelective(venderProductSkuAttr);
-			} else if(3 == req.getOperate().intValue()) {
-//				venderProductSkuAttrMapper.deleteByPrimaryKey(venderProductSkuAttr.getAttrId()));
-			}
-			
-			rtMap.put("success", true);
-			rtMap.put("desc", "成功");
-		} catch (Exception e) {
-			e.printStackTrace();
-			rtMap.put("success", false);
-			rtMap.put("desc", e.getMessage());
-		}
-		return rtMap;
-	}
-
-	/**
-	 * 保存客户信息
+	 * 8、保存集团公司信息
 	 * @param req
 	 * @return
 	 */
@@ -463,7 +474,7 @@ public class VenderServiceImpl implements IVenderService {
 	}
 	
 	/**
-	 * 保存客户组织架构
+	 * 9、保存客户组织架构
 	 * @param req
 	 * @return
 	 */
@@ -493,6 +504,60 @@ public class VenderServiceImpl implements IVenderService {
 				venderDepartmentMapper.updateByPrimaryKeySelective(venderDepartment);
 			} else if(3 == req.getOperate().intValue()) {
 				venderDepartmentMapper.deleteByPrimaryKey(venderDepartment.getLid());
+			}
+			
+			rtMap.put("success", true);
+			rtMap.put("desc", "成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			rtMap.put("success", false);
+			rtMap.put("desc", e.getMessage());
+		}
+		return rtMap;
+	}
+	
+	/**
+	 * 10、保存用户信息
+	 * @param req
+	 * @return
+	 */
+	@Override
+	public Map<String, Object> submitUser(VenderUserReq req) {
+		Map<String, Object> rtMap = new HashMap<String, Object>();
+		try {
+			// 参数验证
+			if(StringUtil.isNullOrEmpty(req.getToken()) || req.getLid() == null || StringUtil.isNullOrEmpty(req.getAccount()) || StringUtil.isNullOrEmpty(req.getPassword()) 
+					|| StringUtil.isNullOrEmpty(req.getMobile()) || req.getDlid() == null || req.getClid() == null || req.getOperate() == null) {
+				rtMap.put("success", false);
+				rtMap.put("desc", "参数错误！");
+				return rtMap;
+			}
+			// 验证token
+			if(!TokenUtil.getToken().equals(req.getToken())) {
+				rtMap.put("success", false);
+				rtMap.put("desc", "token错误！");
+				return rtMap;
+			}
+			
+			User user = new User();
+			user.setId(req.getLid());
+			user.setUsername(req.getUsername());
+			user.setAccount(req.getAccount());
+			user.setMobile(req.getMobile());
+			user.setPassword(req.getPassword());
+			user.setCreatetime(new Date());
+			user.setStatus(1);
+			user.setDlid(req.getDlid());
+			user.setClid(req.getClid());
+			if(!StringUtil.isNullOrEmpty(req.getPhone()))
+				user.setTel(req.getPhone());
+			
+			if(1 == req.getOperate().intValue()) {
+				userMapper.insertSelective(user);
+			} else if(2 == req.getOperate().intValue()) {
+				userMapper.updateByPrimaryKeySelective(user);
+			} else if(3 == req.getOperate().intValue()) {
+				userMapper.deleteByPrimaryKey(user.getId());
 			}
 			
 			rtMap.put("success", true);

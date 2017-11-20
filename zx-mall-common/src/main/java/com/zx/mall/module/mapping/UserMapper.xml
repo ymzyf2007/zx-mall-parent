@@ -110,6 +110,12 @@
 			<if test="status != null">
 				status,
 			</if>
+			<if test="clid != null">
+				clid,
+			</if>
+			<if test="dlid != null">
+				dlid,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -162,6 +168,12 @@
 			</if>
 			<if test="status != null">
 				#{status,jdbcType=TINYINT},
+			</if>
+			<if test="clid != null">
+				#{clid,jdbcType=INTEGER},
+			</if>
+			<if test="dlid != null">
+				#{dlid,jdbcType=INTEGER},
 			</if>
 		</trim>
 	</insert>

@@ -18,12 +18,13 @@ import com.zx.mall.api.pojo.VenderDepartmentReq;
 import com.zx.mall.api.pojo.VenderFactoryOrderDetailReq;
 import com.zx.mall.api.pojo.VenderFactoryOrderReq;
 import com.zx.mall.api.pojo.VenderProductKindAttrReq;
+import com.zx.mall.api.pojo.VenderProductKindBrandCfgReq;
 import com.zx.mall.api.pojo.VenderProductKindBrandReq;
 import com.zx.mall.api.pojo.VenderProductKindCfgAttrReq2;
-import com.zx.mall.api.pojo.VenderProductSkuAttrReq;
 import com.zx.mall.api.pojo.VenderProductSkuReq;
 import com.zx.mall.api.pojo.VenderProductTypeReq;
 import com.zx.mall.api.pojo.VenderSubjectReq2;
+import com.zx.mall.api.pojo.VenderUserReq;
 
 @Path("/api")
 public interface IVenderService {
@@ -77,7 +78,8 @@ public interface IVenderService {
 	Map<String, Object> submitProKindCfgAttr(VenderProductKindCfgAttrReq2 req);
 
 	/**
-	 * 保存商品品类品牌信息
+	 * 5、保存品牌信息
+	 * （1）	品牌基本信息
 	 * @param req
 	 * @return
 	 */
@@ -88,7 +90,19 @@ public interface IVenderService {
 	Map<String, Object> submitProKindBrand(VenderProductKindBrandReq req);
 	
 	/**
-	 * 保存订单系统推送的商品sku信息
+	 * 6、保存品牌配置信息
+	 * （2）	三级品类品牌配置表
+	 * @param req
+	 * @return
+	 */
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/submitProKindBrandCfg")
+	Map<String, Object> submitProKindBrandCfg(VenderProductKindBrandCfgReq req);
+	
+	/**
+	 * 7、保存商品信息
 	 * @param req
 	 * @return
 	 */
@@ -99,18 +113,7 @@ public interface IVenderService {
 	Map<String, Object> submitProSku(VenderProductSkuReq req);
 	
 	/**
-	 * 保存商品sku信息属性值
-	 * @param req
-	 * @return
-	 */
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/submitProSkuAttr")
-	Map<String, Object> submitProSkuAttr(VenderProductSkuAttrReq req);
-	
-	/**
-	 * 保存客户信息
+	 * 8、保存集团公司信息
 	 * @param req
 	 * @return
 	 */
@@ -121,7 +124,7 @@ public interface IVenderService {
 	Map<String, Object> submitCompany(VenderCompanyReq req);
 	
 	/**
-	 * 保存客户组织架构
+	 * 9、保存客户组织架构
 	 * @param req
 	 * @return
 	 */
@@ -130,6 +133,17 @@ public interface IVenderService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/submitDepartment")
 	Map<String, Object> submitDepartment(VenderDepartmentReq req);
+	
+	/**
+	 * 10、保存用户信息
+	 * @param req
+	 * @return
+	 */
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/submitUser")
+	Map<String, Object> submitUser(VenderUserReq req);
 	
 	/**
 	 * 保存预算类别表

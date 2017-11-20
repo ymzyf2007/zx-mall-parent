@@ -21,7 +21,7 @@ public class User {
 
     private String username;
 
-    private Integer gender;
+    private Integer gender = 1;
 
     private String mobile;
 

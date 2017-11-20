@@ -3,8 +3,6 @@ package com.zx.mall.module;
 public class VenderProductKindBrand {
     private Integer bId;
 
-    private Integer kindId;
-
     private String cnname;
 
     private String enname;
@@ -23,14 +21,6 @@ public class VenderProductKindBrand {
 
     public void setbId(Integer bId) {
         this.bId = bId;
-    }
-
-    public Integer getKindId() {
-        return kindId;
-    }
-
-    public void setKindId(Integer kindId) {
-        this.kindId = kindId;
     }
 
     public String getCnname() {
