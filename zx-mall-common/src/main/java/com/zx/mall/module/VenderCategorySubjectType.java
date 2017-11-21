@@ -2,14 +2,10 @@ package com.zx.mall.module;
 
 public class VenderCategorySubjectType {
     private Integer lid;
-
-    private Integer btype;
-
     private Integer slid;
-
     private Integer ptype;
-
-    private Integer isdelete;
+    private String bcode;
+    private Integer clid;
 
     public Integer getLid() {
         return lid;
@@ -17,14 +13,6 @@ public class VenderCategorySubjectType {
 
     public void setLid(Integer lid) {
         this.lid = lid;
-    }
-
-    public Integer getBtype() {
-        return btype;
-    }
-
-    public void setBtype(Integer btype) {
-        this.btype = btype;
     }
 
     public Integer getSlid() {
@@ -43,11 +31,19 @@ public class VenderCategorySubjectType {
         this.ptype = ptype;
     }
 
-    public Integer getIsdelete() {
-        return isdelete;
-    }
+	public String getBcode() {
+		return bcode;
+	}
 
-    public void setIsdelete(Integer isdelete) {
-        this.isdelete = isdelete;
-    }
+	public void setBcode(String bcode) {
+		this.bcode = bcode;
+	}
+
+	public Integer getClid() {
+		return clid;
+	}
+
+	public void setClid(Integer clid) {
+		this.clid = clid;
+	}
 }

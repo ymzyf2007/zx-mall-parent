@@ -12,10 +12,6 @@ import com.zx.mall.api.common.TokenUtil;
 import com.zx.mall.api.pojo.OrderStatusReq;
 import com.zx.mall.api.pojo.TokenReq;
 import com.zx.mall.api.pojo.TokenRsp;
-import com.zx.mall.api.pojo.VenderBudgetTypeReq;
-import com.zx.mall.api.pojo.VenderBudgetTypeReq2;
-import com.zx.mall.api.pojo.VenderBudgetTypeSubjectReq;
-import com.zx.mall.api.pojo.VenderBudgetTypeSubjectReq2;
 import com.zx.mall.api.pojo.VenderCategorySubjectTypeReq;
 import com.zx.mall.api.pojo.VenderCategorySubjectTypeReq2;
 import com.zx.mall.api.pojo.VenderCompanyReq;
@@ -37,8 +33,6 @@ import com.zx.mall.api.pojo.VenderUserReq;
 import com.zx.mall.api.service.IVenderService;
 import com.zx.mall.dao.MallOrderMapper;
 import com.zx.mall.dao.UserMapper;
-import com.zx.mall.dao.VenderBudgetTypeMapper;
-import com.zx.mall.dao.VenderBudgetTypeSubjectMapper;
 import com.zx.mall.dao.VenderCategorySubjectTypeMapper;
 import com.zx.mall.dao.VenderCompanyMapper;
 import com.zx.mall.dao.VenderDepartmentMapper;
@@ -55,8 +49,6 @@ import com.zx.mall.dao.VenderProductSkuMapper;
 import com.zx.mall.dao.VenderSubjectMapper;
 import com.zx.mall.module.MallOrder;
 import com.zx.mall.module.User;
-import com.zx.mall.module.VenderBudgetType;
-import com.zx.mall.module.VenderBudgetTypeSubject;
 import com.zx.mall.module.VenderCategorySubjectType;
 import com.zx.mall.module.VenderCompany;
 import com.zx.mall.module.VenderDepartment;
@@ -94,12 +86,12 @@ public class VenderServiceImpl implements IVenderService {
 	private VenderCompanyMapper venderCompanyMapper;
 	@Autowired
 	private VenderDepartmentMapper venderDepartmentMapper;
-	@Autowired
-	private VenderBudgetTypeMapper venderBudgetTypeMapper;
+//	@Autowired
+//	private VenderBudgetTypeMapper venderBudgetTypeMapper;
 	@Autowired
 	private VenderSubjectMapper venderSubjectMapper;
-	@Autowired
-	private VenderBudgetTypeSubjectMapper venderBudgetTypeSubjectMapper;
+//	@Autowired
+//	private VenderBudgetTypeSubjectMapper venderBudgetTypeSubjectMapper;
 	@Autowired
 	private VenderCategorySubjectTypeMapper venderCategorySubjectTypeMapper;
 	@Autowired
@@ -570,51 +562,51 @@ public class VenderServiceImpl implements IVenderService {
 		return rtMap;
 	}
 
-	/**
-	 * 保存预算类别表
-	 * @param req
-	 * @return
-	 */
-	@Override
-	public Map<String, Object> submitBudgetType(VenderBudgetTypeReq2 req) {
-		Map<String, Object> rtMap = new HashMap<String, Object>();
-		try {
-			// 参数验证
-			if(StringUtil.isNullOrEmpty(req.getToken()) || req.getData() == null) {
-				rtMap.put("success", false);
-				rtMap.put("desc", "参数错误！");
-				return rtMap;
-			}
-			// 验证token
-			if(!TokenUtil.getToken().equals(req.getToken())) {
-				rtMap.put("success", false);
-				rtMap.put("desc", "token错误！");
-				return rtMap;
-			}
-			
-			if(req.getData() != null && req.getData().size() > 0) {
-				for(VenderBudgetTypeReq vo : req.getData()) {
-					VenderBudgetType venderBudgetType = new VenderBudgetType();
-					BeanUtils.copyProperties(vo, venderBudgetType);
-					if(1 == vo.getOperate().intValue()) {
-						venderBudgetTypeMapper.insertSelective(venderBudgetType);
-					} else if(2 == vo.getOperate().intValue()) {
-						venderBudgetTypeMapper.updateByPrimaryKeySelective(venderBudgetType);
-					} else if(3 == vo.getOperate().intValue()) {
-						venderBudgetTypeMapper.deleteByPrimaryKey(venderBudgetType.getLid());
-					}
-				}
-			}
-			
-			rtMap.put("success", true);
-			rtMap.put("desc", "成功");
-		} catch (Exception e) {
-			e.printStackTrace();
-			rtMap.put("success", false);
-			rtMap.put("desc", e.getMessage());
-		}
-		return rtMap;
-	}
+//	/**
+//	 * 保存预算类别表
+//	 * @param req
+//	 * @return
+//	 */
+//	@Override
+//	public Map<String, Object> submitBudgetType(VenderBudgetTypeReq2 req) {
+//		Map<String, Object> rtMap = new HashMap<String, Object>();
+//		try {
+//			// 参数验证
+//			if(StringUtil.isNullOrEmpty(req.getToken()) || req.getData() == null) {
+//				rtMap.put("success", false);
+//				rtMap.put("desc", "参数错误！");
+//				return rtMap;
+//			}
+//			// 验证token
+//			if(!TokenUtil.getToken().equals(req.getToken())) {
+//				rtMap.put("success", false);
+//				rtMap.put("desc", "token错误！");
+//				return rtMap;
+//			}
+//			
+//			if(req.getData() != null && req.getData().size() > 0) {
+//				for(VenderBudgetTypeReq vo : req.getData()) {
+//					VenderBudgetType venderBudgetType = new VenderBudgetType();
+//					BeanUtils.copyProperties(vo, venderBudgetType);
+//					if(1 == vo.getOperate().intValue()) {
+//						venderBudgetTypeMapper.insertSelective(venderBudgetType);
+//					} else if(2 == vo.getOperate().intValue()) {
+//						venderBudgetTypeMapper.updateByPrimaryKeySelective(venderBudgetType);
+//					} else if(3 == vo.getOperate().intValue()) {
+//						venderBudgetTypeMapper.deleteByPrimaryKey(venderBudgetType.getLid());
+//					}
+//				}
+//			}
+//			
+//			rtMap.put("success", true);
+//			rtMap.put("desc", "成功");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			rtMap.put("success", false);
+//			rtMap.put("desc", e.getMessage());
+//		}
+//		return rtMap;
+//	}
 
 	/**
 	 * 保存预算科目
@@ -640,6 +632,14 @@ public class VenderServiceImpl implements IVenderService {
 			
 			if(req.getData() != null && req.getData().size() > 0) {
 				for(VenderSubjectReq vo : req.getData()) {
+					if(StringUtil.isNullOrEmpty(vo.getBcode()) || StringUtil.isNullOrEmpty(vo.getCname()) || vo.getPlid() == null || vo.getClid() == null || StringUtil.isNullOrEmpty(vo.getYear())) {
+						rtMap.put("success", false);
+						rtMap.put("desc", "参数错误！");
+						return rtMap;
+					}
+				}
+				
+				for(VenderSubjectReq vo : req.getData()) {
 					VenderSubject venderSubject = new VenderSubject();
 					BeanUtils.copyProperties(vo, venderSubject);
 					if(1 == vo.getOperate().intValue()) {
@@ -662,55 +662,56 @@ public class VenderServiceImpl implements IVenderService {
 		return rtMap;
 	}
 
-	/**
-	 * 保存预算类别科目配置
-	 * @param req
-	 * @return
-	 */
-	@Override
-	public Map<String, Object> submitBudgetTypeSubject(VenderBudgetTypeSubjectReq2 req) {
-		Map<String, Object> rtMap = new HashMap<String, Object>();
-		try {
-			// 参数验证
-			if(StringUtil.isNullOrEmpty(req.getToken()) || req.getData() == null) {
-				rtMap.put("success", false);
-				rtMap.put("desc", "参数错误！");
-				return rtMap;
-			}
-			// 验证token
-			if(!TokenUtil.getToken().equals(req.getToken())) {
-				rtMap.put("success", false);
-				rtMap.put("desc", "token错误！");
-				return rtMap;
-			}
-			
-			if(req.getData() != null && req.getData().size() > 0) {
-				for(VenderBudgetTypeSubjectReq vo : req.getData()) {
-					vo.setBtype(req.getBtype());
-					VenderBudgetTypeSubject venderBudgetTypeSubject = new VenderBudgetTypeSubject();
-					BeanUtils.copyProperties(vo, venderBudgetTypeSubject);
-					if(1 == vo.getOperate().intValue()) {
-						venderBudgetTypeSubjectMapper.insertSelective(venderBudgetTypeSubject);
-					} else if(2 == vo.getOperate().intValue()) {
-						venderBudgetTypeSubjectMapper.updateByPrimaryKeySelective(venderBudgetTypeSubject);
-					} else if(3 == vo.getOperate().intValue()) {
-						venderBudgetTypeSubjectMapper.deleteByPrimaryKey(venderBudgetTypeSubject.getLid());
-					}
-				}
-			}
-			
-			rtMap.put("success", true);
-			rtMap.put("desc", "成功");
-		} catch (Exception e) {
-			e.printStackTrace();
-			rtMap.put("success", false);
-			rtMap.put("desc", e.getMessage());
-		}
-		return rtMap;
-	}
+//	/**
+//	 * 保存预算类别科目配置
+//	 * @param req
+//	 * @return
+//	 */
+//	@Override
+//	public Map<String, Object> submitBudgetTypeSubject(VenderBudgetTypeSubjectReq2 req) {
+//		Map<String, Object> rtMap = new HashMap<String, Object>();
+//		try {
+//			// 参数验证
+//			if(StringUtil.isNullOrEmpty(req.getToken()) || req.getData() == null) {
+//				rtMap.put("success", false);
+//				rtMap.put("desc", "参数错误！");
+//				return rtMap;
+//			}
+//			// 验证token
+//			if(!TokenUtil.getToken().equals(req.getToken())) {
+//				rtMap.put("success", false);
+//				rtMap.put("desc", "token错误！");
+//				return rtMap;
+//			}
+//			
+//			if(req.getData() != null && req.getData().size() > 0) {
+//				for(VenderBudgetTypeSubjectReq vo : req.getData()) {
+//					vo.setBtype(req.getBtype());
+//					VenderBudgetTypeSubject venderBudgetTypeSubject = new VenderBudgetTypeSubject();
+//					BeanUtils.copyProperties(vo, venderBudgetTypeSubject);
+//					if(1 == vo.getOperate().intValue()) {
+//						venderBudgetTypeSubjectMapper.insertSelective(venderBudgetTypeSubject);
+//					} else if(2 == vo.getOperate().intValue()) {
+//						venderBudgetTypeSubjectMapper.updateByPrimaryKeySelective(venderBudgetTypeSubject);
+//					} else if(3 == vo.getOperate().intValue()) {
+//						venderBudgetTypeSubjectMapper.deleteByPrimaryKey(venderBudgetTypeSubject.getLid());
+//					}
+//				}
+//			}
+//			
+//			rtMap.put("success", true);
+//			rtMap.put("desc", "成功");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			rtMap.put("success", false);
+//			rtMap.put("desc", e.getMessage());
+//		}
+//		return rtMap;
+//	}
 
 	/**
-	 * 保存预算科目同第三级的产品类别设置表
+	 * 12、保存预算科目同第三级的产品类别关系表
+	 * 预算科目同第三级的产品类别，预算科目与产品类别是一对多关系
 	 * @param req
 	 * @return
 	 */
@@ -719,7 +720,7 @@ public class VenderServiceImpl implements IVenderService {
 		Map<String, Object> rtMap = new HashMap<String, Object>();
 		try {
 			// 参数验证
-			if(StringUtil.isNullOrEmpty(req.getToken()) || req.getData() == null) {
+			if(StringUtil.isNullOrEmpty(req.getToken()) || req.getClid() == null || req.getSlid() == null || req.getData() == null) {
 				rtMap.put("success", false);
 				rtMap.put("desc", "参数错误！");
 				return rtMap;
@@ -732,17 +733,23 @@ public class VenderServiceImpl implements IVenderService {
 			}
 			
 			if(req.getData() != null && req.getData().size() > 0) {
+				// 根据品牌ID先清空该品牌配置
+				venderCategorySubjectTypeMapper.deleteByClidAndSlid(req.getClid(), req.getSlid());
 				for(VenderCategorySubjectTypeReq vo : req.getData()) {
-					vo.setBtype(req.getBtype());
 					VenderCategorySubjectType venderCategorySubjectType = new VenderCategorySubjectType();
-					BeanUtils.copyProperties(vo, venderCategorySubjectType);
-					if(1 == vo.getOperate().intValue()) {
-						venderCategorySubjectTypeMapper.insertSelective(venderCategorySubjectType);
-					} else if(2 == vo.getOperate().intValue()) {
-						venderCategorySubjectTypeMapper.updateByPrimaryKeySelective(venderCategorySubjectType);
-					} else if(3 == vo.getOperate().intValue()) {
-						venderCategorySubjectTypeMapper.deleteByPrimaryKey(venderCategorySubjectType.getLid());
-					}
+//					BeanUtils.copyProperties(vo, venderCategorySubjectType);
+					venderCategorySubjectType.setSlid(req.getSlid());
+					venderCategorySubjectType.setBcode(req.getBcode());
+					venderCategorySubjectType.setPtype(vo.getPtype());
+					venderCategorySubjectType.setClid(req.getClid());
+					venderCategorySubjectTypeMapper.insertSelective(venderCategorySubjectType);
+//					if(1 == vo.getOperate().intValue()) {
+//						venderCategorySubjectTypeMapper.insertSelective(venderCategorySubjectType);
+//					} else if(2 == vo.getOperate().intValue()) {
+//						venderCategorySubjectTypeMapper.updateByPrimaryKeySelective(venderCategorySubjectType);
+//					} else if(3 == vo.getOperate().intValue()) {
+//						venderCategorySubjectTypeMapper.deleteByPrimaryKey(venderCategorySubjectType.getLid());
+//					}
 				}
 			}
 			

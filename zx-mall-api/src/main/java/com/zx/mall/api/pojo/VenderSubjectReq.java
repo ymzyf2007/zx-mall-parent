@@ -11,6 +11,8 @@ public class VenderSubjectReq extends CommonReq {
 	private Integer plid;
 	private Integer haschild;
 	private String remark;
+	private Integer clid;	// 企业主键，每个企业单独一套科目
+	private String year;	// 年份，每年一份数据
 	private Integer operate; // 操作 1：新增；2：修改；3：删除
 
 	public Integer getLid() {
@@ -67,6 +69,22 @@ public class VenderSubjectReq extends CommonReq {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	
+	public Integer getClid() {
+		return clid;
+	}
+
+	public void setClid(Integer clid) {
+		this.clid = clid;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
 	}
 
 	public Integer getOperate() {

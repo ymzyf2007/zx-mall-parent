@@ -1,5 +1,7 @@
 package com.zx.mall.dao;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.zx.mall.module.VenderCategorySubjectType;
 
 public interface VenderCategorySubjectTypeMapper {
@@ -14,4 +16,6 @@ public interface VenderCategorySubjectTypeMapper {
     int updateByPrimaryKeySelective(VenderCategorySubjectType record);
 
     int updateByPrimaryKey(VenderCategorySubjectType record);
+
+	void deleteByClidAndSlid(@Param("clid") Integer clid, @Param("slid") Integer slid);
 }

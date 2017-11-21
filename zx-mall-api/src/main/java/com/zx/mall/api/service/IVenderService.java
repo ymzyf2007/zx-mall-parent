@@ -10,8 +10,6 @@ import javax.ws.rs.core.MediaType;
 
 import com.zx.mall.api.pojo.OrderStatusReq;
 import com.zx.mall.api.pojo.TokenReq;
-import com.zx.mall.api.pojo.VenderBudgetTypeReq2;
-import com.zx.mall.api.pojo.VenderBudgetTypeSubjectReq2;
 import com.zx.mall.api.pojo.VenderCategorySubjectTypeReq2;
 import com.zx.mall.api.pojo.VenderCompanyReq;
 import com.zx.mall.api.pojo.VenderDepartmentReq;
@@ -145,19 +143,20 @@ public interface IVenderService {
 	@Path("/submitUser")
 	Map<String, Object> submitUser(VenderUserReq req);
 	
-	/**
-	 * 保存预算类别表
-	 * @param req
-	 * @return
-	 */
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/submitBudgetType")
-	Map<String, Object> submitBudgetType(VenderBudgetTypeReq2 req);
+//	/**
+//	 * 保存预算类别表
+//	 * @param req
+//	 * @return
+//	 */
+//	@POST
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@Produces(MediaType.APPLICATION_JSON)
+//	@Path("/submitBudgetType")
+//	Map<String, Object> submitBudgetType(VenderBudgetTypeReq2 req);
 	
 	/**
-	 * 保存预算科目
+	 * 11、保存预算科目
+	 * 整个集团用一套科目
 	 * @param req
 	 * @return
 	 */
@@ -167,19 +166,20 @@ public interface IVenderService {
 	@Path("/submitSubject")
 	Map<String, Object> submitSubject(VenderSubjectReq2 req);
 	
-	/**
-	 * 保存预算类别科目配置
-	 * @param req
-	 * @return
-	 */
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/submitBudgetTypeSubject")
-	Map<String, Object> submitBudgetTypeSubject(VenderBudgetTypeSubjectReq2 req);
+//	/**
+//	 * 保存预算类别科目配置
+//	 * @param req
+//	 * @return
+//	 */
+//	@POST
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@Produces(MediaType.APPLICATION_JSON)
+//	@Path("/submitBudgetTypeSubject")
+//	Map<String, Object> submitBudgetTypeSubject(VenderBudgetTypeSubjectReq2 req);
 	
 	/**
-	 * 保存预算科目同第三级的产品类别设置表
+	 * 12、保存预算科目同第三级的产品类别关系表[企业ID和科目ID确定第三级品类ID唯一性]
+	 * 预算科目同第三级的产品类别，预算科目与产品类别是一对多关系
 	 * @param req
 	 * @return
 	 */

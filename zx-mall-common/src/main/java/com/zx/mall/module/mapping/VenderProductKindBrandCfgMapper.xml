@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zx.mall.dao.VenderProductKindBrandCfgMapper">
+
+	<resultMap id="BaseResultMap" type="com.zx.mall.module.VenderProductKindBrandCfg">
+		<id column="lid" property="lid" jdbcType="INTEGER" />
+		<result column="b_id" property="bId" jdbcType="INTEGER" />
+		<result column="kind_id" property="kindId" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		lid, b_id, kind_id 
+	</sql>
+	
+	<delete id="deleteByBid" parameterType="java.lang.Integer">
+		delete from t_vender_product_kind_brand_cfg
+		where b_id = #{bId,jdbcType=INTEGER}
+	</delete>
+	
+	<insert id="insertSelective" parameterType="com.zx.mall.module.VenderProductKindBrandCfg">
+		insert into t_vender_product_kind_brand_cfg
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="lid != null">
+				lid,
+			</if>
+			<if test="bId != null">
+				b_id,
+			</if>
+			<if test="kindId != null">
+				kind_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="lid != null">
+				#{lid,jdbcType=INTEGER},
+			</if>
+			<if test="bId != null">
+				#{bId,jdbcType=INTEGER},
+			</if>
+			<if test="kindId != null">
+				#{kindId,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+</mapper>

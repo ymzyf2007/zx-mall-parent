@@ -14,6 +14,9 @@ public class VenderSubject {
     private Integer haschild;
 
     private String remark;
+    
+    private Integer clid;	// 企业主键，每个企业单独一套科目
+	private String year;	// 年份，每年一份数据
 
     private Integer isdelete;
 
@@ -72,8 +75,24 @@ public class VenderSubject {
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
     }
+    
+    public Integer getClid() {
+		return clid;
+	}
 
-    public Integer getIsdelete() {
+	public void setClid(Integer clid) {
+		this.clid = clid;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	public Integer getIsdelete() {
         return isdelete;
     }
 
