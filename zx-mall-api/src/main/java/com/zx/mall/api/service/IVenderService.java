@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.zx.mall.api.pojo.OrderStatusReq;
 import com.zx.mall.api.pojo.TokenReq;
+import com.zx.mall.api.pojo.VenderBudgetYearReq;
 import com.zx.mall.api.pojo.VenderCategorySubjectTypeReq2;
 import com.zx.mall.api.pojo.VenderCompanyReq;
 import com.zx.mall.api.pojo.VenderDepartmentReq;
@@ -188,6 +189,18 @@ public interface IVenderService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/submitCategorySubjectType")
 	Map<String, Object> submitCategorySubjectType(VenderCategorySubjectTypeReq2 req);
+	
+	/**
+	 * 13、保存年度预算登记
+	 * 年度预算分主表和明细表，（1）、集团总部制定年度计划（即添加主表信息），（2）初始设置（即添加各机构的科目预算）
+	 * @param req
+	 * @return
+	 */
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/submitBudgetYear")
+	Map<String, Object> submitBudgetYear(VenderBudgetYearReq req);
 	
 	/**
 	 * 保存发货单信息

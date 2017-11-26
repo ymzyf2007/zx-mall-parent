@@ -77,7 +77,7 @@ public interface IMainService {
 	Map<String, Object> searchProds(SearchProdsReq req);
 	
 	/**
-	 * 根据分类ID查询该分类下的商品品牌列表，该分类为第三级分类【品牌挂在第三级分类下】
+	 * 6、根据分类ID查询该分类下的商品品牌列表，该分类为第三级分类【品牌挂在第三级分类下】
 	 * @return
 	 */
 	@POST
@@ -87,7 +87,7 @@ public interface IMainService {
 	Map<String, Object> findBrandsByKindId(KindInfoReq req);
 	
 	/**
-	 * 根据品牌ID和综合排序方式分页查询商品列表
+	 * 7、根据商品分类ID、品牌ID和综合排序方式分页查询商品列表
 	 * @return
 	 */
 	@POST
@@ -97,7 +97,7 @@ public interface IMainService {
 	Map<String, Object> findProdsByParams(QryProdsReq req);
 	
 	/**
-	 * 6、根据商品ID查询商品详细信息
+	 * 8、根据商品ID查询商品详细信息
 	 * @param req
 	 * @return
 	 */
@@ -108,7 +108,7 @@ public interface IMainService {
 	Map<String, Object> findProdDetail(QryProdDetailReq req);
 	
 	/**
-	 * 8、购物车商品保存
+	 * 9、加入购物车[购物车商品保存]
 	 * @param req
 	 * @return
 	 */
@@ -119,7 +119,7 @@ public interface IMainService {
 	Map<String, Object> saveShopCart(ShopCartReq req);
 	
 	/**
-	 * 9、获取购物车商品接口
+	 * 10、获取购物车商品接口
 	 * @param req
 	 * @return
 	 */
@@ -130,7 +130,7 @@ public interface IMainService {
 	Map<String, Object> getShopCart(ShopCartReq req);
 	
 	/**
-	 * 10、删除购物车商品接口【支持批量删除】
+	 * 11、删除购物车商品接口【支持批量删除】
 	 * @param req
 	 * @return
 	 */

@@ -398,7 +398,7 @@ public class MainServiceImpl implements IMainService {
 	}
 
 	/**
-	 * 根据分类ID查询该分类下的商品品牌列表，该分类为第三级分类【品牌挂在第三级分类下】
+	 * 6、根据分类ID查询该分类下的商品品牌列表，该分类为第三级分类【品牌挂在第三级分类下】
 	 * @return
 	 */
 	@Override
@@ -442,7 +442,7 @@ public class MainServiceImpl implements IMainService {
 	}
 
 	/**
-	 * 根据品牌ID和综合排序方式分页查询商品列表
+	 * 7、根据商品分类ID、品牌ID和综合排序方式分页查询商品列表
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
@@ -538,7 +538,7 @@ public class MainServiceImpl implements IMainService {
 	}
 
 	/**
-	 * 根据商品ID查询商品详细信息
+	 * 8、根据商品ID查询商品详细信息
 	 * @param skuId
 	 * @return
 	 */
@@ -618,7 +618,7 @@ public class MainServiceImpl implements IMainService {
 	}
 
 	/**
-	 * 8、购物车商品保存
+	 * 9、购物车商品保存
 	 * @param req
 	 * @return
 	 */
@@ -632,11 +632,6 @@ public class MainServiceImpl implements IMainService {
 					|| req.getSkuId() == null || req.getQuantity() == null) {
 				rtMap.put("status", 500);
 				rtMap.put("msg", "参数错误！");
-				return rtMap;
-			}
-			if(req.getQuantity() <= 0) {
-				rtMap.put("status", 500);
-				rtMap.put("msg", "产品数量应大于0！");
 				return rtMap;
 			}
 			
@@ -663,10 +658,24 @@ public class MainServiceImpl implements IMainService {
 					filter.put("userId", req.getUid());
 					List<MallShopcar> showCarList = mallShopcarMapper.findByParams(filter);
 					if(showCarList != null && showCarList.size() > 0) {
-						mallShopcar.setId(showCarList.get(0).getId());
-						mallShopcar.setQuantity((showCarList.get(0).getQuantity() == null ? 0 : showCarList.get(0).getQuantity()) + req.getQuantity());
-						mallShopcarMapper.updateByPrimaryKeySelective(mallShopcar);
+						int newQuantity = (showCarList.get(0).getQuantity() == null ? 0 : showCarList.get(0).getQuantity()) + req.getQuantity();
+						if(newQuantity <= 0) {	// 购物车删除该商品
+							Map<String, Object> params = new HashMap<String, Object>();
+							params.put("userId", showCarList.get(0).getUserId());
+							params.put("skuId", showCarList.get(0).getSkuId());
+							mallShopcarMapper.deleteByUidAndSkuId(params);
+						} else {
+							mallShopcar.setId(showCarList.get(0).getId());
+							mallShopcar.setQuantity(newQuantity);
+							mallShopcarMapper.updateByPrimaryKeySelective(mallShopcar);
+						}
 					} else {
+						if(req.getQuantity() <= 0) {
+							rtMap.put("status", 500);
+							rtMap.put("msg", "添加购物车产品数量应大于0！");
+							return rtMap;
+						}
+						
 						mallShopcar.setQuantity(req.getQuantity());
 						mallShopcarMapper.insertSelective(mallShopcar);
 					}
@@ -692,7 +701,7 @@ public class MainServiceImpl implements IMainService {
 	}
 
 	/**
-	 * 9、获取购物车商品接口
+	 * 10、获取购物车商品接口
 	 * @param req
 	 * @return
 	 */
@@ -784,7 +793,7 @@ public class MainServiceImpl implements IMainService {
 	}
 
 	/**
-	 * 10、删除购物车商品接口【支持批量删除】
+	 * 11、删除购物车商品接口【支持批量删除】
 	 * @param req
 	 * @return
 	 */
