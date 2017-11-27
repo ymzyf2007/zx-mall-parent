@@ -203,6 +203,18 @@ public interface IVenderService {
 	Map<String, Object> submitBudgetYear(VenderBudgetYearReq req);
 	
 	/**
+	 * 14、年度预算明细[添加各机构的科目预算]
+	 * 年度预算分主表和明细表，（1）、集团总部制定年度计划（即添加主表信息），（2）初始设置（即添加各机构的科目预算）
+	 * @param req
+	 * @return
+	 */
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/submitBudgetYearDetail")
+	Map<String, Object> submitBudgetYearDetail(VenderBudgetYearDetailReq req);
+	
+	/**
 	 * 保存发货单信息
 	 * @param req
 	 * @return

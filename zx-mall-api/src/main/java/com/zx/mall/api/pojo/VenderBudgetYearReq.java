@@ -17,6 +17,7 @@ public class VenderBudgetYearReq extends CommonReq {
 	private Float totalamount; // 预算总额
 	private Float expenseamount; // 报销总额
 	private Float usefulamount; // 可用总额
+	private Integer operate;	// 操作  1：新增；2：修改；3：删除
 
 	public Long getLid() {
 		return lid;
@@ -122,4 +123,12 @@ public class VenderBudgetYearReq extends CommonReq {
 		this.usefulamount = usefulamount;
 	}
 
+	public Integer getOperate() {
+		return operate;
+	}
+
+	public void setOperate(Integer operate) {
+		this.operate = operate;
+	}
+	
 }
