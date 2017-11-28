@@ -12,6 +12,7 @@ import com.zx.mall.api.common.TokenUtil;
 import com.zx.mall.api.pojo.OrderStatusReq;
 import com.zx.mall.api.pojo.TokenReq;
 import com.zx.mall.api.pojo.TokenRsp;
+import com.zx.mall.api.pojo.VenderBudgetYearDetailReq;
 import com.zx.mall.api.pojo.VenderBudgetYearReq;
 import com.zx.mall.api.pojo.VenderCategorySubjectTypeReq;
 import com.zx.mall.api.pojo.VenderCategorySubjectTypeReq2;
@@ -34,6 +35,7 @@ import com.zx.mall.api.pojo.VenderUserReq;
 import com.zx.mall.api.service.IVenderService;
 import com.zx.mall.dao.MallOrderMapper;
 import com.zx.mall.dao.UserMapper;
+import com.zx.mall.dao.VenderBudgetDetailMapper;
 import com.zx.mall.dao.VenderBudgetYearMapper;
 import com.zx.mall.dao.VenderCategorySubjectTypeMapper;
 import com.zx.mall.dao.VenderCompanyMapper;
@@ -51,6 +53,7 @@ import com.zx.mall.dao.VenderProductSkuMapper;
 import com.zx.mall.dao.VenderSubjectMapper;
 import com.zx.mall.module.MallOrder;
 import com.zx.mall.module.User;
+import com.zx.mall.module.VenderBudgetDetail;
 import com.zx.mall.module.VenderBudgetYear;
 import com.zx.mall.module.VenderCategorySubjectType;
 import com.zx.mall.module.VenderCompany;
@@ -109,6 +112,8 @@ public class VenderServiceImpl implements IVenderService {
 	private UserMapper userMapper;
 	@Autowired
 	private VenderBudgetYearMapper venderBudgetYearMapper;
+	@Autowired
+	private VenderBudgetDetailMapper venderBudgetDetailMapper;
 	
 	/**
 	 * 1、获取token
@@ -781,7 +786,7 @@ public class VenderServiceImpl implements IVenderService {
 			// 参数验证
 			if(StringUtil.isNullOrEmpty(req.getToken()) || req.getApplydlid() == null || req.getClid() == null 
 					|| req.getApplydlid() == null || StringUtil.isNullOrEmpty(req.getYear()) || req.getInitamount() == null || req.getAdjustamount() == null 
-					|| req.getExpenseamount() == null || req.getUsefulamount() == null) {
+					|| req.getExpenseamount() == null || req.getUsefulamount() == null || req.getOperate() == null) {
 				rtMap.put("success", false);
 				rtMap.put("desc", "参数错误！");
 				return rtMap;
@@ -795,13 +800,57 @@ public class VenderServiceImpl implements IVenderService {
 			
 			VenderBudgetYear venderBudgetYear = new VenderBudgetYear();  
 			BeanUtils.copyProperties(req, venderBudgetYear);
-			
+			venderBudgetYear.setBtype(1);
 			if(1 == req.getOperate().intValue()) {
 				venderBudgetYearMapper.insertSelective(venderBudgetYear);
 			} else if(2 == req.getOperate().intValue()) {
 				venderBudgetYearMapper.updateByPrimaryKeySelective(venderBudgetYear);
 			} else if(3 == req.getOperate().intValue()) {
 				venderBudgetYearMapper.deleteByPrimaryKey(Integer.valueOf(String.valueOf(req.getLid())));
+			}
+			rtMap.put("success", true);
+			rtMap.put("desc", "成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			rtMap.put("success", false);
+			rtMap.put("desc", e.getMessage());
+		}
+		return rtMap;
+	}
+	
+	/**
+	 * 14、年度预算明细[添加各机构的科目预算]
+	 * 年度预算分主表和明细表，（1）、集团总部制定年度计划（即添加主表信息），（2）初始设置（即添加各机构的科目预算）
+	 * @param req
+	 * @return
+	 */
+	@Override
+	public Map<String, Object> submitBudgetYearDetail(VenderBudgetYearDetailReq req) {
+		Map<String, Object> rtMap = new HashMap<String, Object>();
+		try {
+			// 参数验证
+			if(StringUtil.isNullOrEmpty(req.getToken()) || req.getBlid() == null || req.getSlid() == null 
+					|| req.getAmount() == null || req.getExpenseamount() == null || req.getUsefulamount() == null || req.getOperate() == null) {
+				rtMap.put("success", false);
+				rtMap.put("desc", "参数错误！");
+				return rtMap;
+			}
+			// 验证token
+			if(!TokenUtil.getToken().equals(req.getToken())) {
+				rtMap.put("success", false);
+				rtMap.put("desc", "token错误！");
+				return rtMap;
+			}
+			
+			VenderBudgetDetail venderBudgetDetail = new VenderBudgetDetail();  
+			BeanUtils.copyProperties(req, venderBudgetDetail);
+			venderBudgetDetail.setBcode(000000);
+			if(1 == req.getOperate().intValue()) {
+				venderBudgetDetailMapper.insertSelective(venderBudgetDetail);
+			} else if(2 == req.getOperate().intValue()) {
+				venderBudgetDetailMapper.updateByPrimaryKeySelective(venderBudgetDetail);
+			} else if(3 == req.getOperate().intValue()) {
+				venderBudgetDetailMapper.deleteByPrimaryKey(Integer.valueOf(String.valueOf(req.getLid())));
 			}
 			rtMap.put("success", true);
 			rtMap.put("desc", "成功");

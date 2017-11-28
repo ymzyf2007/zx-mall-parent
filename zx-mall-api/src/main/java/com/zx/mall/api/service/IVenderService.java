@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.zx.mall.api.pojo.OrderStatusReq;
 import com.zx.mall.api.pojo.TokenReq;
+import com.zx.mall.api.pojo.VenderBudgetYearDetailReq;
 import com.zx.mall.api.pojo.VenderBudgetYearReq;
 import com.zx.mall.api.pojo.VenderCategorySubjectTypeReq2;
 import com.zx.mall.api.pojo.VenderCompanyReq;
@@ -239,7 +240,7 @@ public interface IVenderService {
 	Map<String, Object> submitFactoryOrderDetail(VenderFactoryOrderDetailReq req);
 	
 	/**
-	 * 保存发货单和分单明细（上两个接口作废）
+	 * 15、保存发货单和分单明细（上两个接口作废）
 	 * @param req
 	 * @return
 	 */
@@ -250,7 +251,7 @@ public interface IVenderService {
 	Map<String, Object> submitOrderInfo(VenderFactoryOrderReq req);
 	
 	/**
-	 * 更改主单订单状态
+	 * 16、更改主单订单状态
 	 * @param req
 	 * @return
 	 */
@@ -261,7 +262,7 @@ public interface IVenderService {
 	Map<String, Object> forderStatus(OrderStatusReq req);
 	
 	/**
-	 * 更改分单订单状态
+	 * 17、更改分单订单状态
 	 * @param req
 	 * @return
 	 */

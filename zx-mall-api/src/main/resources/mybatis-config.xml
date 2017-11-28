@@ -50,5 +50,8 @@
 		<mapper resource="com/zx/mall/module/mapping/VenderFactoryOrderMapper.xml" />
 		<mapper resource="com/zx/mall/module/mapping/VenderFactoryOrderDetailMapper.xml" />
 		<mapper resource="com/zx/mall/module/mapping/VenderOrderTrackMapper.xml" />
+		
+		<mapper resource="com/zx/mall/module/mapping/VenderBudgetYearMapper.xml" />
+		<mapper resource="com/zx/mall/module/mapping/VenderBudgetDetailMapper.xml" />
 	</mappers>
 </configuration>

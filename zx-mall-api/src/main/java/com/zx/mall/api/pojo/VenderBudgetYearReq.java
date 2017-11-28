@@ -4,26 +4,26 @@ public class VenderBudgetYearReq extends CommonReq {
 
 	private static final long serialVersionUID = -846558062221074627L;
 
-	private Long lid;
+	private Integer lid;
 	private String content; // 相关事宜描述，做什么事的计划之类的
 	private String remark; // 备注
-	private Long applyid; // 申请用户ID
+	private Integer applyid; // 申请用户ID
 	private String applydate; // 申请日期，格式yyyy-MM-dd HH:mm:ss
-	private Long clid; // 企业主键
-	private Long applydlid; // 申请部门主键
+	private Integer clid; // 企业主键
+	private Integer applydlid; // 申请部门主键
 	private String year; // 年份
-	private Float initamount; // 初始额度
-	private Float adjustamount; // 调整额度
-	private Float totalamount; // 预算总额
-	private Float expenseamount; // 报销总额
-	private Float usefulamount; // 可用总额
-	private Integer operate;	// 操作  1：新增；2：修改；3：删除
+	private Integer initamount; // 初始额度
+	private Integer adjustamount; // 调整额度
+	private Integer totalamount; // 预算总额
+	private Integer expenseamount; // 报销总额
+	private Integer usefulamount; // 可用总额
+	private Integer operate; // 操作 1：新增；2：修改；3：删除
 
-	public Long getLid() {
+	public Integer getLid() {
 		return lid;
 	}
 
-	public void setLid(Long lid) {
+	public void setLid(Integer lid) {
 		this.lid = lid;
 	}
 
@@ -43,11 +43,11 @@ public class VenderBudgetYearReq extends CommonReq {
 		this.remark = remark;
 	}
 
-	public Long getApplyid() {
+	public Integer getApplyid() {
 		return applyid;
 	}
 
-	public void setApplyid(Long applyid) {
+	public void setApplyid(Integer applyid) {
 		this.applyid = applyid;
 	}
 
@@ -59,19 +59,19 @@ public class VenderBudgetYearReq extends CommonReq {
 		this.applydate = applydate;
 	}
 
-	public Long getClid() {
+	public Integer getClid() {
 		return clid;
 	}
 
-	public void setClid(Long clid) {
+	public void setClid(Integer clid) {
 		this.clid = clid;
 	}
 
-	public Long getApplydlid() {
+	public Integer getApplydlid() {
 		return applydlid;
 	}
 
-	public void setApplydlid(Long applydlid) {
+	public void setApplydlid(Integer applydlid) {
 		this.applydlid = applydlid;
 	}
 
@@ -83,43 +83,43 @@ public class VenderBudgetYearReq extends CommonReq {
 		this.year = year;
 	}
 
-	public Float getInitamount() {
+	public Integer getInitamount() {
 		return initamount;
 	}
 
-	public void setInitamount(Float initamount) {
+	public void setInitamount(Integer initamount) {
 		this.initamount = initamount;
 	}
 
-	public Float getAdjustamount() {
+	public Integer getAdjustamount() {
 		return adjustamount;
 	}
 
-	public void setAdjustamount(Float adjustamount) {
+	public void setAdjustamount(Integer adjustamount) {
 		this.adjustamount = adjustamount;
 	}
 
-	public Float getTotalamount() {
+	public Integer getTotalamount() {
 		return totalamount;
 	}
 
-	public void setTotalamount(Float totalamount) {
+	public void setTotalamount(Integer totalamount) {
 		this.totalamount = totalamount;
 	}
 
-	public Float getExpenseamount() {
+	public Integer getExpenseamount() {
 		return expenseamount;
 	}
 
-	public void setExpenseamount(Float expenseamount) {
+	public void setExpenseamount(Integer expenseamount) {
 		this.expenseamount = expenseamount;
 	}
 
-	public Float getUsefulamount() {
+	public Integer getUsefulamount() {
 		return usefulamount;
 	}
 
-	public void setUsefulamount(Float usefulamount) {
+	public void setUsefulamount(Integer usefulamount) {
 		this.usefulamount = usefulamount;
 	}
 
@@ -130,5 +130,5 @@ public class VenderBudgetYearReq extends CommonReq {
 	public void setOperate(Integer operate) {
 		this.operate = operate;
 	}
-	
+
 }
