@@ -39,6 +39,7 @@
 		<mapper resource="com/zx/mall/module/mapping/MallShopcarMapper.xml" />
 		<mapper resource="com/zx/mall/module/mapping/MallOrderMapper.xml" />
 		<mapper resource="com/zx/mall/module/mapping/MallOrderDetailMapper.xml" />
+		<mapper resource="com/zx/mall/module/mapping/MallFavoriteMapper.xml" />
 		
 		<mapper resource="com/zx/mall/module/mapping/VenderProductKindMapper.xml" />
 		<mapper resource="com/zx/mall/module/mapping/VenderProductKindAttrMapper.xml" />

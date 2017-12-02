@@ -20,7 +20,7 @@ public class KindBrandRsp {
 
 	public KindBrandRsp(VenderProductKindBrand info) {
 		this.bId = info.getbId();
-		this.kindId = info.getKindId();
+//		this.kindId = info.getKindId();
 		this.bName = info.getCnname();
 		this.enName = info.getEnname();
 		this.descr = info.getDescr();
