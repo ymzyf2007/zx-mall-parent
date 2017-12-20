@@ -644,9 +644,15 @@ public class MainServiceImpl implements IMainService {
 					rtMap.put("msg", "token错误！");
 					return rtMap;
 				}
-				// 验证产品
+				
+				// 验证是否超过该科目预算
+				
 				MallProduct productInfo = mallProductMapper.selectByPrimaryKey(req.getSkuId());
 				if(productInfo != null) {
+					// 验证该产品是否超过了该产品对应科目的预算，如果超过，则提示，加入购物车失败
+					
+					
+					
 					MallShopcar mallShopcar = new MallShopcar();
 					mallShopcar.setSkuId(productInfo.getProductId());
 					mallShopcar.setUserId(req.getUid());
